@@ -83,6 +83,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -98,6 +99,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\THSSourcelogoF_source_loading.png" />
+    <None Include="Resources\ths_icon.png" />
+    <None Include="Resources\SanyaLogoF.jpg" />
+    <None Include="Resources\ths_hammer_icon.png" />
     <Content Include="ths_icon.ico" />
   </ItemGroup>
   <ItemGroup>

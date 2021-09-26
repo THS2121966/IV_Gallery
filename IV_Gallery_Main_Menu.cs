@@ -15,6 +15,7 @@ namespace IV_Gallery
         public IV_Gallery_Main_Menu()
         {
             InitializeComponent();
+            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver, false);
             IV_Release_Load_INFO();
         }
 
@@ -25,6 +26,9 @@ namespace IV_Gallery
         bool iv_released_l_info = true;
         bool iv_l_t_first_inited = true;
         int iv_sb_released_state = 0;
+        float iv_gallery_prog_ver = 0.32f;
+        string iv_gallery_prog_name = "IV_Gallery";
+        static string[] iv_gallery_prog_name_checker_list = new string[3] { "IV_Gallery", "UNUSED2", "UNUSED3" };
         static public Image iv_bg_default = global::IV_Gallery.Properties.Resources.THSSourcelogoF_source_loading;
         IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
 
@@ -47,11 +51,13 @@ namespace IV_Gallery
             {
                 IV_Gallery_MM_BG_Picture.Image = global::IV_Gallery.Properties.Resources.SanyaLogoF;
                 IV_G_Button_Exit.Visible = false;
+                //iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name_checker_list[1], iv_gallery_prog_ver);
             }
             else
             {
                 IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
                 IV_G_Button_Exit.Visible = true;
+                //iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver);
             }
             IV_Release_Load_INFO(70);
         }

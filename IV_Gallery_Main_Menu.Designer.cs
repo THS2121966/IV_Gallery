@@ -29,9 +29,13 @@ namespace IV_Gallery
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IV_Gallery_Main_Menu));
             this.IV_Gallery_MM_BG_Picture = new System.Windows.Forms.PictureBox();
             this.IV_G_Button_Exit = new System.Windows.Forms.Button();
+            this.IV_MM_Load_Status_Bar = new System.Windows.Forms.ProgressBar();
+            this.IV_Time_WAIT_UN_Load = new System.Windows.Forms.Timer(this.components);
+            this.IV_Time_Pre_Finish_Load = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.IV_Gallery_MM_BG_Picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,11 +66,31 @@ namespace IV_Gallery
             this.IV_G_Button_Exit.UseVisualStyleBackColor = false;
             this.IV_G_Button_Exit.Click += new System.EventHandler(this.IV_Exit_Click_Scenario);
             // 
+            // IV_MM_Load_Status_Bar
+            // 
+            this.IV_MM_Load_Status_Bar.Cursor = System.Windows.Forms.Cursors.AppStarting;
+            this.IV_MM_Load_Status_Bar.ForeColor = System.Drawing.Color.Lime;
+            this.IV_MM_Load_Status_Bar.Location = new System.Drawing.Point(0, 0);
+            this.IV_MM_Load_Status_Bar.Name = "IV_MM_Load_Status_Bar";
+            this.IV_MM_Load_Status_Bar.Size = new System.Drawing.Size(100, 23);
+            this.IV_MM_Load_Status_Bar.TabIndex = 2;
+            this.IV_MM_Load_Status_Bar.Visible = false;
+            // 
+            // IV_Time_WAIT_UN_Load
+            // 
+            this.IV_Time_WAIT_UN_Load.Tick += new System.EventHandler(this.IV_L_TIME_HOOK);
+            // 
+            // IV_Time_Pre_Finish_Load
+            // 
+            this.IV_Time_Pre_Finish_Load.Interval = 3000;
+            this.IV_Time_Pre_Finish_Load.Tick += new System.EventHandler(this.IV_T_Check_L_Display);
+            // 
             // IV_Gallery_Main_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 577);
+            this.Controls.Add(this.IV_MM_Load_Status_Bar);
             this.Controls.Add(this.IV_G_Button_Exit);
             this.Controls.Add(this.IV_Gallery_MM_BG_Picture);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -85,6 +109,9 @@ namespace IV_Gallery
 
         public System.Windows.Forms.PictureBox IV_Gallery_MM_BG_Picture;
         public System.Windows.Forms.Button IV_G_Button_Exit;
+        public System.Windows.Forms.ProgressBar IV_MM_Load_Status_Bar;
+        private System.Windows.Forms.Timer IV_Time_WAIT_UN_Load;
+        private System.Windows.Forms.Timer IV_Time_Pre_Finish_Load;
     }
 }
 

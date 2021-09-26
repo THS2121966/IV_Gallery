@@ -79,6 +79,7 @@ namespace IV_Gallery
                 {
                     IV_Time_WAIT_UN_Load.Enabled = false;
                     IV_Time_Pre_Finish_Load.Enabled = false;
+                    IV_G_Button_Exit.Text = "Exit";
                 }
             }
         }
@@ -104,6 +105,7 @@ namespace IV_Gallery
             else
             {
                 IV_MM_Load_Status_Bar.Value = iv_ch_core.IV_Calculate_for_Progress_Bar(IV_MM_Load_Status_Bar.Value, 10, "+");
+                IV_G_Button_Exit.Text = Convert.ToString(iv_ch_core.iv_progress_b_last_state_int);
                 //IV_MM_Load_Status_Bar.Value = IV_MM_Load_Status_Bar.Value + 10; - IV Note: Old Method.
             }
         }

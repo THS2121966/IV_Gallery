@@ -26,6 +26,7 @@ namespace IV_Gallery
         bool iv_l_t_first_inited = true;
         int iv_sb_released_state = 0;
         static public Image iv_bg_default = global::IV_Gallery.Properties.Resources.THSSourcelogoF_source_loading;
+        IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
 
         private void IV_MM_BG_D_Click(object sender, EventArgs e)
         {
@@ -102,7 +103,8 @@ namespace IV_Gallery
             }
             else
             {
-                IV_MM_Load_Status_Bar.Value = IV_MM_Load_Status_Bar.Value + 10;
+                IV_MM_Load_Status_Bar.Value = iv_ch_core.IV_Calculate_for_Progress_Bar(IV_MM_Load_Status_Bar.Value, 10, "+");
+                //IV_MM_Load_Status_Bar.Value = IV_MM_Load_Status_Bar.Value + 10; - IV Note: Old Method.
             }
         }
 

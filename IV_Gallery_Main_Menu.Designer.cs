@@ -1,7 +1,7 @@
 ﻿
 namespace IV_Gallery
 {
-    partial class Form1
+    partial class IV_Gallery_Main_Menu
     {
         /// <summary>
         /// Обязательная переменная конструктора.

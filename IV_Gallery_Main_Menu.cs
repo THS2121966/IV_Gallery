@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace IV_Gallery
 {
-    public partial class Form1 : Form
+    public partial class IV_Gallery_Main_Menu : Form
     {
-        public Form1()
+        public IV_Gallery_Main_Menu()
         {
             InitializeComponent();
         }

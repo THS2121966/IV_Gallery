@@ -31,6 +31,7 @@ namespace IV_Gallery
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IV_Gallery_Main_Menu));
             this.IV_Gallery_MM_BG_Picture = new System.Windows.Forms.PictureBox();
+            this.IV_G_Button_Exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.IV_Gallery_MM_BG_Picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,12 +47,27 @@ namespace IV_Gallery
             this.IV_Gallery_MM_BG_Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.IV_Gallery_MM_BG_Picture.TabIndex = 0;
             this.IV_Gallery_MM_BG_Picture.TabStop = false;
+            this.IV_Gallery_MM_BG_Picture.DoubleClick += new System.EventHandler(this.IV_MM_BG_D_Click);
+            // 
+            // IV_G_Button_Exit
+            // 
+            this.IV_G_Button_Exit.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.IV_G_Button_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IV_G_Button_Exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.IV_G_Button_Exit.Location = new System.Drawing.Point(708, 535);
+            this.IV_G_Button_Exit.Name = "IV_G_Button_Exit";
+            this.IV_G_Button_Exit.Size = new System.Drawing.Size(80, 30);
+            this.IV_G_Button_Exit.TabIndex = 1;
+            this.IV_G_Button_Exit.Text = "Exit";
+            this.IV_G_Button_Exit.UseVisualStyleBackColor = false;
+            this.IV_G_Button_Exit.Click += new System.EventHandler(this.IV_Exit_Click_Scenario);
             // 
             // IV_Gallery_Main_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 577);
+            this.Controls.Add(this.IV_G_Button_Exit);
             this.Controls.Add(this.IV_Gallery_MM_BG_Picture);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -68,6 +84,7 @@ namespace IV_Gallery
         static public IV_Gallery_Main_Menu iv_g_m_m = new IV_Gallery_Main_Menu();
 
         public System.Windows.Forms.PictureBox IV_Gallery_MM_BG_Picture;
+        public System.Windows.Forms.Button IV_G_Button_Exit;
     }
 }
 

@@ -65,6 +65,8 @@ namespace IV_Gallery
 
         #endregion
 
+        static public IV_Gallery_Main_Menu iv_g_m_m = new IV_Gallery_Main_Menu();
+
         public System.Windows.Forms.PictureBox IV_Gallery_MM_BG_Picture;
     }
 }

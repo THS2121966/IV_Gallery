@@ -15,7 +15,11 @@ namespace IV_Gallery
         public IV_Gallery_Main_Menu()
         {
             InitializeComponent();
-            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver, false);
+            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver);
+            if(IV_Gallery_Checkers_Core.IVCheckerCore.iv_checker_dll_code_ver == 0.312f)
+            {
+                IV_Button_App_Info.Visible = true;
+            }
             IV_Release_Load_INFO();
         }
 
@@ -120,6 +124,11 @@ namespace IV_Gallery
         {
             IV_Time_Pre_Finish_Load.Enabled = false;
             IV_Release_Load_INFO();
+        }
+
+        private void IV_B_AppInfo_Hook(object sender, EventArgs e)
+        {
+            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver, true);
         }
     }
 }

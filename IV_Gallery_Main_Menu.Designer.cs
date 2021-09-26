@@ -36,6 +36,7 @@ namespace IV_Gallery
             this.IV_MM_Load_Status_Bar = new System.Windows.Forms.ProgressBar();
             this.IV_Time_WAIT_UN_Load = new System.Windows.Forms.Timer(this.components);
             this.IV_Time_Pre_Finish_Load = new System.Windows.Forms.Timer(this.components);
+            this.IV_Button_App_Info = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.IV_Gallery_MM_BG_Picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,11 +86,23 @@ namespace IV_Gallery
             this.IV_Time_Pre_Finish_Load.Interval = 3000;
             this.IV_Time_Pre_Finish_Load.Tick += new System.EventHandler(this.IV_T_Check_L_Display);
             // 
+            // IV_Button_App_Info
+            // 
+            this.IV_Button_App_Info.Location = new System.Drawing.Point(0, 557);
+            this.IV_Button_App_Info.Name = "IV_Button_App_Info";
+            this.IV_Button_App_Info.Size = new System.Drawing.Size(60, 20);
+            this.IV_Button_App_Info.TabIndex = 3;
+            this.IV_Button_App_Info.Text = "App Info";
+            this.IV_Button_App_Info.UseVisualStyleBackColor = true;
+            this.IV_Button_App_Info.Visible = false;
+            this.IV_Button_App_Info.Click += new System.EventHandler(this.IV_B_AppInfo_Hook);
+            // 
             // IV_Gallery_Main_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 577);
+            this.Controls.Add(this.IV_Button_App_Info);
             this.Controls.Add(this.IV_MM_Load_Status_Bar);
             this.Controls.Add(this.IV_G_Button_Exit);
             this.Controls.Add(this.IV_Gallery_MM_BG_Picture);
@@ -112,6 +125,7 @@ namespace IV_Gallery
         public System.Windows.Forms.ProgressBar IV_MM_Load_Status_Bar;
         private System.Windows.Forms.Timer IV_Time_WAIT_UN_Load;
         private System.Windows.Forms.Timer IV_Time_Pre_Finish_Load;
+        public System.Windows.Forms.Button IV_Button_App_Info;
     }
 }
 

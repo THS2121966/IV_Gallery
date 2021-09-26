@@ -9,12 +9,14 @@ namespace IV_Gallery_Checkers_Core
 {
     public class IVCheckerCore
     {
-        static float iv_checker_dll_code_ver = 0.312f;
+        static public float iv_checker_dll_code_ver = 0.312f;
         static float[] supported_vers_p_and_iv_c_c = new float[2] { 0.312f, 0.32f };
 
         //IV Note: List of Supported programs:
         static string[] iv_gallery_prog_name = new string[3] { "IV_Gallery", "UNUSED2","UNUSED3" };
-        string iv_used_programm = null;
+        public string iv_used_programm = null;
+        static public IV_Checker_Core_AppInfo iv_app_inf_main = new IV_Checker_Core_AppInfo();
+        string last_genetaded_inf_for_about = null;
 
         ///////////////////////////////////////////////////////////////////////////////
         //IV Note: Intreger Create Scenario for Save Release Progress Bar variables.//
@@ -66,7 +68,6 @@ namespace IV_Gallery_Checkers_Core
                 if(main_programm_name == iv_gallery_prog_name[1] || main_programm_name == iv_gallery_prog_name[2])
                 {
                     MessageBox.Show("That Library dosen't fully support this app!!!", "IV Checker Core " + iv_checker_dll_code_ver + " Programm name - " + main_programm_name);
-                    return;
                 }
                 else
                 {
@@ -90,6 +91,27 @@ namespace IV_Gallery_Checkers_Core
             if(checked_state_p_name == true && checked_programm_ver == true)
             {
                 iv_used_programm = main_programm_name;
+                if(use_ui_for_info == true)
+                {
+                    iv_app_inf_main.IV_C_C_About_Page.Text = main_programm_name + "\n" + "Programm Version - " + main_prog_ver + "\n" + "Used IV Library: "
+                        + "\n" + "1) IV Checker Core";
+                    if(iv_app_inf_main.iv_ab_closed_hook == true)
+                    {
+                        iv_app_inf_main = new IV_Checker_Core_AppInfo();
+                        iv_app_inf_main.iv_ab_closed_hook = false;
+                        iv_app_inf_main.IV_C_C_About_Page.Text = last_genetaded_inf_for_about;
+                        iv_app_inf_main.Show();
+                    }
+                    else if(!iv_app_inf_main.Visible)
+                    {
+                        iv_app_inf_main.Show();
+                        last_genetaded_inf_for_about = iv_app_inf_main.IV_C_C_About_Page.Text;
+                    }
+                    else if(iv_app_inf_main.Visible)
+                    {
+                        iv_app_inf_main.Hide();
+                    }
+                }
             }
             else if(main_programm_name == iv_gallery_prog_name[1] || main_programm_name == iv_gallery_prog_name[2])
             {

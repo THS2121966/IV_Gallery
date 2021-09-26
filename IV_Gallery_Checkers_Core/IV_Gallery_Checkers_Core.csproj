@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,8 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IV_Checker_Core_AppInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IV_Checker_Core_AppInfo.Designer.cs">
+      <DependentUpon>IV_Checker_Core_AppInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="IVCheckerCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="IV_Checker_Core_AppInfo.resx">
+      <DependentUpon>IV_Checker_Core_AppInfo.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

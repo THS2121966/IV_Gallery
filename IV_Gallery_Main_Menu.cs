@@ -15,10 +15,14 @@ namespace IV_Gallery
         public IV_Gallery_Main_Menu()
         {
             InitializeComponent();
-            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver);
-            if(IV_Gallery_Checkers_Core.IVCheckerCore.iv_checker_dll_code_ver == 0.312f)
+            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver, false, true);
+            if(IV_Gallery_Checkers_Core.IVCheckerCore.iv_checker_dll_code_ver == last_supported_iv_ch_c_ver)
             {
                 IV_Button_App_Info.Visible = true;
+            }
+            if(iv_ch_core.debug_mode)
+            {
+                debug_mode = true;
             }
             IV_Release_Load_INFO();
         }
@@ -26,15 +30,17 @@ namespace IV_Gallery
         //////////////////////////////
         //IV Note: Main Menu Parms://
         ////////////////////////////
+        bool debug_mode = false;
         bool iv_mm_bg_clicked = false;
         bool iv_released_l_info = true;
         bool iv_l_t_first_inited = true;
         int iv_sb_released_state = 0;
-        float iv_gallery_prog_ver = 0.32f;
-        string iv_gallery_prog_name = "IV_Gallery";
+        static float iv_gallery_prog_ver = 0.35f;
+        static public float last_supported_iv_ch_c_ver = 0.35f;
+        static string iv_gallery_prog_name = "IV_Gallery";
         static string[] iv_gallery_prog_name_checker_list = new string[3] { "IV_Gallery", "UNUSED2", "UNUSED3" };
         static public Image iv_bg_default = global::IV_Gallery.Properties.Resources.THSSourcelogoF_source_loading;
-        IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
+        static public IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
 
         private void IV_MM_BG_D_Click(object sender, EventArgs e)
         {
@@ -55,13 +61,11 @@ namespace IV_Gallery
             {
                 IV_Gallery_MM_BG_Picture.Image = global::IV_Gallery.Properties.Resources.SanyaLogoF;
                 IV_G_Button_Exit.Visible = false;
-                //iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name_checker_list[1], iv_gallery_prog_ver);
             }
             else
             {
                 IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
                 IV_G_Button_Exit.Visible = true;
-                //iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver);
             }
             IV_Release_Load_INFO(70);
         }
@@ -96,6 +100,8 @@ namespace IV_Gallery
 
         private void IV_Exit_Click_Scenario(object sender, EventArgs e)
         {
+            if(debug_mode)
+                MessageBox.Show("Thank you for testing that programm. Goodbye!!!", "IV");
             iv_g_m_m.Close();
         }
 
@@ -128,7 +134,8 @@ namespace IV_Gallery
 
         private void IV_B_AppInfo_Hook(object sender, EventArgs e)
         {
-            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver, true);
+            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver, true, true);
+            IV_Release_Load_INFO(70);
         }
     }
 }

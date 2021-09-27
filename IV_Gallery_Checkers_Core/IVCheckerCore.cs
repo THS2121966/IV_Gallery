@@ -9,8 +9,9 @@ namespace IV_Gallery_Checkers_Core
 {
     public class IVCheckerCore
     {
-        static public float iv_checker_dll_code_ver = 0.312f;
-        static float[] supported_vers_p_and_iv_c_c = new float[2] { 0.312f, 0.32f };
+        static public float iv_checker_dll_code_ver = 0.35f;
+        static float[] supported_vers_p_and_iv_c_c = new float[2] { iv_checker_dll_code_ver, 0.35f };
+        public bool debug_mode = false;
 
         //IV Note: List of Supported programs:
         static string[] iv_gallery_prog_name = new string[3] { "IV_Gallery", "UNUSED2","UNUSED3" };
@@ -58,7 +59,7 @@ namespace IV_Gallery_Checkers_Core
                 return 505;
             }
         }
-        public void IV_Checker_Core_Release_Ver_Info(string main_programm_name = "FIXME_MAIN_PROGRAMM", float main_prog_ver = 0.1f, bool use_ui_for_info = false)
+        public void IV_Checker_Core_Release_Ver_Info(string main_programm_name = "FIXME_MAIN_PROGRAMM", float main_prog_ver = 0.1f, bool use_ui_for_info = false, bool use_debug_mode = false)
         {
             bool checked_state_p_name = false;
             bool checked_programm_ver = false;
@@ -68,10 +69,15 @@ namespace IV_Gallery_Checkers_Core
                 if(main_programm_name == iv_gallery_prog_name[1] || main_programm_name == iv_gallery_prog_name[2])
                 {
                     MessageBox.Show("That Library dosen't fully support this app!!!", "IV Checker Core " + iv_checker_dll_code_ver + " Programm name - " + main_programm_name);
+                    debug_mode = true;
                 }
                 else
                 {
                     checked_state_p_name = true;
+                    if (!use_debug_mode)
+                        debug_mode = false;
+                    else
+                        debug_mode = true;
                 }
             }
             else
@@ -95,7 +101,9 @@ namespace IV_Gallery_Checkers_Core
                 {
                     iv_app_inf_main.IV_C_C_About_Page.Text = main_programm_name + "\n" + "Programm Version - " + main_prog_ver + "\n" + "Used IV Library: "
                         + "\n" + "1) IV Checker Core";
-                    if(iv_app_inf_main.iv_ab_closed_hook == true)
+                    if (debug_mode)
+                        iv_app_inf_main.IV_C_C_About_Page.Text = iv_app_inf_main.IV_C_C_About_Page.Text + " DEBUG_MODE_ENABLED";
+                    if (iv_app_inf_main.iv_ab_closed_hook == true)
                     {
                         iv_app_inf_main = new IV_Checker_Core_AppInfo();
                         iv_app_inf_main.iv_ab_closed_hook = false;

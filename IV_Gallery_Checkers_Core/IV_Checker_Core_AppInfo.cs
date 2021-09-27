@@ -22,6 +22,7 @@ namespace IV_Gallery_Checkers_Core
         private void IV_Close_Window_Hook(object sender, EventArgs e)
         {
             this.Close();
+            IV_Gallery_Checkers_Core.IVCheckerCore.ui_s_wnd_ab_close.Play();
         }
 
         private void IV_About_Closed_Hook(object sender, FormClosedEventArgs e)

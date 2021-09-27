@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Media;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,6 +18,9 @@ namespace IV_Gallery_Checkers_Core
         static string[] iv_gallery_prog_name = new string[3] { "IV_Gallery", "UNUSED2","UNUSED3" };
         public string iv_used_programm = null;
         static public IV_Checker_Core_AppInfo iv_app_inf_main = new IV_Checker_Core_AppInfo();
+        static public System.Reflection.Assembly iv_this_p_assembly = System.Reflection.Assembly.GetExecutingAssembly();
+        static System.IO.Stream menu_ui_about_s_file_close = iv_this_p_assembly.GetManifestResourceStream("null");
+        static public SoundPlayer ui_s_wnd_ab_close = new SoundPlayer(menu_ui_about_s_file_close);
         string last_genetaded_inf_for_about = null;
 
         ///////////////////////////////////////////////////////////////////////////////
@@ -101,6 +105,11 @@ namespace IV_Gallery_Checkers_Core
                 {
                     iv_app_inf_main.IV_C_C_About_Page.Text = main_programm_name + "\n" + "Programm Version - " + main_prog_ver + "\n" + "Used IV Library: "
                         + "\n" + "1) IV Checker Core";
+                    if(main_programm_name == iv_gallery_prog_name[0])
+                    {
+                        menu_ui_about_s_file_close = iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.menu_back.wav");
+                        ui_s_wnd_ab_close = new SoundPlayer(menu_ui_about_s_file_close);
+                    }
                     if (debug_mode)
                         iv_app_inf_main.IV_C_C_About_Page.Text = iv_app_inf_main.IV_C_C_About_Page.Text + " DEBUG_MODE_ENABLED";
                     if (iv_app_inf_main.iv_ab_closed_hook == true)

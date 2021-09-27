@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Media;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +42,10 @@ namespace IV_Gallery
         static string[] iv_gallery_prog_name_checker_list = new string[3] { "IV_Gallery", "UNUSED2", "UNUSED3" };
         static public Image iv_bg_default = global::IV_Gallery.Properties.Resources.THSSourcelogoF_source_loading;
         static public IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
+        static public System.IO.Stream menu_ui_s_file_open = IV_Gallery_Checkers_Core.IVCheckerCore.iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.menu_accept.wav");
+        static public System.IO.Stream menu_ui_s_file_close = IV_Gallery_Checkers_Core.IVCheckerCore.iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.menu_back.wav");
+        static public SoundPlayer ui_s_wnd_open = new SoundPlayer(menu_ui_s_file_open);
+        static public SoundPlayer ui_s_wnd_close = new SoundPlayer(menu_ui_s_file_close);
 
         private void IV_MM_BG_D_Click(object sender, EventArgs e)
         {
@@ -60,11 +65,13 @@ namespace IV_Gallery
             if(clicked == true)
             {
                 IV_Gallery_MM_BG_Picture.Image = global::IV_Gallery.Properties.Resources.SanyaLogoF;
+                ui_s_wnd_open.Play();
                 IV_G_Button_Exit.Visible = false;
             }
             else
             {
                 IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
+                ui_s_wnd_close.Play();
                 IV_G_Button_Exit.Visible = true;
             }
             IV_Release_Load_INFO(70);
@@ -135,6 +142,7 @@ namespace IV_Gallery
         private void IV_B_AppInfo_Hook(object sender, EventArgs e)
         {
             iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver, true, true);
+            ui_s_wnd_open.Play();
             IV_Release_Load_INFO(70);
         }
     }

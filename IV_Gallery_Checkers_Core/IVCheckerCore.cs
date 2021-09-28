@@ -39,7 +39,7 @@ namespace IV_Gallery_Checkers_Core
         static string last_genetaded_inf_for_about = iv_used_programm + "\n" + "Programm Version - " + iv_used_programm_ver + "\n" + "Used IV Library: "
                         + "\n" + "1) IV Checker Core";
         //IV Note: Text for about_page Programm information with DEBUG_MODE_ENABLED:
-        string last_genetaded_inf_for_about_with_dbg = last_genetaded_inf_for_about + " DEBUG_MODE_ENABLED";
+        static string last_genetaded_inf_for_about_with_dbg = last_genetaded_inf_for_about + " DEBUG_MODE_ENABLED";
 
 
         //IV Note: Intreger Create Scenario for Save Release Progress Bar variables.
@@ -87,6 +87,8 @@ namespace IV_Gallery_Checkers_Core
         {
             bool checked_state_p_name = false;
             bool checked_programm_ver = false;
+
+            IV_Reload_AB_P_Text();
 
             if (main_programm_name == iv_gallery_prog_name[0] || main_programm_name == iv_gallery_prog_name[1] || main_programm_name == iv_gallery_prog_name[2])
             {
@@ -160,6 +162,15 @@ namespace IV_Gallery_Checkers_Core
                 iv_used_programm = main_programm_name;
                 MessageBox.Show("That Library dosen't fully support this app!!! Using Anyway...", "IV Checker Core " + iv_checker_dll_code_ver + " Programm name - " + main_programm_name);
             }
+        }
+        /////////////////////////////////////////////
+        //IV Note: void for Reload AboutPage Text.//
+        ///////////////////////////////////////////
+        static void IV_Reload_AB_P_Text()
+        {
+            last_genetaded_inf_for_about = iv_used_programm + "\n" + "Programm Version - " + iv_used_programm_ver + "\n" + "Used IV Library: "
+                            + "\n" + "1) IV Checker Core";
+            last_genetaded_inf_for_about_with_dbg = last_genetaded_inf_for_about + " DEBUG_MODE_ENABLED";
         }
         ////////////////////////////////////////////////////
         //IV Note: Debug mode Core Activator void Method.//

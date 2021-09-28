@@ -37,6 +37,7 @@ namespace IV_Gallery
             this.IV_Time_WAIT_UN_Load = new System.Windows.Forms.Timer(this.components);
             this.IV_Time_Pre_Finish_Load = new System.Windows.Forms.Timer(this.components);
             this.IV_Button_App_Info = new System.Windows.Forms.Button();
+            this.IV_T_Exit = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.IV_Gallery_MM_BG_Picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,6 +98,11 @@ namespace IV_Gallery
             this.IV_Button_App_Info.Visible = false;
             this.IV_Button_App_Info.Click += new System.EventHandler(this.IV_B_AppInfo_Hook);
             // 
+            // IV_T_Exit
+            // 
+            this.IV_T_Exit.Interval = 1000;
+            this.IV_T_Exit.Tick += new System.EventHandler(this.IV_T_Exit_Scenario);
+            // 
             // IV_Gallery_Main_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -126,6 +132,7 @@ namespace IV_Gallery
         private System.Windows.Forms.Timer IV_Time_WAIT_UN_Load;
         private System.Windows.Forms.Timer IV_Time_Pre_Finish_Load;
         public System.Windows.Forms.Button IV_Button_App_Info;
+        private System.Windows.Forms.Timer IV_T_Exit;
     }
 }
 

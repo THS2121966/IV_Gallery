@@ -57,6 +57,10 @@
       <DependentUpon>IV_Checker_Core_AppInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="iv_sound_cache\menu_accept.wav" />
+    <EmbeddedResource Include="iv_sound_cache\menu_back.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\bin\Debug</PostBuildEvent>

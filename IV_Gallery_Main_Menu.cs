@@ -16,14 +16,18 @@ namespace IV_Gallery
         public IV_Gallery_Main_Menu()
         {
             InitializeComponent();
-            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver, false, true);
+            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver);
             if(IV_Gallery_Checkers_Core.IVCheckerCore.iv_checker_dll_code_ver == last_supported_iv_ch_c_ver)
             {
                 IV_Button_App_Info.Visible = true;
             }
-            if(iv_ch_core.debug_mode)
+            if(IV_G_Check_DEBUG_Core_State())
             {
                 debug_mode = true;
+            }
+            if(IV_Gallery_MM_BG_Picture.Image != iv_bg_default)
+            {
+                IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
             }
             IV_Release_Load_INFO();
         }
@@ -35,6 +39,7 @@ namespace IV_Gallery
         bool iv_mm_bg_clicked = false;
         bool iv_released_l_info = true;
         bool iv_l_t_first_inited = true;
+        int int_to_debug = 0;
         int iv_sb_released_state = 0;
         static float iv_gallery_prog_ver = 0.35f;
         static public float last_supported_iv_ch_c_ver = 0.35f;
@@ -42,22 +47,46 @@ namespace IV_Gallery
         static string[] iv_gallery_prog_name_checker_list = new string[3] { "IV_Gallery", "UNUSED2", "UNUSED3" };
         static public Image iv_bg_default = global::IV_Gallery.Properties.Resources.THSSourcelogoF_source_loading;
         static public IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
-        static public System.IO.Stream menu_ui_s_file_open = IV_Gallery_Checkers_Core.IVCheckerCore.iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.menu_accept.wav");
-        static public System.IO.Stream menu_ui_s_file_close = IV_Gallery_Checkers_Core.IVCheckerCore.iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.menu_back.wav");
+        static System.Reflection.Assembly iv_this_p_assembly = System.Reflection.Assembly.GetExecutingAssembly();
+        static public System.IO.Stream menu_ui_s_file_open = iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.iv_sound_cache.menu_accept.wav");
+        static public System.IO.Stream menu_ui_s_file_close = iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.iv_sound_cache.menu_back.wav");
         static public SoundPlayer ui_s_wnd_open = new SoundPlayer(menu_ui_s_file_open);
         static public SoundPlayer ui_s_wnd_close = new SoundPlayer(menu_ui_s_file_close);
 
         private void IV_MM_BG_D_Click(object sender, EventArgs e)
         {
-            if(iv_mm_bg_clicked == false)
+            if(int_to_debug != 8)
             {
-                iv_mm_bg_clicked = true;
+                int_to_debug = int_to_debug + 1;
             }
-            else
+            else if(int_to_debug == 8 && !debug_mode)
             {
-                iv_mm_bg_clicked = false;
+                int_to_debug = 0;
+                debug_mode = true;
+                iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
             }
-            CheckIVBGClickedStatus(iv_mm_bg_clicked);
+            else if(int_to_debug == 8 && debug_mode)
+            {
+                int_to_debug = 0;
+                debug_mode = false;
+                iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
+            }
+            if (debug_mode)
+            {
+                if (iv_mm_bg_clicked == false)
+                {
+                    iv_mm_bg_clicked = true;
+                }
+                else
+                {
+                    iv_mm_bg_clicked = false;
+                }
+                CheckIVBGClickedStatus(iv_mm_bg_clicked);
+            }
+            if(!debug_mode && IV_Gallery_MM_BG_Picture.Image != iv_bg_default)
+            {
+                CheckIVBGClickedStatus(false);
+            }
         }
 
         private void CheckIVBGClickedStatus(bool clicked)
@@ -107,9 +136,13 @@ namespace IV_Gallery
 
         private void IV_Exit_Click_Scenario(object sender, EventArgs e)
         {
-            if(debug_mode)
+            int_to_debug = 0;
+            if (debug_mode)
                 MessageBox.Show("Thank you for testing that programm. Goodbye!!!", "IV");
-            iv_g_m_m.Close();
+            ui_s_wnd_close.Play();
+            IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Close();
+            iv_g_m_m.Hide();
+            IV_T_Exit.Enabled = true;
         }
 
         private void IV_L_TIME_HOOK(object sender, EventArgs e)
@@ -133,6 +166,15 @@ namespace IV_Gallery
             }
         }
 
+        private bool IV_G_Check_DEBUG_Core_State()
+        {
+            if(iv_ch_core.debug_mode)
+            {
+                return iv_ch_core.debug_mode;
+            }
+            return false;
+        }
+
         private void IV_T_Check_L_Display(object sender, EventArgs e)
         {
             IV_Time_Pre_Finish_Load.Enabled = false;
@@ -141,9 +183,15 @@ namespace IV_Gallery
 
         private void IV_B_AppInfo_Hook(object sender, EventArgs e)
         {
-            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver, true, true);
+            int_to_debug = 0;
+            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver, true);
             ui_s_wnd_open.Play();
             IV_Release_Load_INFO(70);
+        }
+
+        private void IV_T_Exit_Scenario(object sender, EventArgs e)
+        {
+            iv_g_m_m.Close();
         }
     }
 }

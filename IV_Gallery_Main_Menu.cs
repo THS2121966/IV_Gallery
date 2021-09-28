@@ -50,8 +50,10 @@ namespace IV_Gallery
         static System.Reflection.Assembly iv_this_p_assembly = System.Reflection.Assembly.GetExecutingAssembly();
         static public System.IO.Stream menu_ui_s_file_open = iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.iv_sound_cache.menu_accept.wav");
         static public System.IO.Stream menu_ui_s_file_close = iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.iv_sound_cache.menu_back.wav");
+        static public System.IO.Stream menu_ui_s_file_open_main_menu = iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.iv_sound_cache.menu_horror01.wav");
         static public SoundPlayer ui_s_wnd_open = new SoundPlayer(menu_ui_s_file_open);
         static public SoundPlayer ui_s_wnd_close = new SoundPlayer(menu_ui_s_file_close);
+        static public SoundPlayer ui_s_main_wnd_open = new SoundPlayer(menu_ui_s_file_open_main_menu);
 
         private void IV_MM_BG_D_Click(object sender, EventArgs e)
         {
@@ -192,6 +194,11 @@ namespace IV_Gallery
         private void IV_T_Exit_Scenario(object sender, EventArgs e)
         {
             iv_g_m_m.Close();
+        }
+
+        private void IV_MM_Load_Hook(object sender, EventArgs e)
+        {
+            ui_s_main_wnd_open.Play();
         }
     }
 }

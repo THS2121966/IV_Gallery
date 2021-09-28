@@ -117,6 +117,7 @@ namespace IV_Gallery
             this.MaximizeBox = false;
             this.Name = "IV_Gallery_Main_Menu";
             this.Text = "IV Gallery";
+            this.Load += new System.EventHandler(this.IV_MM_Load_Hook);
             ((System.ComponentModel.ISupportInitialize)(this.IV_Gallery_MM_BG_Picture)).EndInit();
             this.ResumeLayout(false);
 

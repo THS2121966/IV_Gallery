@@ -45,15 +45,8 @@ namespace IV_Gallery
         static public float last_supported_iv_ch_c_ver = 0.35f;
         static string iv_gallery_prog_name = "IV_Gallery";
         static string[] iv_gallery_prog_name_checker_list = new string[3] { "IV_Gallery", "UNUSED2", "UNUSED3" };
-        static public Image iv_bg_default = global::IV_Gallery.Properties.Resources.THSSourcelogoF_source_loading;
+        static public Image iv_bg_default = Properties.Resources.THSSourcelogoF_source_loading;
         static public IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
-        static System.Reflection.Assembly iv_this_p_assembly = System.Reflection.Assembly.GetExecutingAssembly();
-        static public System.IO.Stream menu_ui_s_file_open = iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.iv_sound_cache.menu_accept.wav");
-        static public System.IO.Stream menu_ui_s_file_close = iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.iv_sound_cache.menu_back.wav");
-        static public System.IO.Stream menu_ui_s_file_open_main_menu = iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery.iv_sound_cache.menu_horror01.wav");
-        static public SoundPlayer ui_s_wnd_open = new SoundPlayer(menu_ui_s_file_open);
-        static public SoundPlayer ui_s_wnd_close = new SoundPlayer(menu_ui_s_file_close);
-        static public SoundPlayer ui_s_main_wnd_open = new SoundPlayer(menu_ui_s_file_open_main_menu);
 
         private void IV_MM_BG_D_Click(object sender, EventArgs e)
         {
@@ -95,14 +88,14 @@ namespace IV_Gallery
         {
             if(clicked == true)
             {
-                IV_Gallery_MM_BG_Picture.Image = global::IV_Gallery.Properties.Resources.SanyaLogoF;
-                ui_s_wnd_open.Play();
+                IV_Gallery_MM_BG_Picture.Image = Properties.Resources.SanyaLogoF;
+                IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_open.Play();
                 IV_G_Button_Exit.Visible = false;
             }
             else
             {
                 IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
-                ui_s_wnd_close.Play();
+                IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
                 IV_G_Button_Exit.Visible = true;
             }
             IV_Release_Load_INFO(70);
@@ -141,7 +134,7 @@ namespace IV_Gallery
             int_to_debug = 0;
             if (debug_mode)
                 MessageBox.Show("Thank you for testing that programm. Goodbye!!!", "IV");
-            ui_s_wnd_close.Play();
+            IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Close();
             iv_g_m_m.Hide();
             IV_T_Exit.Enabled = true;
@@ -187,7 +180,7 @@ namespace IV_Gallery
         {
             int_to_debug = 0;
             iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver, true);
-            ui_s_wnd_open.Play();
+            IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_open.Play();
             IV_Release_Load_INFO(70);
         }
 
@@ -198,7 +191,7 @@ namespace IV_Gallery
 
         private void IV_MM_Load_Hook(object sender, EventArgs e)
         {
-            ui_s_main_wnd_open.Play();
+            IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_g_m_m_open.Play();
         }
     }
 }

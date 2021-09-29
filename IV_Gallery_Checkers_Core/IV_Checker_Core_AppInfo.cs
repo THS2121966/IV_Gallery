@@ -27,7 +27,7 @@ namespace IV_Gallery_Checkers_Core
         private void IV_About_Closed_Hook(object sender, FormClosedEventArgs e)
         {
             iv_ab_closed_hook = true;
-            IV_Gallery_Checkers_Core.IVCheckerCore.ui_s_wnd_ab_close.Play();
+            IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
         }
     }
 }

@@ -111,9 +111,6 @@
     <None Include="Resources\ths_icon.png" />
     <None Include="Resources\SanyaLogoF.jpg" />
     <None Include="Resources\ths_hammer_icon.png" />
-    <EmbeddedResource Include="iv_sound_cache\menu_accept.wav" />
-    <EmbeddedResource Include="iv_sound_cache\menu_back.wav" />
-    <EmbeddedResource Include="iv_sound_cache\menu_horror01.wav" />
     <Content Include="ths_icon.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IV_Gallery", "IV_Gallery.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IV_Gallery_Checkers_Core", "IV_Gallery_Checkers_Core\IV_Gallery_Checkers_Core.csproj", "{D34847BC-643C-4D64-B560-2072AA6E9EB7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FA4EC357-BFD0-404D-916F-9668400B6956} = {FA4EC357-BFD0-404D-916F-9668400B6956}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IV_Sound_Master", "IV_Sound_Master\IV_Sound_Master.csproj", "{FA4EC357-BFD0-404D-916F-9668400B6956}"
 EndProject

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Media;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -25,16 +24,8 @@ namespace IV_Gallery_Checkers_Core
         public static float iv_used_programm_ver = 0.1f;
         //IV Note: AppInfo Form variable for using that UI Component:
         static public IV_Checker_Core_AppInfo iv_app_inf_main = new IV_Checker_Core_AppInfo();
-        //IV Note: Assembly for reading inluded resources in that core:
-        static System.Reflection.Assembly iv_this_p_assembly = System.Reflection.Assembly.GetExecutingAssembly();
-        //IV Note: Default Empty Route to used (Close about_page UI Scenario) sound file:
-        static System.IO.Stream menu_ui_about_s_file_close = iv_this_p_assembly.GetManifestResourceStream("null");
-        //IV Note: Default Empty Route to used (Open about_page UI Scenario) sound file:
-        static System.IO.Stream menu_ui_about_s_file_open = iv_this_p_assembly.GetManifestResourceStream("null");
-        //IV Note: Close about_page UI Scenario sound:
-        static public SoundPlayer ui_s_wnd_ab_close = new SoundPlayer(menu_ui_about_s_file_close);
-        //IV Note: Open about_page UI Scenario sound:
-        static public SoundPlayer ui_s_wnd_ab_open = new SoundPlayer(menu_ui_about_s_file_open);
+        //IV Note: IV_S_Library Core Loading:
+        static public IV_Sound_Master.IVSMasterCore iv_s_manager = new IV_Sound_Master.IVSMasterCore();
         //IV Note: Text for about_page Programm information:
         static string last_genetaded_inf_for_about = iv_used_programm + "\n" + "Programm Version - " + iv_used_programm_ver + "\n" + "Used IV Library: "
                         + "\n" + "1) IV Checker Core";
@@ -130,13 +121,13 @@ namespace IV_Gallery_Checkers_Core
                         iv_app_inf_main.IV_C_C_About_Page.Text = last_genetaded_inf_for_about;
                     else
                         iv_app_inf_main.IV_C_C_About_Page.Text = last_genetaded_inf_for_about_with_dbg;
-                    if (main_programm_name == iv_gallery_prog_name[0])
+                    /*if (main_programm_name == iv_gallery_prog_name[0])
                     {
                         menu_ui_about_s_file_close = iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery_Checkers_Core.iv_sound_cache.menu_back.wav");
                         menu_ui_about_s_file_open = iv_this_p_assembly.GetManifestResourceStream(@"IV_Gallery_Checkers_Core.iv_sound_cache.menu_accept.wav");
                         ui_s_wnd_ab_close = new SoundPlayer(menu_ui_about_s_file_close);
                         ui_s_wnd_ab_open = new SoundPlayer(menu_ui_about_s_file_open);
-                    }
+                    }*/ //IV Note: Old S File Get Method.
                     if (iv_app_inf_main.iv_ab_closed_hook == true)
                     {
                         iv_app_inf_main = new IV_Checker_Core_AppInfo();

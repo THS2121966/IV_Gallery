@@ -29,6 +29,7 @@ namespace IV_Gallery_Checkers_Core
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IV_Checker_Core_AppInfo));
             this.IV_C_C_About_Page = new System.Windows.Forms.TextBox();
             this.IV_B_Exit = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -66,6 +67,7 @@ namespace IV_Gallery_Checkers_Core
             this.Controls.Add(this.IV_B_Exit);
             this.Controls.Add(this.IV_C_C_About_Page);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IV_Checker_Core_AppInfo";
             this.Text = "App Info";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.IV_About_Closed_Hook);

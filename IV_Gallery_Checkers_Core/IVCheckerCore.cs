@@ -10,14 +10,14 @@ namespace IV_Gallery_Checkers_Core
     public class IVCheckerCore
     {
         //IV Note: CheckersCore Version:
-        static public float iv_checker_dll_code_ver = 0.35f;
+        static public float iv_checker_dll_code_ver = 0.4f;
         //IV Note: CheckersCore versions Indefier with main programm list:
-        static float[] supported_vers_p_and_iv_c_c = new float[2] { iv_checker_dll_code_ver, 0.35f };
+        static public float[] supported_vers_p_and_iv_c_c = new float[4] { 0.35f, 0.35f, iv_checker_dll_code_ver, 0.38f };
         //IV Note: Core side Debug Mode parm:
         public bool debug_mode = false;
 
         //IV Note: List of Supported programs:
-        static string[] iv_gallery_prog_name = new string[3] { "IV_Gallery", "UNUSED2","UNUSED3" };
+        static public string[] iv_gallery_prog_name = new string[3] { "IV_Gallery", "UNUSED2","UNUSED3" };
         //IV Note: Used programm name:
         public static string iv_used_programm = null;
         //IV Note: Used programm version:
@@ -27,8 +27,8 @@ namespace IV_Gallery_Checkers_Core
         //IV Note: IV_S_Library Core Loading:
         static public IV_Sound_Master.IVSMasterCore iv_s_manager = new IV_Sound_Master.IVSMasterCore();
         //IV Note: Text for about_page Programm information:
-        static string last_genetaded_inf_for_about = iv_used_programm + "\n" + "Programm Version - " + iv_used_programm_ver + "\n" + "Used IV Library: "
-                        + "\n" + "1) IV Checker Core";
+        static string last_genetaded_inf_for_about = iv_used_programm + " Programm Version - " + iv_used_programm_ver + " Used IV Library: "
+                        + "1) IV Checker Core Version - " + iv_checker_dll_code_ver + " 2) IV Sound Master library Version - 0.1";
         //IV Note: Text for about_page Programm information with DEBUG_MODE_ENABLED:
         static string last_genetaded_inf_for_about_with_dbg = last_genetaded_inf_for_about + " DEBUG_MODE_ENABLED";
 
@@ -40,7 +40,7 @@ namespace IV_Gallery_Checkers_Core
         ///////////////////////////////////////////////////////////////////
         public int IV_Calculate_for_Progress_Bar(int value_for_recreate = 0, int value_count = 1, string method = "+")
         {
-            if (iv_used_programm == null)
+            if (iv_used_programm == null && supported_vers_p_and_iv_c_c[1] != iv_used_programm_ver || supported_vers_p_and_iv_c_c[3] != iv_used_programm_ver)
                 return 505;
 
             if(method == "+" || method == "-" || method == "*" || method == "/")
@@ -102,7 +102,7 @@ namespace IV_Gallery_Checkers_Core
                 MessageBox.Show("That Library dosen't support this app!!! Aborting...", "IV Checker Core " + iv_checker_dll_code_ver + " Programm name - " + main_programm_name);
                 Application.Exit();
             }
-            if(main_prog_ver == supported_vers_p_and_iv_c_c[1] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[0])
+            if(main_prog_ver == supported_vers_p_and_iv_c_c[3] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[2])
             {
                 checked_programm_ver = true;
                 iv_used_programm_ver = main_prog_ver;
@@ -159,8 +159,8 @@ namespace IV_Gallery_Checkers_Core
         ///////////////////////////////////////////
         static void IV_Reload_AB_P_Text()
         {
-            last_genetaded_inf_for_about = iv_used_programm + "\n" + "Programm Version - " + iv_used_programm_ver + "\n" + "Used IV Library: "
-                            + "\n" + "1) IV Checker Core";
+            last_genetaded_inf_for_about = iv_used_programm + " Programm Version - " + iv_used_programm_ver + " Used IV Library: "
+                        + "1) IV Checker Core Version - " + iv_checker_dll_code_ver + " 2) IV Sound Master library Version - 0.1";
             last_genetaded_inf_for_about_with_dbg = last_genetaded_inf_for_about + " DEBUG_MODE_ENABLED";
         }
         ////////////////////////////////////////////////////

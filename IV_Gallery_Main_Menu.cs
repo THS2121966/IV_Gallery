@@ -16,14 +16,18 @@ namespace IV_Gallery
         public IV_Gallery_Main_Menu()
         {
             InitializeComponent();
-            iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver);
-            if(IV_Gallery_Checkers_Core.IVCheckerCore.iv_checker_dll_code_ver == last_supported_iv_ch_c_ver)
+            if(iv_gallery_prog_name == iv_gallery_prog_name_checker_list[0] && iv_gallery_prog_ver == list_of_supported_ch_core_vers[3])
+                iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name_checker_list[0], list_of_supported_ch_core_vers[3]);
+            else
+                iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver);
+            if (IV_Gallery_Checkers_Core.IVCheckerCore.iv_checker_dll_code_ver == last_supported_iv_ch_c_ver)
             {
                 IV_Button_App_Info.Visible = true;
             }
             if(IV_G_Check_DEBUG_Core_State())
             {
                 debug_mode = true;
+                iv_g_m_m.MaximizeBox = true;
             }
             if(IV_Gallery_MM_BG_Picture.Image != iv_bg_default)
             {
@@ -41,12 +45,14 @@ namespace IV_Gallery
         bool iv_l_t_first_inited = true;
         int int_to_debug = 0;
         int iv_sb_released_state = 0;
-        static float iv_gallery_prog_ver = 0.35f;
-        static public float last_supported_iv_ch_c_ver = 0.35f;
+        static float iv_gallery_prog_ver = 0.38f;
+        static float last_supported_iv_ch_c_ver = 0.4f;
+        static float[] list_of_supported_ch_core_vers = IV_Gallery_Checkers_Core.IVCheckerCore.supported_vers_p_and_iv_c_c;
         static string iv_gallery_prog_name = "IV_Gallery";
-        static string[] iv_gallery_prog_name_checker_list = new string[3] { "IV_Gallery", "UNUSED2", "UNUSED3" };
+        static string[] iv_gallery_prog_name_checker_list = IV_Gallery_Checkers_Core.IVCheckerCore.iv_gallery_prog_name;
         static public Image iv_bg_default = Properties.Resources.THSSourcelogoF_source_loading;
         static public IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
+        SoundPlayer[] iv_boomer_random = new SoundPlayer[2] { IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_01, IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_02 };
 
         private void IV_MM_BG_D_Click(object sender, EventArgs e)
         {
@@ -54,16 +60,18 @@ namespace IV_Gallery
             {
                 int_to_debug = int_to_debug + 1;
             }
-            else if(int_to_debug == 8 && !debug_mode)
+            else if(int_to_debug == 8 && !debug_mode && IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Visible)
             {
                 int_to_debug = 0;
                 debug_mode = true;
+                iv_g_m_m.MaximizeBox = true;
                 iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
             }
-            else if(int_to_debug == 8 && debug_mode)
+            else if(int_to_debug == 8 && debug_mode && IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Visible)
             {
                 int_to_debug = 0;
                 debug_mode = false;
+                iv_g_m_m.MaximizeBox = false;
                 iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
             }
             if (debug_mode)
@@ -86,10 +94,13 @@ namespace IV_Gallery
 
         private void CheckIVBGClickedStatus(bool clicked)
         {
-            if(clicked == true)
+            //IV Note: Random scenario for chosing boomer sounds
+            Random iv_rnd_for_boomer = new Random();
+            if (clicked == true)
             {
                 IV_Gallery_MM_BG_Picture.Image = Properties.Resources.SanyaLogoF;
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_open.Play();
+                iv_boomer_random[iv_rnd_for_boomer.Next(0, 2)].Play();
                 IV_G_Button_Exit.Visible = false;
             }
             else

@@ -29,9 +29,11 @@ namespace IV_Gallery_Checkers_Core
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IV_Checker_Core_AppInfo));
             this.IV_C_C_About_Page = new System.Windows.Forms.TextBox();
             this.IV_B_Exit = new System.Windows.Forms.Button();
+            this.IV_AB_Exit_Tool = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // IV_C_C_About_Page
@@ -56,8 +58,14 @@ namespace IV_Gallery_Checkers_Core
             this.IV_B_Exit.Size = new System.Drawing.Size(75, 23);
             this.IV_B_Exit.TabIndex = 1;
             this.IV_B_Exit.Text = "Exit";
+            this.IV_AB_Exit_Tool.SetToolTip(this.IV_B_Exit, "Press that in you want to Exit from that tool.");
             this.IV_B_Exit.UseVisualStyleBackColor = true;
             this.IV_B_Exit.Click += new System.EventHandler(this.IV_Close_Window_Hook);
+            // 
+            // IV_AB_Exit_Tool
+            // 
+            this.IV_AB_Exit_Tool.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.IV_AB_Exit_Tool.ToolTipTitle = "IV About";
             // 
             // IV_Checker_Core_AppInfo
             // 
@@ -80,5 +88,6 @@ namespace IV_Gallery_Checkers_Core
 
         public System.Windows.Forms.TextBox IV_C_C_About_Page;
         private System.Windows.Forms.Button IV_B_Exit;
+        private System.Windows.Forms.ToolTip IV_AB_Exit_Tool;
     }
 }

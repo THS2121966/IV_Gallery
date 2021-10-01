@@ -40,6 +40,7 @@ namespace IV_Gallery
             this.IV_T_Exit = new System.Windows.Forms.Timer(this.components);
             this.IV_AB_Exit_Info = new System.Windows.Forms.ToolTip(this.components);
             this.IV_AB_AppInfo_Info = new System.Windows.Forms.ToolTip(this.components);
+            this.IV_THINK_AB_WINDOW_HOOK = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.IV_Gallery_MM_BG_Picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,6 +119,10 @@ namespace IV_Gallery
             this.IV_AB_AppInfo_Info.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.IV_AB_AppInfo_Info.ToolTipTitle = "IV About";
             // 
+            // IV_THINK_AB_WINDOW_HOOK
+            // 
+            this.IV_THINK_AB_WINDOW_HOOK.Tick += new System.EventHandler(this.IV_Think_AB_WND_Hook);
+            // 
             // IV_Gallery_Main_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -151,6 +156,7 @@ namespace IV_Gallery
         private System.Windows.Forms.Timer IV_T_Exit;
         private System.Windows.Forms.ToolTip IV_AB_Exit_Info;
         private System.Windows.Forms.ToolTip IV_AB_AppInfo_Info;
+        private System.Windows.Forms.Timer IV_THINK_AB_WINDOW_HOOK;
     }
 }
 

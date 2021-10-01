@@ -29,5 +29,19 @@ namespace IV_Gallery_Checkers_Core
             iv_ab_closed_hook = true;
             IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
         }
+
+        private void IV_Reload_B_Hook(object sender, EventArgs e)
+        {
+            IV_T_CountDown_To_Restart.Enabled = true;
+            IVCheckerCore.iv_ab_hide_hack = true;
+            this.Visible = false;
+            IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
+        }
+
+        private void IV_T_Restart_Hook(object sender, EventArgs e)
+        {
+            IV_T_CountDown_To_Restart.Enabled = false;
+            Application.Restart();
+        }
     }
 }

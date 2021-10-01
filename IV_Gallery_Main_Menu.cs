@@ -190,6 +190,7 @@ namespace IV_Gallery
         private void IV_B_AppInfo_Hook(object sender, EventArgs e)
         {
             int_to_debug = 0;
+            IV_THINK_AB_WINDOW_HOOK.Enabled = true;
             iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver, true);
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_open.Play();
             IV_Release_Load_INFO(70);
@@ -203,6 +204,23 @@ namespace IV_Gallery
         private void IV_MM_Load_Hook(object sender, EventArgs e)
         {
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_g_m_m_open.Play();
+        }
+
+        private void IV_Think_AB_WND_Hook(object sender, EventArgs e)
+        {
+            if(IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Visible == false && !IV_Gallery_Checkers_Core.IVCheckerCore.iv_ab_hide_hack)
+            {
+                IV_THINK_AB_WINDOW_HOOK.Enabled = false;
+            }
+            else if(IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Visible == false && IV_Gallery_Checkers_Core.IVCheckerCore.iv_ab_hide_hack)
+            {
+                IV_THINK_AB_WINDOW_HOOK.Enabled = false;
+                IV_Button_App_Info.Visible = false;
+                IV_G_Button_Exit.Visible = false;
+                debug_mode = false;
+                iv_ch_core.IV_Release_DEBUG_MODE(false);
+                IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
+            }
         }
     }
 }

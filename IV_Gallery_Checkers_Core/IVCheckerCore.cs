@@ -22,6 +22,8 @@ namespace IV_Gallery_Checkers_Core
         public static string iv_used_programm = null;
         //IV Note: Used programm version:
         public static float iv_used_programm_ver = 0.1f;
+        //IV Note: Variable for Hide AppInfo Button in main wnd:
+        public static bool iv_ab_hide_hack = false;
         //IV Note: AppInfo Form variable for using that UI Component:
         static public IV_Checker_Core_AppInfo iv_app_inf_main = new IV_Checker_Core_AppInfo();
         //IV Note: IV_S_Library Core Loading:

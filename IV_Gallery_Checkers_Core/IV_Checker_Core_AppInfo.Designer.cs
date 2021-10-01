@@ -34,6 +34,9 @@ namespace IV_Gallery_Checkers_Core
             this.IV_C_C_About_Page = new System.Windows.Forms.TextBox();
             this.IV_B_Exit = new System.Windows.Forms.Button();
             this.IV_AB_Exit_Tool = new System.Windows.Forms.ToolTip(this.components);
+            this.IV_B_Reload_Programm = new System.Windows.Forms.Button();
+            this.IV_AB_Reload_Programm = new System.Windows.Forms.ToolTip(this.components);
+            this.IV_T_CountDown_To_Restart = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // IV_C_C_About_Page
@@ -67,11 +70,34 @@ namespace IV_Gallery_Checkers_Core
             this.IV_AB_Exit_Tool.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.IV_AB_Exit_Tool.ToolTipTitle = "IV About";
             // 
+            // IV_B_Reload_Programm
+            // 
+            this.IV_B_Reload_Programm.BackColor = System.Drawing.Color.Red;
+            this.IV_B_Reload_Programm.Location = new System.Drawing.Point(12, 399);
+            this.IV_B_Reload_Programm.Name = "IV_B_Reload_Programm";
+            this.IV_B_Reload_Programm.Size = new System.Drawing.Size(100, 40);
+            this.IV_B_Reload_Programm.TabIndex = 2;
+            this.IV_B_Reload_Programm.Text = "Reload Programm";
+            this.IV_AB_Reload_Programm.SetToolTip(this.IV_B_Reload_Programm, "Press that Button if you want to reload that application.");
+            this.IV_B_Reload_Programm.UseVisualStyleBackColor = false;
+            this.IV_B_Reload_Programm.Click += new System.EventHandler(this.IV_Reload_B_Hook);
+            // 
+            // IV_AB_Reload_Programm
+            // 
+            this.IV_AB_Reload_Programm.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
+            this.IV_AB_Reload_Programm.ToolTipTitle = "IV About";
+            // 
+            // IV_T_CountDown_To_Restart
+            // 
+            this.IV_T_CountDown_To_Restart.Interval = 3000;
+            this.IV_T_CountDown_To_Restart.Tick += new System.EventHandler(this.IV_T_Restart_Hook);
+            // 
             // IV_Checker_Core_AppInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(334, 451);
+            this.Controls.Add(this.IV_B_Reload_Programm);
             this.Controls.Add(this.IV_B_Exit);
             this.Controls.Add(this.IV_C_C_About_Page);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -89,5 +115,8 @@ namespace IV_Gallery_Checkers_Core
         public System.Windows.Forms.TextBox IV_C_C_About_Page;
         private System.Windows.Forms.Button IV_B_Exit;
         private System.Windows.Forms.ToolTip IV_AB_Exit_Tool;
+        private System.Windows.Forms.Button IV_B_Reload_Programm;
+        private System.Windows.Forms.ToolTip IV_AB_Reload_Programm;
+        private System.Windows.Forms.Timer IV_T_CountDown_To_Restart;
     }
 }

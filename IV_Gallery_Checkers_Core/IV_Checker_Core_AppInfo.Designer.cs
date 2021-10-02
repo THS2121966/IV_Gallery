@@ -62,7 +62,7 @@ namespace IV_Gallery_Checkers_Core
             this.IV_B_Exit.Size = new System.Drawing.Size(75, 23);
             this.IV_B_Exit.TabIndex = 1;
             this.IV_B_Exit.Text = "Exit";
-            this.IV_AB_Exit_Tool.SetToolTip(this.IV_B_Exit, "Press that in you want to Exit from that tool.");
+            this.IV_AB_Exit_Tool.SetToolTip(this.IV_B_Exit, "Press that if you want to Exit from that tool.");
             this.IV_B_Exit.UseVisualStyleBackColor = true;
             this.IV_B_Exit.Click += new System.EventHandler(this.IV_Close_Window_Hook);
             // 

@@ -42,8 +42,8 @@ namespace IV_Gallery_Checkers_Core
         ///////////////////////////////////////////////////////////////////
         public int IV_Calculate_for_Progress_Bar(int value_for_recreate = 0, int value_count = 1, string method = "+")
         {
-            if (iv_used_programm == null && supported_vers_p_and_iv_c_c[1] != iv_used_programm_ver || supported_vers_p_and_iv_c_c[3] != iv_used_programm_ver 
-                || supported_vers_p_and_iv_c_c[5] != iv_used_programm_ver)
+            if (iv_used_programm == null && (supported_vers_p_and_iv_c_c[1] != iv_used_programm_ver || supported_vers_p_and_iv_c_c[3] != iv_used_programm_ver 
+                || supported_vers_p_and_iv_c_c[5] != iv_used_programm_ver))
                 return 505;
 
             if(method == "+" || method == "-" || method == "*" || method == "/")

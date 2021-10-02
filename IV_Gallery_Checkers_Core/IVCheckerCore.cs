@@ -42,7 +42,8 @@ namespace IV_Gallery_Checkers_Core
         ///////////////////////////////////////////////////////////////////
         public int IV_Calculate_for_Progress_Bar(int value_for_recreate = 0, int value_count = 1, string method = "+")
         {
-            if (iv_used_programm == null && supported_vers_p_and_iv_c_c[1] != iv_used_programm_ver || supported_vers_p_and_iv_c_c[3] != iv_used_programm_ver)
+            if (iv_used_programm == null && supported_vers_p_and_iv_c_c[1] != iv_used_programm_ver || supported_vers_p_and_iv_c_c[3] != iv_used_programm_ver 
+                || supported_vers_p_and_iv_c_c[5] != iv_used_programm_ver)
                 return 505;
 
             if(method == "+" || method == "-" || method == "*" || method == "/")
@@ -104,7 +105,7 @@ namespace IV_Gallery_Checkers_Core
                 MessageBox.Show("That Library dosen't support this app!!! Aborting...", "IV Checker Core " + iv_checker_dll_code_ver + " Programm name - " + main_programm_name);
                 Application.Exit();
             }
-            if(main_prog_ver == supported_vers_p_and_iv_c_c[3] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[2])
+            if(main_prog_ver == supported_vers_p_and_iv_c_c[5] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[4])
             {
                 checked_programm_ver = true;
                 iv_used_programm_ver = main_prog_ver;

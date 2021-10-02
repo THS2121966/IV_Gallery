@@ -55,6 +55,7 @@ namespace IV_Gallery_Checkers_Core
             // 
             // IV_B_Exit
             // 
+            this.IV_B_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.IV_B_Exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.IV_B_Exit.Location = new System.Drawing.Point(247, 416);
             this.IV_B_Exit.Name = "IV_B_Exit";
@@ -72,6 +73,7 @@ namespace IV_Gallery_Checkers_Core
             // 
             // IV_B_Reload_Programm
             // 
+            this.IV_B_Reload_Programm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.IV_B_Reload_Programm.BackColor = System.Drawing.Color.Red;
             this.IV_B_Reload_Programm.Location = new System.Drawing.Point(12, 399);
             this.IV_B_Reload_Programm.Name = "IV_B_Reload_Programm";

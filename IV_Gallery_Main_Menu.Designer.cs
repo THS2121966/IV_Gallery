@@ -60,6 +60,7 @@ namespace IV_Gallery
             // 
             // IV_G_Button_Exit
             // 
+            this.IV_G_Button_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.IV_G_Button_Exit.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.IV_G_Button_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.IV_G_Button_Exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -93,6 +94,7 @@ namespace IV_Gallery
             // 
             // IV_Button_App_Info
             // 
+            this.IV_Button_App_Info.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.IV_Button_App_Info.Location = new System.Drawing.Point(0, 557);
             this.IV_Button_App_Info.Name = "IV_Button_App_Info";
             this.IV_Button_App_Info.Size = new System.Drawing.Size(60, 20);

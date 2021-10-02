@@ -12,7 +12,7 @@ namespace IV_Gallery_Checkers_Core
         //IV Note: CheckersCore Version:
         static public float iv_checker_dll_code_ver = 0.4f;
         //IV Note: CheckersCore versions Indefier with main programm list:
-        static public float[] supported_vers_p_and_iv_c_c = new float[4] { 0.35f, 0.35f, iv_checker_dll_code_ver, 0.38f };
+        static public float[] supported_vers_p_and_iv_c_c = new float[6] { 0.35f, 0.35f, 0.4f, 0.38f, iv_checker_dll_code_ver, 0.45f };
         //IV Note: Core side Debug Mode parm:
         public bool debug_mode = false;
 

@@ -17,8 +17,8 @@ namespace IV_Gallery
         public IV_Gallery_Main_Menu()
         {
             InitializeComponent();
-            if(iv_gallery_prog_name == iv_gallery_prog_name_checker_list[0] && iv_gallery_prog_ver == list_of_supported_ch_core_vers[3])
-                iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name_checker_list[0], list_of_supported_ch_core_vers[3]);
+            if(iv_gallery_prog_name == iv_gallery_prog_name_checker_list[0] && iv_gallery_prog_ver == list_of_supported_ch_core_vers[5])
+                iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name_checker_list[0], list_of_supported_ch_core_vers[5]);
             else
                 iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver);
             if (IV_Gallery_Checkers_Core.IVCheckerCore.iv_checker_dll_code_ver == last_supported_iv_ch_c_ver)
@@ -47,7 +47,7 @@ namespace IV_Gallery
         static public bool d3x_closed = true;
         int int_to_debug = 0;
         int iv_sb_released_state = 0;
-        static float iv_gallery_prog_ver = 0.38f;
+        static float iv_gallery_prog_ver = 0.45f;
         static float last_supported_iv_ch_c_ver = 0.4f;
         static float[] list_of_supported_ch_core_vers = IV_Gallery_Checkers_Core.IVCheckerCore.supported_vers_p_and_iv_c_c;
         static string iv_gallery_prog_name = "IV_Gallery";

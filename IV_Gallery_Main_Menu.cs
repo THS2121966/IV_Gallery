@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SharpDX.Windows;
 
 namespace IV_Gallery
 {
@@ -43,6 +44,7 @@ namespace IV_Gallery
         bool iv_mm_bg_clicked = false;
         bool iv_released_l_info = true;
         bool iv_l_t_first_inited = true;
+        static public bool d3x_closed = true;
         int int_to_debug = 0;
         int iv_sb_released_state = 0;
         static float iv_gallery_prog_ver = 0.38f;
@@ -53,6 +55,7 @@ namespace IV_Gallery
         static public Image iv_bg_default = Properties.Resources.THSSourcelogoF_source_loading;
         static public IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
         SoundPlayer[] iv_boomer_random = new SoundPlayer[2] { IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_01, IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_02 };
+        DXCoreTest iv_3dx_render = new DXCoreTest();
 
         private void IV_MM_BG_D_Click(object sender, EventArgs e)
         {
@@ -66,6 +69,8 @@ namespace IV_Gallery
                 debug_mode = true;
                 iv_g_m_m.MaximizeBox = true;
                 iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
+                if(d3x_closed || iv_3dx_render.DXWnd.Visible == false)
+                    iv_3dx_render.Run();
             }
             else if(int_to_debug == 8 && debug_mode && IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Visible)
             {
@@ -73,6 +78,9 @@ namespace IV_Gallery
                 debug_mode = false;
                 iv_g_m_m.MaximizeBox = false;
                 iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
+                if(!d3x_closed)
+                    iv_3dx_render.DXWnd.Visible = false;
+                IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
             }
             if (debug_mode)
             {
@@ -147,6 +155,8 @@ namespace IV_Gallery
                 MessageBox.Show("Thank you for testing that programm. Goodbye!!!", "IV");
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Close();
+            if (!d3x_closed)
+                iv_3dx_render.ShutDown();
             iv_g_m_m.Hide();
             IV_T_Exit.Enabled = true;
         }
@@ -198,6 +208,8 @@ namespace IV_Gallery
 
         private void IV_T_Exit_Scenario(object sender, EventArgs e)
         {
+            if(!d3x_closed)
+                iv_3dx_render.ShutDown();
             iv_g_m_m.Close();
         }
 
@@ -217,10 +229,58 @@ namespace IV_Gallery
                 IV_THINK_AB_WINDOW_HOOK.Enabled = false;
                 IV_Button_App_Info.Visible = false;
                 IV_G_Button_Exit.Visible = false;
+                if (!d3x_closed)
+                    iv_3dx_render.ShutDown();
                 debug_mode = false;
                 iv_ch_core.IV_Release_DEBUG_MODE(false);
                 IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
             }
+        }
+    }
+
+    class DXCoreTest
+    {
+        public RenderForm DXWnd;
+
+        public DXCoreTest()
+        {
+            DXWnd = new RenderForm("IV DirectX Render Window");
+            IV_Gallery_Main_Menu.d3x_closed = false;
+            DXWnd.Closed += new System.EventHandler(DXCoreTest.IV_DX_WND_Closed_Hook);
+        }
+
+        public void Run()
+        {
+            if(IV_Gallery_Main_Menu.d3x_closed)
+            {
+                DXWnd = new RenderForm("IV DirectX Render Window");
+                IV_Gallery_Main_Menu.d3x_closed = false;
+                DXWnd.Icon = IV_Gallery_Main_Menu.iv_g_m_m.Icon;
+                RenderLoop.Run(DXWnd, RenderCallback);
+            }
+            else
+            {
+                if(DXWnd.Icon != IV_Gallery_Main_Menu.iv_g_m_m.Icon)
+                    DXWnd.Icon = IV_Gallery_Main_Menu.iv_g_m_m.Icon;
+                DXWnd.Visible = true;
+            }
+            IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_g_m_m_open.Play();
+        }
+
+        public void ShutDown()
+        {
+            DXWnd.Close();
+        }
+
+        public void RenderCallback()
+        {
+
+        }
+
+        static private void IV_DX_WND_Closed_Hook(object sender, EventArgs e)
+        {
+            IV_Gallery_Main_Menu.d3x_closed = true;
+            IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
         }
     }
 }

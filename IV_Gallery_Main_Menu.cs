@@ -367,14 +367,8 @@ namespace IV_Gallery
 
         private void IV_RUN_D3X_Window_Simple()
         {
-            DXWnd = new RenderForm("IV DirectX Render Window");
-            DXWnd.ClientSize = new Size(Width, Height);
-            DXWnd.AllowUserResizing = false;
-            DXWnd.FormClosed += new System.Windows.Forms.FormClosedEventHandler(IV_DX_WND_Closed_Hook);
-            IV_Gallery_Main_Menu.d3x_opened = true;
+            IV_INIT_D3X_Window();
             DXWnd.Icon = IV_Gallery_Main_Menu.iv_g_m_m.Icon;
-            
-            IV3DXInitializeDeviceResources();
 
             RenderLoop.Run(DXWnd, RenderCallback);
         }

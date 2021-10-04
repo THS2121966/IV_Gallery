@@ -10,7 +10,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SharpDX;
+using SharpDX.Direct3D;
+using SharpDX.DXGI;
 using SharpDX.Windows;
+using D3D11 = SharpDX.Direct3D11;
+
 
 namespace IV_Gallery
 {
@@ -308,6 +313,10 @@ namespace IV_Gallery
         private void IV_INIT_D3X_Window()
         {
             DXWnd = new RenderForm("IV DirectX Render Window");
+            int Width = 1280;
+            int Height = 720;
+            DXWnd.ClientSize = new Size(Width, Height);
+            DXWnd.AllowUserResizing = false;
             DXWnd.SuspendLayout();
             DXWnd.FormClosed += new System.Windows.Forms.FormClosedEventHandler(IV_DX_WND_Closed_Hook);
             IV_Gallery_Main_Menu.d3x_opened = true;
@@ -318,6 +327,10 @@ namespace IV_Gallery
         private void IV_RUN_D3X_Window_Simple()
         {
             DXWnd = new RenderForm("IV DirectX Render Window");
+            int Width = 1280;
+            int Height = 720;
+            DXWnd.ClientSize = new Size(Width, Height);
+            DXWnd.AllowUserResizing = false;
             DXWnd.FormClosed += new System.Windows.Forms.FormClosedEventHandler(IV_DX_WND_Closed_Hook);
             IV_Gallery_Main_Menu.d3x_opened = true;
             DXWnd.Icon = IV_Gallery_Main_Menu.iv_g_m_m.Icon;

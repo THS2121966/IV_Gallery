@@ -14,5 +14,9 @@ IV_Sound_Master/obj/
 IV_Sound_Master.pdb
 SharpDX.Desktop.pdb
 SharpDX.pdb
+SharpDX.Direct3D11.pdb
+SharpDX.DXGI.pdb
 SharpDX.Desktop.xml
+SharpDX.Direct3D11.xml
+SharpDX.DXGI.xml
 IV_Gallery_GIT_Release

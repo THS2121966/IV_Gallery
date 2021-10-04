@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define IV_GALLERY_VER_045
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -47,7 +49,9 @@ namespace IV_Gallery
         static public bool d3x_opened = false;
         int int_to_debug = 0;
         int iv_sb_released_state = 0;
+#if IV_GALLERY_VER_045
         static float iv_gallery_prog_ver = 0.45f;
+#endif
         static float last_supported_iv_ch_c_ver = 0.4f;
         static float[] list_of_supported_ch_core_vers = IV_Gallery_Checkers_Core.IVCheckerCore.supported_vers_p_and_iv_c_c;
         static string iv_gallery_prog_name = "IV_Gallery";
@@ -63,6 +67,7 @@ namespace IV_Gallery
             {
                 int_to_debug = int_to_debug + 1;
             }
+#if DEBUG
             else if(int_to_debug == 8 && !debug_mode && IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Visible)
             {
                 int_to_debug = 0;
@@ -82,6 +87,34 @@ namespace IV_Gallery
                     iv_3dx_render.DXWnd.Visible = false;
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
             }
+#else
+            else if(int_to_debug == 8 && IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Visible)
+            {
+                int_to_debug = 0;
+                string dlg_message = "Do you want to ENABLE/DISABLE Debug Mode?";
+                string dlg_iv_msg_logo = "IV Debug Mode";
+                var dlg_result = MessageBox.Show(dlg_message, dlg_iv_msg_logo,
+                             MessageBoxButtons.YesNo,
+                             MessageBoxIcon.Question);
+                if(dlg_result == DialogResult.Yes)
+                {
+                    debug_mode = true;
+                    iv_g_m_m.MaximizeBox = true;
+                    iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
+                    if (!d3x_opened || iv_3dx_render.DXWnd.Visible == false)
+                        iv_3dx_render.Run();
+                }
+                else
+                {
+                    debug_mode = false;
+                    iv_g_m_m.MaximizeBox = false;
+                    iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
+                    if (d3x_opened)
+                        iv_3dx_render.DXWnd.Visible = false;
+                    IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
+                }
+            }
+#endif
             if (debug_mode)
             {
                 if (iv_mm_bg_clicked == false)

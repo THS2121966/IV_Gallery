@@ -279,6 +279,13 @@ namespace IV_Gallery
     class DXCoreTest
     {
         public RenderForm DXWnd;
+        bool first_d3x_inited = true;
+        int Width = 1280;
+        int Height = 720;
+        private D3D11.Device IVDXDevice;
+        private D3D11.DeviceContext IVDXDeviceContext;
+        private SwapChain IVswapChain;
+        private D3D11.RenderTargetView IVrenderTargetView;
 
         public DXCoreTest()
         {
@@ -295,7 +302,15 @@ namespace IV_Gallery
             {
                 if(DXWnd.Icon != IV_Gallery_Main_Menu.iv_g_m_m.Icon)
                     DXWnd.Icon = IV_Gallery_Main_Menu.iv_g_m_m.Icon;
-                DXWnd.Visible = true;
+                if(first_d3x_inited)
+                {
+                    first_d3x_inited = false;
+                    RenderLoop.Run(DXWnd, RenderCallback);
+                }
+                else
+                {
+                    DXWnd.Visible = true;
+                }
             }
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_g_m_m_open.Play();
         }
@@ -307,14 +322,38 @@ namespace IV_Gallery
 
         public void RenderCallback()
         {
+            IVD3X_Draw();
+        }
 
+        private void IV3DXInitializeDeviceResources()
+        {
+            ModeDescription ivdx_backBufferDesc = new ModeDescription(Width, Height, new Rational(60, 1), Format.R8G8B8A8_UNorm);
+
+            // Descriptor for the swap chain
+            SwapChainDescription ivdx_swapChainDesc = new SwapChainDescription()
+            {
+                ModeDescription = ivdx_backBufferDesc,
+                SampleDescription = new SampleDescription(1, 0),
+                Usage = Usage.RenderTargetOutput,
+                BufferCount = 1,
+                OutputHandle = DXWnd.Handle,
+                IsWindowed = true
+            };
+
+            // Create device and swap chain
+            D3D11.Device.CreateWithSwapChain(DriverType.Hardware, D3D11.DeviceCreationFlags.None, ivdx_swapChainDesc, out IVDXDevice, out IVswapChain);
+            IVDXDeviceContext = IVDXDevice.ImmediateContext;
+
+            // Create render target view for back buffer
+            using (D3D11.Texture2D backBuffer = IVswapChain.GetBackBuffer<D3D11.Texture2D>(0))
+            {
+                IVrenderTargetView = new D3D11.RenderTargetView(IVDXDevice, backBuffer);
+            }
         }
 
         private void IV_INIT_D3X_Window()
         {
             DXWnd = new RenderForm("IV DirectX Render Window");
-            int Width = 1280;
-            int Height = 720;
             DXWnd.ClientSize = new Size(Width, Height);
             DXWnd.AllowUserResizing = false;
             DXWnd.SuspendLayout();
@@ -322,19 +361,34 @@ namespace IV_Gallery
             IV_Gallery_Main_Menu.d3x_opened = true;
             DXWnd.ResumeLayout(false);
             DXWnd.PerformLayout();
+
+            IV3DXInitializeDeviceResources();
         }
 
         private void IV_RUN_D3X_Window_Simple()
         {
             DXWnd = new RenderForm("IV DirectX Render Window");
-            int Width = 1280;
-            int Height = 720;
             DXWnd.ClientSize = new Size(Width, Height);
             DXWnd.AllowUserResizing = false;
             DXWnd.FormClosed += new System.Windows.Forms.FormClosedEventHandler(IV_DX_WND_Closed_Hook);
             IV_Gallery_Main_Menu.d3x_opened = true;
             DXWnd.Icon = IV_Gallery_Main_Menu.iv_g_m_m.Icon;
+            
+            IV3DXInitializeDeviceResources();
+
             RenderLoop.Run(DXWnd, RenderCallback);
+        }
+
+        private void IVD3X_Draw()
+        {
+            // Set back buffer as current render target view
+            IVDXDeviceContext.OutputMerger.SetRenderTargets(IVrenderTargetView);
+
+            // Clear the screen
+            IVDXDeviceContext.ClearRenderTargetView(IVrenderTargetView, new SharpDX.Color(32, 103, 178));
+
+            // Swap front and back buffer
+            IVswapChain.Present(1, PresentFlags.None);
         }
 
         private void IV_DX_WND_Closed_Hook(object sender, FormClosedEventArgs e)

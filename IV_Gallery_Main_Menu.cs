@@ -58,10 +58,11 @@ namespace IV_Gallery
         int iv_sb_released_state = 0;
 #if IV_GALLERY_VER_045
         static float iv_gallery_prog_ver = 0.45f;
+        static float last_supported_iv_ch_c_ver = 0.4f;
 #elif IV_GALLERY_VER_048
         static float iv_gallery_prog_ver = 0.48f;
+        static float last_supported_iv_ch_c_ver = 0.42f;
 #endif
-        static float last_supported_iv_ch_c_ver = 0.4f;
         static float[] list_of_supported_ch_core_vers = IV_Gallery_Checkers_Core.IVCheckerCore.supported_vers_p_and_iv_c_c;
         static string iv_gallery_prog_name = "IV_Gallery";
         static string[] iv_gallery_prog_name_checker_list = IV_Gallery_Checkers_Core.IVCheckerCore.iv_gallery_prog_name;
@@ -454,18 +455,26 @@ namespace IV_Gallery
 
         private void IV_DX_WND_Closed_Hook(object sender, FormClosingEventArgs e)
         {
-            const string dlg_message =
-            "Closing IV DirectX Window?";
-            const string dlg_caption = "IV DirectX Manager";
-            var dlg_result = MessageBox.Show(dlg_message, dlg_caption,
-                                         MessageBoxButtons.YesNo,
-                                         MessageBoxIcon.Warning);
-
-            // If the no button was pressed ...
-            if (dlg_result == DialogResult.No)
+            if (DXWnd.Visible)
             {
-                // cancel the closure of the form.
-                e.Cancel = true;
+                const string dlg_message =
+                "Closing IV DirectX Window?";
+                const string dlg_caption = "IV DirectX Manager";
+                var dlg_result = MessageBox.Show(dlg_message, dlg_caption,
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Warning);
+
+                // If the no button was pressed ...
+                if (dlg_result == DialogResult.No)
+                {
+                    // cancel the closure of the form.
+                    e.Cancel = true;
+                }
+                else
+                {
+                    IV_Gallery_Main_Menu.d3x_opened = false;
+                    IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
+                }
             }
             else
             {

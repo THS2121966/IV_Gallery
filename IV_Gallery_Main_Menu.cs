@@ -281,7 +281,7 @@ namespace IV_Gallery
         }
     }
 
-    class DXCoreTest
+    class DXCoreTest : IDisposable
     {
         public RenderForm DXWnd;
         bool first_d3x_inited = true;
@@ -481,6 +481,20 @@ namespace IV_Gallery
                 IV_Gallery_Main_Menu.d3x_opened = false;
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
             }
+        }
+
+        public void Dispose()
+        {
+            IVEngine_inputLayout.Dispose();
+            IVEngine_inputSignature.Dispose();
+            IVtriangleVertexBuffer.Dispose();
+            IV_G_Test_VertexShader.Dispose();
+            IV_G_Test_PixelShader.Dispose();
+            IVrenderTargetView.Dispose();
+            IVswapChain.Dispose();
+            IVDXDevice.Dispose();
+            IVDXDeviceContext.Dispose();
+            DXWnd.Dispose();
         }
     }
 }

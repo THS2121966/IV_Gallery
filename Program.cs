@@ -15,8 +15,8 @@ namespace IV_Gallery
         static void Main()
         {
             Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(IV_Gallery_Main_Menu.iv_g_m_m);
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new IV_Gallery_Main_Menu());
         }
     }
 }

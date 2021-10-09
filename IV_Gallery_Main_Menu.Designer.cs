@@ -147,8 +147,6 @@ namespace IV_Gallery
 
         #endregion
 
-        static public IV_Gallery_Main_Menu iv_g_m_m = new IV_Gallery_Main_Menu();
-
         public System.Windows.Forms.PictureBox IV_Gallery_MM_BG_Picture;
         public System.Windows.Forms.Button IV_G_Button_Exit;
         public System.Windows.Forms.ProgressBar IV_MM_Load_Status_Bar;

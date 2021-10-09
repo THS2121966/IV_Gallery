@@ -1,5 +1,6 @@
 ﻿//#define IV_G_CHECKERS_CORE_VER_04 //Old Version.
-#define IV_G_CHECKERS_CORE_VER_042
+//#define IV_G_CHECKERS_CORE_VER_042 //Old Version.
+#define IV_G_CHECKERS_CORE_VER_042_with_05
 
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,18 @@ namespace IV_Gallery_Checkers_Core
         static public float iv_checker_dll_code_ver = 0.4f;
 #elif IV_G_CHECKERS_CORE_VER_042
         static public float iv_checker_dll_code_ver = 0.42f;
+#elif IV_G_CHECKERS_CORE_VER_042_with_05
+        static public float iv_checker_dll_code_ver = 0.42f;
 #endif
         //IV Note: CheckersCore versions Indefier with main programm list:
+#if IV_G_CHECKERS_CORE_VER_04
+        static public float[] supported_vers_p_and_iv_c_c = new float[8] { 0.35f, 0.35f, 0.4f, 0.38f, iv_checker_dll_code_ver, 0.45f };
+#elif IV_G_CHECKERS_CORE_VER_042
         static public float[] supported_vers_p_and_iv_c_c = new float[8] { 0.35f, 0.35f, 0.4f, 0.38f, 0.4f, 0.45f, iv_checker_dll_code_ver, 0.48f };
+#elif IV_G_CHECKERS_CORE_VER_042_with_05
+        static public float[] supported_vers_p_and_iv_c_c = new float[10] { 0.35f, 0.35f, 0.4f, 0.38f, 0.4f, 0.45f, 0.42f, 
+            0.48f, iv_checker_dll_code_ver, 0.5f };
+#endif
         //IV Note: Core side Debug Mode parm:
         public bool debug_mode = false;
 
@@ -37,7 +47,8 @@ namespace IV_Gallery_Checkers_Core
         static public IV_Sound_Master.IVSMasterCore iv_s_manager = new IV_Sound_Master.IVSMasterCore();
         //IV Note: Text for about_page Programm information:
         static string last_genetaded_inf_for_about = iv_used_programm + " Programm Version - " + iv_used_programm_ver + " Used IV Library: "
-                        + "1) IV Checker Core Version - " + iv_checker_dll_code_ver + " 2) IV Sound Master library Version - 0.1";
+                        + "1) IV Checker Core Version - " + iv_checker_dll_code_ver + " 2) IV Sound Master library Version - 0.1" 
+            + " 3) IVD3X DirectX11 Visualiser (based on Sharp.DirectX)";
         //IV Note: Text for about_page Programm information with DEBUG_MODE_ENABLED:
         static string last_genetaded_inf_for_about_with_dbg = last_genetaded_inf_for_about + " DEBUG_MODE_ENABLED";
 
@@ -50,7 +61,8 @@ namespace IV_Gallery_Checkers_Core
         public int IV_Calculate_for_Progress_Bar(int value_for_recreate = 0, int value_count = 1, string method = "+")
         {
             if (iv_used_programm == null && (supported_vers_p_and_iv_c_c[1] != iv_used_programm_ver || supported_vers_p_and_iv_c_c[3] != iv_used_programm_ver 
-                || supported_vers_p_and_iv_c_c[5] != iv_used_programm_ver || supported_vers_p_and_iv_c_c[7] != iv_used_programm_ver))
+                || supported_vers_p_and_iv_c_c[5] != iv_used_programm_ver || supported_vers_p_and_iv_c_c[7] != iv_used_programm_ver 
+                || supported_vers_p_and_iv_c_c[9] != iv_used_programm_ver))
                 return 505;
 
             if(method == "+" || method == "-" || method == "*" || method == "/")
@@ -112,7 +124,13 @@ namespace IV_Gallery_Checkers_Core
                 MessageBox.Show("That Library dosen't support this app!!! Aborting...", "IV Checker Core " + iv_checker_dll_code_ver + " Programm name - " + main_programm_name);
                 Application.Exit();
             }
+#if IV_G_CHECKERS_CORE_VER_04
+            if(main_prog_ver == supported_vers_p_and_iv_c_c[5] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[4])
+#elif IV_G_CHECKERS_CORE_VER_042
             if(main_prog_ver == supported_vers_p_and_iv_c_c[7] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[6])
+#elif IV_G_CHECKERS_CORE_VER_042_with_05
+            if(main_prog_ver == supported_vers_p_and_iv_c_c[9] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[8])
+#endif
             {
                 checked_programm_ver = true;
                 iv_used_programm_ver = main_prog_ver;
@@ -170,27 +188,30 @@ namespace IV_Gallery_Checkers_Core
         static void IV_Reload_AB_P_Text()
         {
             last_genetaded_inf_for_about = iv_used_programm + " Programm Version - " + iv_used_programm_ver + " Used IV Library: "
-                        + "1) IV Checker Core Version - " + iv_checker_dll_code_ver + " 2) IV Sound Master library Version - 0.1";
+                        + "1) IV Checker Core Version - " + iv_checker_dll_code_ver + " 2) IV Sound Master library Version - 0.1"
+            + " 3) IVD3X DirectX11 Visualiser (based on Sharp.DirectX)";
             last_genetaded_inf_for_about_with_dbg = last_genetaded_inf_for_about + " DEBUG_MODE_ENABLED";
         }
         ////////////////////////////////////////////////////
         //IV Note: Debug mode Core Activator void Method.//
         //////////////////////////////////////////////////
-        public void IV_Release_DEBUG_MODE(bool active_state = true)
+        public void IV_Release_DEBUG_MODE(bool active_state = true, bool silent_state = false)
         {
             if(active_state)
             {
                 debug_mode = true;
                 if (debug_mode && iv_app_inf_main.Visible)
                     iv_app_inf_main.IV_C_C_About_Page.Text = last_genetaded_inf_for_about_with_dbg;
-                MessageBox.Show("Debug State was - ON", "IV "+ iv_used_programm);
+                if(!silent_state)
+                    MessageBox.Show("Debug State was - ON", "IV "+ iv_used_programm);
             }
             else
             {
                 debug_mode = false;
                 if (!debug_mode && iv_app_inf_main.Visible)
                     iv_app_inf_main.IV_C_C_About_Page.Text = last_genetaded_inf_for_about;
-                MessageBox.Show("Debug State was - OFF", "IV " + iv_used_programm);
+                if (!silent_state)
+                    MessageBox.Show("Debug State was - OFF", "IV " + iv_used_programm);
             }
         }
     }

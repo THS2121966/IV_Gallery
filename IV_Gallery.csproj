@@ -90,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IV_VertexPosColor.cs" />
     <Compile Include="IV_D3X_Core.cs" />
     <Compile Include="IV_Gallery_Main_Menu.cs">
       <SubType>Form</SubType>

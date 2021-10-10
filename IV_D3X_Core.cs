@@ -37,11 +37,12 @@ namespace IV_Gallery
 
         private D3D11.InputElement[] IVEngine_inputElements = new D3D11.InputElement[]
         {
-            new D3D11.InputElement("POSITION", 0, Format.R32G32B32_Float, 0)
+            new D3D11.InputElement("POSITION", 0, Format.R32G32B32_Float, 0, 0, D3D11.InputClassification.PerVertexData, 0),
+            new D3D11.InputElement("COLOR", 0, Format.R32G32B32A32_Float, 12, 0, D3D11.InputClassification.PerVertexData, 0)
         };
 
         // Triangle vertices
-        private Vector3[] IVvertices = new Vector3[] { new Vector3(-0.5f, 0.5f, 0.0f), new Vector3(0.5f, 0.5f, 0.0f), new Vector3(0.0f, -0.5f, 0.0f) };
+        private IV_VertexPosColor[] IVvertices = new IV_VertexPosColor[] { new IV_VertexPosColor(new Vector3(-0.5f, 0.5f, 0.0f), SharpDX.Color.Red), new IV_VertexPosColor(new Vector3(0.5f, 0.5f, 0.0f), SharpDX.Color.Green), new IV_VertexPosColor(new Vector3(0.0f, -0.5f, 0.0f), SharpDX.Color.Blue) };
         private D3D11.Buffer IVtriangleVertexBuffer;
 
         public DXCoreTest()
@@ -144,7 +145,7 @@ namespace IV_Gallery
         private void IV3DXInitializeTriangle()
         {
             // Create a vertex buffer, and use our array with vertices as data
-            IVtriangleVertexBuffer = D3D11.Buffer.Create<Vector3>(IVDXDevice, D3D11.BindFlags.VertexBuffer, IVvertices);
+            IVtriangleVertexBuffer = D3D11.Buffer.Create(IVDXDevice, D3D11.BindFlags.VertexBuffer, IVvertices);
         }
 
         private void IV_INIT_D3X_Window()
@@ -173,14 +174,14 @@ namespace IV_Gallery
 
         private void IVD3X_Draw()
         {
-            // Set back buffer as current render target view
+            // Set render targets
             IVDXDeviceContext.OutputMerger.SetRenderTargets(IVrenderTargetView);
 
             // Clear the screen
             IVDXDeviceContext.ClearRenderTargetView(IVrenderTargetView, new SharpDX.Color(32, 103, 178));
 
             // Set vertex buffer
-            IVDXDeviceContext.InputAssembler.SetVertexBuffers(0, new D3D11.VertexBufferBinding(IVtriangleVertexBuffer, Utilities.SizeOf<Vector3>(), 0));
+            IVDXDeviceContext.InputAssembler.SetVertexBuffers(0, new D3D11.VertexBufferBinding(IVtriangleVertexBuffer, Utilities.SizeOf<IV_VertexPosColor>(), 0));
 
             // Draw the triangle
             IVDXDeviceContext.Draw(IVvertices.Count(), 0);

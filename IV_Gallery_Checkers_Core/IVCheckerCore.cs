@@ -1,6 +1,7 @@
 ﻿//#define IV_G_CHECKERS_CORE_VER_04 //Old Version.
 //#define IV_G_CHECKERS_CORE_VER_042 //Old Version.
-#define IV_G_CHECKERS_CORE_VER_042_with_05
+//#define IV_G_CHECKERS_CORE_VER_042_with_05 //Old Version.
+#define IV_G_CHECKERS_CORE_VER_045
 
 using System;
 using System.Collections.Generic;
@@ -20,15 +21,20 @@ namespace IV_Gallery_Checkers_Core
         static public float iv_checker_dll_code_ver = 0.42f;
 #elif IV_G_CHECKERS_CORE_VER_042_with_05
         static public float iv_checker_dll_code_ver = 0.42f;
+#elif IV_G_CHECKERS_CORE_VER_045
+        static public float iv_checker_dll_code_ver = 0.45f;
 #endif
         //IV Note: CheckersCore versions Indefier with main programm list:
 #if IV_G_CHECKERS_CORE_VER_04
-        static public float[] supported_vers_p_and_iv_c_c = new float[8] { 0.35f, 0.35f, 0.4f, 0.38f, iv_checker_dll_code_ver, 0.45f };
+        static public float[] supported_vers_p_and_iv_c_c = new float[6] { 0.35f, 0.35f, 0.4f, 0.38f, iv_checker_dll_code_ver, 0.45f };
 #elif IV_G_CHECKERS_CORE_VER_042
         static public float[] supported_vers_p_and_iv_c_c = new float[8] { 0.35f, 0.35f, 0.4f, 0.38f, 0.4f, 0.45f, iv_checker_dll_code_ver, 0.48f };
 #elif IV_G_CHECKERS_CORE_VER_042_with_05
         static public float[] supported_vers_p_and_iv_c_c = new float[10] { 0.35f, 0.35f, 0.4f, 0.38f, 0.4f, 0.45f, 0.42f, 
             0.48f, iv_checker_dll_code_ver, 0.5f };
+#elif IV_G_CHECKERS_CORE_VER_045
+        static public float[] supported_vers_p_and_iv_c_c = new float[12] { 0.35f, 0.35f, 0.4f, 0.38f, 0.4f, 0.45f, 0.42f, 
+            0.48f, 0.42f, 0.5f, iv_checker_dll_code_ver, 0.52f };
 #endif
         //IV Note: Core side Debug Mode parm:
         public bool debug_mode = false;
@@ -60,11 +66,6 @@ namespace IV_Gallery_Checkers_Core
         ///////////////////////////////////////////////////////////////////
         public int IV_Calculate_for_Progress_Bar(int value_for_recreate = 0, int value_count = 1, string method = "+")
         {
-            if (iv_used_programm == null && (supported_vers_p_and_iv_c_c[1] != iv_used_programm_ver || supported_vers_p_and_iv_c_c[3] != iv_used_programm_ver 
-                || supported_vers_p_and_iv_c_c[5] != iv_used_programm_ver || supported_vers_p_and_iv_c_c[7] != iv_used_programm_ver 
-                || supported_vers_p_and_iv_c_c[9] != iv_used_programm_ver))
-                return 505;
-
             if(method == "+" || method == "-" || method == "*" || method == "/")
             {
                 if(method == "+")
@@ -130,6 +131,8 @@ namespace IV_Gallery_Checkers_Core
             if(main_prog_ver == supported_vers_p_and_iv_c_c[7] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[6])
 #elif IV_G_CHECKERS_CORE_VER_042_with_05
             if(main_prog_ver == supported_vers_p_and_iv_c_c[9] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[8])
+#elif IV_G_CHECKERS_CORE_VER_045
+            if(main_prog_ver == supported_vers_p_and_iv_c_c[11] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[10])
 #endif
             {
                 checked_programm_ver = true;

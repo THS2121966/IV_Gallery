@@ -1,7 +1,8 @@
 ﻿//#define IV_G_CHECKERS_CORE_VER_04 //Old Version.
 //#define IV_G_CHECKERS_CORE_VER_042 //Old Version.
 //#define IV_G_CHECKERS_CORE_VER_042_with_05 //Old Version.
-#define IV_G_CHECKERS_CORE_VER_045
+//#define IV_G_CHECKERS_CORE_VER_045 //Old Version.
+#define IV_G_CHECKERS_CORE_VER_045_with_GALLERY_NEW_IVD3X_CORE
 
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace IV_Gallery_Checkers_Core
         static public float iv_checker_dll_code_ver = 0.42f;
 #elif IV_G_CHECKERS_CORE_VER_045
         static public float iv_checker_dll_code_ver = 0.45f;
+#elif IV_G_CHECKERS_CORE_VER_045_with_GALLERY_NEW_IVD3X_CORE
+        static public float iv_checker_dll_code_ver = 0.45f;
 #endif
         //IV Note: CheckersCore versions Indefier with main programm list:
 #if IV_G_CHECKERS_CORE_VER_04
@@ -35,6 +38,9 @@ namespace IV_Gallery_Checkers_Core
 #elif IV_G_CHECKERS_CORE_VER_045
         static public float[] supported_vers_p_and_iv_c_c = new float[12] { 0.35f, 0.35f, 0.4f, 0.38f, 0.4f, 0.45f, 0.42f, 
             0.48f, 0.42f, 0.5f, iv_checker_dll_code_ver, 0.52f };
+#elif IV_G_CHECKERS_CORE_VER_045_with_GALLERY_NEW_IVD3X_CORE
+        static public float[] supported_vers_p_and_iv_c_c = new float[14] { 0.35f, 0.35f, 0.4f, 0.38f, 0.4f, 0.45f, 0.42f, 
+            0.48f, 0.42f, 0.5f, 0.45f, 0.52f, iv_checker_dll_code_ver, 0.53f };
 #endif
         //IV Note: Core side Debug Mode parm:
         public bool debug_mode = false;
@@ -53,7 +59,7 @@ namespace IV_Gallery_Checkers_Core
         static public IV_Sound_Master.IVSMasterCore iv_s_manager = new IV_Sound_Master.IVSMasterCore();
         //IV Note: Text for about_page Programm information:
         static string last_genetaded_inf_for_about = iv_used_programm + " Programm Version - " + iv_used_programm_ver + " Used IV Library: "
-                        + "1) IV Checker Core Version - " + iv_checker_dll_code_ver + " 2) IV Sound Master library Version - 0.1" 
+                        + "1) IV Checker Core Version - " + iv_checker_dll_code_ver + " 2) IV Sound Master library Version - " + IV_Sound_Master.IVSMasterCore.iv_s_master_ver 
             + " 3) IVD3X DirectX11 Visualiser (based on Sharp.DirectX)";
         //IV Note: Text for about_page Programm information with DEBUG_MODE_ENABLED:
         static string last_genetaded_inf_for_about_with_dbg = last_genetaded_inf_for_about + " DEBUG_MODE_ENABLED";
@@ -133,6 +139,8 @@ namespace IV_Gallery_Checkers_Core
             if(main_prog_ver == supported_vers_p_and_iv_c_c[9] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[8])
 #elif IV_G_CHECKERS_CORE_VER_045
             if(main_prog_ver == supported_vers_p_and_iv_c_c[11] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[10])
+#elif IV_G_CHECKERS_CORE_VER_045_with_GALLERY_NEW_IVD3X_CORE
+            if (main_prog_ver == supported_vers_p_and_iv_c_c[13] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[12])
 #endif
             {
                 checked_programm_ver = true;
@@ -191,7 +199,7 @@ namespace IV_Gallery_Checkers_Core
         static void IV_Reload_AB_P_Text()
         {
             last_genetaded_inf_for_about = iv_used_programm + " Programm Version - " + iv_used_programm_ver + " Used IV Library: "
-                        + "1) IV Checker Core Version - " + iv_checker_dll_code_ver + " 2) IV Sound Master library Version - 0.1"
+                        + "1) IV Checker Core Version - " + iv_checker_dll_code_ver + " 2) IV Sound Master library Version - " + IV_Sound_Master.IVSMasterCore.iv_s_master_ver
             + " 3) IVD3X DirectX11 Visualiser (based on Sharp.DirectX)";
             last_genetaded_inf_for_about_with_dbg = last_genetaded_inf_for_about + " DEBUG_MODE_ENABLED";
         }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define IV_S_MASTER_VER_03
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +11,9 @@ namespace IV_Sound_Master
 {
     public class IVSMasterCore
     {
+#if IV_S_MASTER_VER_03
+        static public float iv_s_master_ver = 0.3f;
+#endif
         //IV Note: Assembly for reading inluded resources in that core:
         static private System.Reflection.Assembly iv_core_assembly = System.Reflection.Assembly.GetExecutingAssembly();
         //IV Note: menu_return sound file:

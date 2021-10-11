@@ -58,11 +58,11 @@ namespace IV_Gallery_Checkers_Core
         //IV Note: IV_S_Library Core Loading:
         static public IV_Sound_Master.IVSMasterCore iv_s_manager = new IV_Sound_Master.IVSMasterCore();
         //IV Note: Text for about_page Programm information:
-        static string last_genetaded_inf_for_about = iv_used_programm + " Programm Version - " + iv_used_programm_ver + " Used IV Library: "
+        static private string last_genetaded_inf_for_about = iv_used_programm + " Programm Version - " + iv_used_programm_ver + " Used IV Library: "
                         + "1) IV Checker Core Version - " + iv_checker_dll_code_ver + " 2) IV Sound Master library Version - " + IV_Sound_Master.IVSMasterCore.iv_s_master_ver 
             + " 3) IVD3X DirectX11 Visualiser (based on Sharp.DirectX)";
         //IV Note: Text for about_page Programm information with DEBUG_MODE_ENABLED:
-        static string last_genetaded_inf_for_about_with_dbg = last_genetaded_inf_for_about + " DEBUG_MODE_ENABLED";
+        static private string last_genetaded_inf_for_about_with_dbg = last_genetaded_inf_for_about + " DEBUG_MODE_ENABLED";
 
 
         //IV Note: Intreger Create Scenario for Save Release Progress Bar variables.
@@ -196,7 +196,7 @@ namespace IV_Gallery_Checkers_Core
         /////////////////////////////////////////////
         //IV Note: void for Reload AboutPage Text.//
         ///////////////////////////////////////////
-        static void IV_Reload_AB_P_Text()
+        static private void IV_Reload_AB_P_Text()
         {
             last_genetaded_inf_for_about = iv_used_programm + " Programm Version - " + iv_used_programm_ver + " Used IV Library: "
                         + "1) IV Checker Core Version - " + iv_checker_dll_code_ver + " 2) IV Sound Master library Version - " + IV_Sound_Master.IVSMasterCore.iv_s_master_ver

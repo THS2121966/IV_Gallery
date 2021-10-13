@@ -44,6 +44,7 @@ namespace IV_Gallery
             this.IV_B_Debug_ChangeBGImage = new System.Windows.Forms.Button();
             this.IV_DLG_BG_IMG_Finder = new System.Windows.Forms.OpenFileDialog();
             this.IV_AB_ChangeBG_Button = new System.Windows.Forms.ToolTip(this.components);
+            this.IV_B_Debug_Resset_BG_IMG_TO_Def = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.IV_Gallery_MM_BG_Picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -145,7 +146,6 @@ namespace IV_Gallery
             // 
             // IV_DLG_BG_IMG_Finder
             // 
-            this.IV_DLG_BG_IMG_Finder.Filter = "*.png|*.jpg";
             this.IV_DLG_BG_IMG_Finder.InitialDirectory = ".\\";
             this.IV_DLG_BG_IMG_Finder.Title = "IV File Dialog Manager";
             this.IV_DLG_BG_IMG_Finder.FileOk += new System.ComponentModel.CancelEventHandler(this.IV_DLG_BG_Set_Result);
@@ -156,11 +156,26 @@ namespace IV_Gallery
             this.IV_AB_ChangeBG_Button.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.IV_AB_ChangeBG_Button.ToolTipTitle = "IV About";
             // 
+            // IV_B_Debug_Resset_BG_IMG_TO_Def
+            // 
+            this.IV_B_Debug_Resset_BG_IMG_TO_Def.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.IV_B_Debug_Resset_BG_IMG_TO_Def.BackColor = System.Drawing.Color.Red;
+            this.IV_B_Debug_Resset_BG_IMG_TO_Def.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.IV_B_Debug_Resset_BG_IMG_TO_Def.Location = new System.Drawing.Point(730, 26);
+            this.IV_B_Debug_Resset_BG_IMG_TO_Def.Name = "IV_B_Debug_Resset_BG_IMG_TO_Def";
+            this.IV_B_Debug_Resset_BG_IMG_TO_Def.Size = new System.Drawing.Size(70, 20);
+            this.IV_B_Debug_Resset_BG_IMG_TO_Def.TabIndex = 5;
+            this.IV_B_Debug_Resset_BG_IMG_TO_Def.Text = "Resset BG";
+            this.IV_B_Debug_Resset_BG_IMG_TO_Def.UseVisualStyleBackColor = false;
+            this.IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = false;
+            this.IV_B_Debug_Resset_BG_IMG_TO_Def.Click += new System.EventHandler(this.IV_B_BG_Reset_Hook);
+            // 
             // IV_Gallery_Main_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 577);
+            this.Controls.Add(this.IV_B_Debug_Resset_BG_IMG_TO_Def);
             this.Controls.Add(this.IV_B_Debug_ChangeBGImage);
             this.Controls.Add(this.IV_Button_App_Info);
             this.Controls.Add(this.IV_MM_Load_Status_Bar);
@@ -192,6 +207,7 @@ namespace IV_Gallery
         private System.Windows.Forms.Button IV_B_Debug_ChangeBGImage;
         private System.Windows.Forms.OpenFileDialog IV_DLG_BG_IMG_Finder;
         private System.Windows.Forms.ToolTip IV_AB_ChangeBG_Button;
+        private System.Windows.Forms.Button IV_B_Debug_Resset_BG_IMG_TO_Def;
     }
 }
 

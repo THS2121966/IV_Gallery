@@ -28,6 +28,8 @@ namespace IV_Sound_Master
         static private System.IO.Stream menu_ui_secred_sanya_boomer_sound_file_2 = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.boomerbacterias.wav");
         //IV Note: Picture Accept Sound File:
         static private System.IO.Stream menu_ui_picture_accept = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.alert_clink.wav");
+        //IV Note: UI Problem Sound File:
+        static private System.IO.Stream menu_ui_problem = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.beep_error01.wav");
         //IV Note: Close about_page UI Scenario sound:
         public SoundPlayer ui_s_wnd_def_close = new SoundPlayer(menu_ui_default_s_file_close);
         //IV Note: Open about_page UI Scenario sound:
@@ -40,5 +42,7 @@ namespace IV_Sound_Master
         public SoundPlayer ui_picture_boomer_s_02 = new SoundPlayer(menu_ui_secred_sanya_boomer_sound_file_2);
         //IV Note: BG Picture Accept sound:
         public SoundPlayer ui_picture_accept_s = new SoundPlayer(menu_ui_picture_accept);
+        //IV Note: Main UI Problem sound:
+        public SoundPlayer ui_bug_s = new SoundPlayer(menu_ui_problem);
     }
 }

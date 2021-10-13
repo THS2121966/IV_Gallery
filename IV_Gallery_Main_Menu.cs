@@ -87,7 +87,9 @@ namespace IV_Gallery
         private static float[] list_of_supported_ch_core_vers = IV_Gallery_Checkers_Core.IVCheckerCore.supported_vers_p_and_iv_c_c;
         private static string iv_gallery_prog_name = "IV_Gallery";
         private static string[] iv_gallery_prog_name_checker_list = IV_Gallery_Checkers_Core.IVCheckerCore.iv_gallery_prog_name;
-        static public Image iv_bg_default = Properties.Resources.THSSourcelogoF_source_loading;
+        static public Image iv_bg_default_standart = Properties.Resources.THSSourcelogoF_source_loading;
+        public Image iv_bg_default = iv_bg_default_standart;
+        private bool iv_bg_changed = false;
         static public IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
         private SoundPlayer[] iv_boomer_random = new SoundPlayer[2] { IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_01, IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_02 };
         private DXCoreTest iv_3dx_render = new DXCoreTest();
@@ -172,6 +174,7 @@ namespace IV_Gallery
         {
             //IV Note: Random scenario for chosing boomer sounds
             Random iv_rnd_for_boomer = new Random();
+
             if (clicked == true)
             {
                 IV_Gallery_MM_BG_Picture.Image = Properties.Resources.SanyaLogoF;
@@ -179,6 +182,7 @@ namespace IV_Gallery
                 iv_boomer_random[iv_rnd_for_boomer.Next(0, 2)].Play();
                 IV_G_Button_Exit.Visible = false;
                 IV_B_Debug_ChangeBGImage.Visible = false;
+                IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = false;
             }
             else
             {
@@ -187,6 +191,10 @@ namespace IV_Gallery
                 IV_G_Button_Exit.Visible = true;
                 if(debug_mode)
                     IV_B_Debug_ChangeBGImage.Visible = true;
+                if(iv_bg_changed)
+                {
+                    IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = true;
+                }
             }
             IV_Release_Load_INFO(70);
         }
@@ -317,27 +325,68 @@ namespace IV_Gallery
             IV_DLG_BG_IMG_Finder.ShowDialog();
         }
 
+        private Image IV_DLG_Detect_BG_Image(string iv_path_file_detect = null)
+        {
+            Image iv_new_photo;
+            if (iv_path_file_detect != String.Empty || iv_path_file_detect != null)
+            {
+                iv_new_photo = Image.FromFile(iv_path_file_detect);
+#if DEBUG
+                MessageBox.Show("Image Result - OK","IV Debug Manager");
+#endif
+                return iv_new_photo;
+            }
+#if DEBUG
+            IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_bug_s.Play();
+            MessageBox.Show("Image Result - ERROR!!!", "IV Debug Manager");
+#endif
+            return null;
+        }
+
         private void IV_DLG_BG_Set_Result(object sender, CancelEventArgs e)
         {
             var iv_fl_path = String.Empty;
             Image iv_temp_bg_def_old;
             Image iv_new_photo;
             iv_fl_path = IV_DLG_BG_IMG_Finder.FileName;
-            if(iv_fl_path != String.Empty)
+            if (iv_fl_path.Contains(".png") || iv_fl_path.Contains(".jpg") || iv_fl_path.Contains(".JPG") 
+                || iv_fl_path.Contains(".jpeg") || iv_fl_path.Contains(".bmp") || iv_fl_path.Contains(".PNG"))
+                iv_new_photo = IV_DLG_Detect_BG_Image(iv_fl_path);
+            else
+                iv_new_photo = null;
+            if(iv_new_photo != null)
             {
                 iv_temp_bg_def_old = iv_bg_default;
-                iv_new_photo = Image.FromFile(iv_fl_path);
                 iv_bg_default = iv_new_photo;
-                if(IV_Gallery_MM_BG_Picture.Image == iv_temp_bg_def_old)
+                iv_bg_changed = true;
+                if (IV_Gallery_MM_BG_Picture.Image == iv_temp_bg_def_old)
                 {
                     IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
+                    IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = true;
                     IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_accept_s.Play();
                 }
             }
             else
             {
+                IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_bug_s.Play();
                 MessageBox.Show("File no chosed or INVAID!!!", IV_DLG_BG_IMG_Finder.Title);
             }
+        }
+
+        private void IV_Resset_Main_BG()
+        {
+            iv_bg_changed = false;
+            Image iv_bg_last_temp = IV_Gallery_MM_BG_Picture.Image;
+            iv_bg_default = iv_bg_default_standart;
+            IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
+            IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_accept_s.Play();
+            if (iv_bg_default == iv_bg_default_standart)
+                IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = false;
+        }
+
+        private void IV_B_BG_Reset_Hook(object sender, EventArgs e)
+        {
+            IV_Resset_Main_BG();
         }
     }
 }

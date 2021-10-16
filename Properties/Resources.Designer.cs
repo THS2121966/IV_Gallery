@@ -93,6 +93,16 @@ namespace IV_Gallery.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ths_z_nationF {
+            get {
+                object obj = ResourceManager.GetObject("ths_z_nationF", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap THSSourcelogoF_source_loading {
             get {
                 object obj = ResourceManager.GetObject("THSSourcelogoF_source_loading", resourceCulture);

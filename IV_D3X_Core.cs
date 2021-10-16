@@ -20,6 +20,7 @@ namespace IV_Gallery
     class DXCoreTest : IDisposable
     {
         public RenderForm DXWnd;
+        private static string thsdev_iv_d3x_logo = IV_Gallery_Main_Menu.thsdev_iv_logo + " DirectX (D3X) Visualiser";
         public bool d3x_opened = false;
         public bool ivdx_shutdown_silent = false;
         private bool first_d3x_inited = true;
@@ -152,7 +153,7 @@ namespace IV_Gallery
 
         private void IV_INIT_D3X_Window()
         {
-            DXWnd = new RenderForm("IV DirectX Render Window");
+            DXWnd = new RenderForm(thsdev_iv_d3x_logo);
             DXWnd.ClientSize = new Size(Width, Height);
             DXWnd.AllowUserResizing = false;
             DXWnd.SuspendLayout();
@@ -196,9 +197,9 @@ namespace IV_Gallery
         {
             if (DXWnd.Visible && !ivdx_shutdown_silent)
             {
-                const string dlg_message =
-                "Closing IV DirectX Window?";
-                const string dlg_caption = "IV DirectX Manager";
+                string dlg_message =
+                "Close "+ thsdev_iv_d3x_logo + "?";
+                string dlg_caption = thsdev_iv_d3x_logo;
                 var dlg_result = MessageBox.Show(dlg_message, dlg_caption,
                                              MessageBoxButtons.YesNo,
                                              MessageBoxIcon.Warning);

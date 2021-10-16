@@ -62,6 +62,9 @@ namespace IV_Gallery
         //IV Note: Main Menu Parms://
         ////////////////////////////
         private bool debug_mode = false;
+        public static string thsdev_iv_logo = "IV";
+        public static string thsdev_iv_warning_logo = thsdev_iv_logo + " Warning!";
+        public static string thsdev_iv_error_logo = thsdev_iv_logo + " Error!!!";
         static public IV_Gallery_Main_Menu iv_g_m_m;
         private bool iv_mm_bg_clicked = false;
         private bool iv_released_l_info = true;
@@ -93,6 +96,32 @@ namespace IV_Gallery
         static public IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
         private SoundPlayer[] iv_boomer_random = new SoundPlayer[2] { IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_01, IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_02 };
         private DXCoreTest iv_3dx_render = new DXCoreTest();
+
+        public static string IV_Release_Problem_Message(string message, bool is_error = false)
+        {
+            if(message == String.Empty || message == null)
+            {
+                IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_bug_s.Play();
+                MessageBox.Show("Problem isn't founded! Aborting...", thsdev_iv_logo);
+                return null;
+            }
+            if(!is_error)
+            {
+                IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_bug_s.Play();
+                MessageBox.Show("Something was wrong... - " + message, thsdev_iv_warning_logo, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return message;
+            }
+            else
+            {
+                IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_bug_s.Play();
+                var iv_warning_result = MessageBox.Show("Something was wrong... - " + message + ". If you want to 'Reload' programm press 'OK', else programm will be 'Closed'.", thsdev_iv_error_logo, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                if (iv_warning_result == DialogResult.Yes)
+                    Application.Restart();
+                else
+                    Application.Exit();
+                return message;
+            }
+        }
 
         private void IV_MM_BG_D_Click(object sender, EventArgs e)
         {
@@ -127,7 +156,7 @@ namespace IV_Gallery
             {
                 int_to_debug = 0;
                 string dlg_message = "Do you want to ENABLE/DISABLE Debug Mode?";
-                string dlg_iv_msg_logo = "IV Debug Mode";
+                string dlg_iv_msg_logo = thsdev_iv_logo;
                 var dlg_result = MessageBox.Show(dlg_message, dlg_iv_msg_logo,
                              MessageBoxButtons.YesNo,
                              MessageBoxIcon.Question);
@@ -232,7 +261,7 @@ namespace IV_Gallery
             int_to_debug = 0;
             iv_3dx_render.ivdx_shutdown_silent = true;
             if (debug_mode)
-                MessageBox.Show("Thank you for testing that programm. Goodbye!!!", "IV");
+                MessageBox.Show("Thank you for testing that programm. Goodbye!!!", thsdev_iv_logo);
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Close();
             if (iv_3dx_render.d3x_opened)
@@ -310,6 +339,8 @@ namespace IV_Gallery
                 IV_THINK_AB_WINDOW_HOOK.Enabled = false;
                 IV_Button_App_Info.Visible = false;
                 IV_B_Debug_ChangeBGImage.Visible = false;
+                if (IV_Check_BG_Change_Status())
+                    IV_Resset_Main_BG();
                 IV_G_Button_Exit.Visible = false;
                 iv_3dx_render.ivdx_shutdown_silent = true;
                 if (iv_3dx_render.d3x_opened)
@@ -337,8 +368,7 @@ namespace IV_Gallery
                 return iv_new_photo;
             }
 #if DEBUG
-            IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_bug_s.Play();
-            MessageBox.Show("Image Result - ERROR!!!", "IV Debug Manager");
+            IV_Release_Problem_Message("Image Result - ERROR!!!");
 #endif
             return null;
         }
@@ -373,6 +403,25 @@ namespace IV_Gallery
             }
         }
 
+        private bool IV_Check_BG_Change_Status(bool force_true = false)
+        {
+            if(force_true)
+            {
+                return true;
+            }
+            else
+            {
+                if(iv_bg_changed)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         private void IV_Resset_Main_BG()
         {
             iv_bg_changed = false;
@@ -386,7 +435,10 @@ namespace IV_Gallery
 
         private void IV_B_BG_Reset_Hook(object sender, EventArgs e)
         {
-            IV_Resset_Main_BG();
+            if (IV_Check_BG_Change_Status())
+                IV_Resset_Main_BG();
+            else
+                IV_Release_Problem_Message("iv_bg_changed - Checked and = " + IV_Check_BG_Change_Status().ToString() + ". Why? Tell a programmer!!!");
         }
     }
 }

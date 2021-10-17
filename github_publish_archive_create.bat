@@ -18,6 +18,7 @@ copy .\System.Memory.dll .\IV_Gallery_GIT_Release\IV_Gallery
 copy .\System.Numerics.Vectors.dll .\IV_Gallery_GIT_Release\IV_Gallery
 copy .\System.Runtime.CompilerServices.Unsafe.dll .\IV_Gallery_GIT_Release\IV_Gallery
 copy .\LibVLCSharp.dll .\IV_Gallery_GIT_Release\IV_Gallery
+copy .\LibVLCSharp.WinForms.dll .\IV_Gallery_GIT_Release\IV_Gallery
 
 copy .\iv_shaders_cache\gallery_test_pixelShader.hlsl .\IV_Gallery_GIT_Release\IV_Gallery\iv_shaders_cache
 copy .\iv_shaders_cache\gallery_test_vertexShader.hlsl .\IV_Gallery_GIT_Release\IV_Gallery\iv_shaders_cache

@@ -102,9 +102,9 @@ namespace IV_Gallery_Checkers_Core
             this.IV_B_Music_Player.Cursor = System.Windows.Forms.Cursors.Hand;
             this.IV_B_Music_Player.Location = new System.Drawing.Point(0, 318);
             this.IV_B_Music_Player.Name = "IV_B_Music_Player";
-            this.IV_B_Music_Player.Size = new System.Drawing.Size(75, 25);
+            this.IV_B_Music_Player.Size = new System.Drawing.Size(85, 25);
             this.IV_B_Music_Player.TabIndex = 3;
-            this.IV_B_Music_Player.Text = "Music Player";
+            this.IV_B_Music_Player.Text = "Media Player";
             this.IV_B_Music_Player.UseVisualStyleBackColor = false;
             this.IV_B_Music_Player.Click += new System.EventHandler(this.IV_B_MP_Press_Hook);
             // 

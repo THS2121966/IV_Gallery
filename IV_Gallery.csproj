@@ -111,11 +111,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IV_Music_Player.cs">
+    <Compile Include="IV_Media_Player.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IV_Music_Player.Designer.cs">
-      <DependentUpon>IV_Music_Player.cs</DependentUpon>
+    <Compile Include="IV_Media_Player.Designer.cs">
+      <DependentUpon>IV_Media_Player.cs</DependentUpon>
     </Compile>
     <Compile Include="IV_VertexPosColor.cs" />
     <Compile Include="IV_D3X_Core.cs" />
@@ -130,8 +130,8 @@
     <EmbeddedResource Include="IV_Gallery_Main_Menu.resx">
       <DependentUpon>IV_Gallery_Main_Menu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IV_Music_Player.resx">
-      <DependentUpon>IV_Music_Player.cs</DependentUpon>
+    <EmbeddedResource Include="IV_Media_Player.resx">
+      <DependentUpon>IV_Media_Player.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -53,6 +53,12 @@
     <EmbeddedResource Include="iv_sound_cache\boomerbacteria.wav" />
     <EmbeddedResource Include="iv_sound_cache\boomerbacterias.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="iv_sound_cache\alert_clink.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="iv_sound_cache\beep_error01.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\bin\Debug</PostBuildEvent>

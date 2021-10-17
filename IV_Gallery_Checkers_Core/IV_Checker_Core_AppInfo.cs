@@ -15,6 +15,8 @@ namespace IV_Gallery_Checkers_Core
         public IV_Checker_Core_AppInfo()
         {
             InitializeComponent();
+            if (IV_CHECK_MP_Button() || IVCheckerCore.iv_mp_showed)
+                IV_B_Music_Player.Visible = false;
         }
 
         public bool iv_ab_closed_hook = false;
@@ -42,6 +44,35 @@ namespace IV_Gallery_Checkers_Core
         {
             IV_T_CountDown_To_Restart.Enabled = false;
             Application.Restart();
+        }
+
+        private bool IV_CHECK_MP_Button(bool force_status_on = false)
+        {
+            if (!force_status_on)
+            {
+                if (IVCheckerCore.iv_music_player_show_hack)
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return force_status_on;
+        }
+
+        public void IV_MP_Realise_Music_Button(bool skip_hack = false)
+        {
+            if(!skip_hack)
+                IVCheckerCore.iv_music_player_show_hack = false;
+            IV_B_Music_Player.Visible = true;
+        }
+
+        private void IV_B_MP_Press_Hook(object sender, EventArgs e)
+        {
+            if (!IVCheckerCore.iv_music_player_show_hack)
+            {
+                IVCheckerCore.iv_music_player_show_hack = true;
+                IV_B_Music_Player.Visible = false;
+            }
         }
     }
 }

@@ -20,9 +20,12 @@ namespace IV_Gallery
     class DXCoreTest : IDisposable
     {
         public RenderForm DXWnd;
-        bool first_d3x_inited = true;
-        int Width = 1280;
-        int Height = 720;
+        private static string thsdev_iv_d3x_logo = IV_Gallery_Main_Menu.thsdev_iv_logo + " DirectX (D3X) Visualiser";
+        public bool d3x_opened = false;
+        public bool ivdx_shutdown_silent = false;
+        private bool first_d3x_inited = true;
+        static private int Width = 1280;
+        static private int Height = 720;
         private D3D11.Device IVDXDevice;
         private D3D11.DeviceContext IVDXDeviceContext;
         private SwapChain IVswapChain;
@@ -52,7 +55,7 @@ namespace IV_Gallery
 
         public void Run()
         {
-            if (!IV_Gallery_Main_Menu.d3x_opened)
+            if (!d3x_opened)
             {
                 IV_RUN_D3X_Window_Simple();
             }
@@ -150,12 +153,12 @@ namespace IV_Gallery
 
         private void IV_INIT_D3X_Window()
         {
-            DXWnd = new RenderForm("IV DirectX Render Window");
+            DXWnd = new RenderForm(thsdev_iv_d3x_logo);
             DXWnd.ClientSize = new Size(Width, Height);
             DXWnd.AllowUserResizing = false;
             DXWnd.SuspendLayout();
             DXWnd.FormClosing += new System.Windows.Forms.FormClosingEventHandler(IV_DX_WND_Closed_Hook);
-            IV_Gallery_Main_Menu.d3x_opened = true;
+            d3x_opened = true;
             DXWnd.ResumeLayout(false);
             DXWnd.PerformLayout();
 
@@ -192,11 +195,11 @@ namespace IV_Gallery
 
         private void IV_DX_WND_Closed_Hook(object sender, FormClosingEventArgs e)
         {
-            if (DXWnd.Visible && !IV_Gallery_Main_Menu.ivdx_shutdown_silent)
+            if (DXWnd.Visible && !ivdx_shutdown_silent)
             {
-                const string dlg_message =
-                "Closing IV DirectX Window?";
-                const string dlg_caption = "IV DirectX Manager";
+                string dlg_message =
+                "Close "+ thsdev_iv_d3x_logo + "?";
+                string dlg_caption = thsdev_iv_d3x_logo;
                 var dlg_result = MessageBox.Show(dlg_message, dlg_caption,
                                              MessageBoxButtons.YesNo,
                                              MessageBoxIcon.Warning);
@@ -209,13 +212,13 @@ namespace IV_Gallery
                 }
                 else
                 {
-                    IV_Gallery_Main_Menu.d3x_opened = false;
+                    d3x_opened = false;
                     IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
                 }
             }
             else
             {
-                IV_Gallery_Main_Menu.d3x_opened = false;
+                d3x_opened = false;
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
             }
         }

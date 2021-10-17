@@ -74,6 +74,8 @@ namespace IV_Gallery
             this.MaximizeBox = false;
             this.Name = "IV_Music_Player";
             this.Text = "IV Music Player";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.IV_Music_Player_Close_Hook);
+            this.Load += new System.EventHandler(this.IV_MP_Load_Hook);
             ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).EndInit();
             this.ResumeLayout(false);
 

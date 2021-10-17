@@ -328,9 +328,12 @@ namespace IV_Gallery
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_g_m_m_open.Play();
         }
 
+        private IV_Music_Player iv_mp = new IV_Music_Player();
+
         private void IV_Think_AB_WND_Hook(object sender, EventArgs e)
         {
-            if(IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Visible == false && !IV_Gallery_Checkers_Core.IVCheckerCore.iv_ab_hide_hack)
+            #region IV_RESTART_PROGRAMM_HOOK
+            if (IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Visible == false && !IV_Gallery_Checkers_Core.IVCheckerCore.iv_ab_hide_hack)
             {
                 IV_THINK_AB_WINDOW_HOOK.Enabled = false;
             }
@@ -349,6 +352,20 @@ namespace IV_Gallery
                 iv_ch_core.IV_Release_DEBUG_MODE(false, true);
                 IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
             }
+            #endregion
+            #region IV_MUSIC_PLAYER
+            if(IV_Gallery_Checkers_Core.IVCheckerCore.iv_music_player_show_hack && !iv_mp.Visible)
+            {
+                IV_Gallery_Checkers_Core.IVCheckerCore.iv_music_player_show_hack = false;
+                if (iv_mp.iv_mp_closed)
+                    iv_mp = new IV_Music_Player();
+                iv_mp.Visible = true;
+            }
+            else if (iv_mp.iv_mp_closed)
+            {
+                IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.IV_MP_Realise_Music_Button(true);
+            }
+            #endregion
         }
 
         private void IV_B_BGCH_Click(object sender, EventArgs e)

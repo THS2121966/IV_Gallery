@@ -53,6 +53,9 @@ namespace IV_Gallery_Checkers_Core
         public static float iv_used_programm_ver = 0.1f;
         //IV Note: Variable for Hide AppInfo Button in main wnd:
         public static bool iv_ab_hide_hack = false;
+        //IV Note: Variable for Show Music Player:
+        public static bool iv_music_player_show_hack = false;
+        public static bool iv_mp_showed = false;
         //IV Note: AppInfo Form variable for using that UI Component:
         static public IV_Checker_Core_AppInfo iv_app_inf_main = new IV_Checker_Core_AppInfo();
         //IV Note: IV_S_Library Core Loading:

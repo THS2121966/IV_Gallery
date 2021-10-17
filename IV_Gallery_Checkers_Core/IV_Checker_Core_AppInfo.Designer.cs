@@ -37,6 +37,7 @@ namespace IV_Gallery_Checkers_Core
             this.IV_B_Reload_Programm = new System.Windows.Forms.Button();
             this.IV_AB_Reload_Programm = new System.Windows.Forms.ToolTip(this.components);
             this.IV_T_CountDown_To_Restart = new System.Windows.Forms.Timer(this.components);
+            this.IV_B_Music_Player = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // IV_C_C_About_Page
@@ -94,16 +95,31 @@ namespace IV_Gallery_Checkers_Core
             this.IV_T_CountDown_To_Restart.Interval = 3000;
             this.IV_T_CountDown_To_Restart.Tick += new System.EventHandler(this.IV_T_Restart_Hook);
             // 
+            // IV_B_Music_Player
+            // 
+            this.IV_B_Music_Player.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.IV_B_Music_Player.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.IV_B_Music_Player.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.IV_B_Music_Player.Location = new System.Drawing.Point(0, 318);
+            this.IV_B_Music_Player.Name = "IV_B_Music_Player";
+            this.IV_B_Music_Player.Size = new System.Drawing.Size(75, 25);
+            this.IV_B_Music_Player.TabIndex = 3;
+            this.IV_B_Music_Player.Text = "Music Player";
+            this.IV_B_Music_Player.UseVisualStyleBackColor = false;
+            this.IV_B_Music_Player.Click += new System.EventHandler(this.IV_B_MP_Press_Hook);
+            // 
             // IV_Checker_Core_AppInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(334, 451);
+            this.Controls.Add(this.IV_B_Music_Player);
             this.Controls.Add(this.IV_B_Reload_Programm);
             this.Controls.Add(this.IV_B_Exit);
             this.Controls.Add(this.IV_C_C_About_Page);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "IV_Checker_Core_AppInfo";
             this.Text = "App Info";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.IV_About_Closed_Hook);
@@ -120,5 +136,6 @@ namespace IV_Gallery_Checkers_Core
         private System.Windows.Forms.Button IV_B_Reload_Programm;
         private System.Windows.Forms.ToolTip IV_AB_Reload_Programm;
         private System.Windows.Forms.Timer IV_T_CountDown_To_Restart;
+        private System.Windows.Forms.Button IV_B_Music_Player;
     }
 }

@@ -34,8 +34,11 @@ namespace IV_Gallery
             this.IV_B_Chose_Media = new System.Windows.Forms.Button();
             this.IV_MP_Main = new LibVLCSharp.WinForms.VideoView();
             this.IV_MP_File_Dialog = new System.Windows.Forms.OpenFileDialog();
-            this.IV_MP_B_PlayStop = new System.Windows.Forms.Button();
             this.IV_MP_Volume_Bar = new System.Windows.Forms.TrackBar();
+            this.IV_MP_B_Stop = new System.Windows.Forms.Button();
+            this.IV_MP_B_Restart_Media = new System.Windows.Forms.Button();
+            this.IV_MP_B_Play = new System.Windows.Forms.Button();
+            this.IV_CB_Toggle_Slider_Func = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Main)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Volume_Bar)).BeginInit();
@@ -54,6 +57,7 @@ namespace IV_Gallery
             this.IV_M_Player_BG_Panel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.IV_M_Player_BG_Panel.TabIndex = 0;
             this.IV_M_Player_BG_Panel.TabStop = false;
+            this.IV_M_Player_BG_Panel.Click += new System.EventHandler(this.IV_MP_Main_Click_Hook);
             // 
             // IV_B_Chose_Media
             // 
@@ -86,20 +90,6 @@ namespace IV_Gallery
             this.IV_MP_File_Dialog.Title = "IV Media Player DLG";
             this.IV_MP_File_Dialog.FileOk += new System.ComponentModel.CancelEventHandler(this.IV_MP_DLG_Result);
             // 
-            // IV_MP_B_PlayStop
-            // 
-            this.IV_MP_B_PlayStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.IV_MP_B_PlayStop.BackColor = System.Drawing.Color.Orange;
-            this.IV_MP_B_PlayStop.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.IV_MP_B_PlayStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.IV_MP_B_PlayStop.Location = new System.Drawing.Point(106, 110);
-            this.IV_MP_B_PlayStop.Name = "IV_MP_B_PlayStop";
-            this.IV_MP_B_PlayStop.Size = new System.Drawing.Size(55, 24);
-            this.IV_MP_B_PlayStop.TabIndex = 3;
-            this.IV_MP_B_PlayStop.Text = "Play/Stop";
-            this.IV_MP_B_PlayStop.UseVisualStyleBackColor = false;
-            this.IV_MP_B_PlayStop.Click += new System.EventHandler(this.IV_MP_B_PlayStop_Hook);
-            // 
             // IV_MP_Volume_Bar
             // 
             this.IV_MP_Volume_Bar.BackColor = System.Drawing.Color.Indigo;
@@ -114,14 +104,71 @@ namespace IV_Gallery
             this.IV_MP_Volume_Bar.TickFrequency = 10;
             this.IV_MP_Volume_Bar.Scroll += new System.EventHandler(this.IV_MP_Volume_Scroll_Hook);
             // 
+            // IV_MP_B_Stop
+            // 
+            this.IV_MP_B_Stop.BackColor = System.Drawing.Color.Red;
+            this.IV_MP_B_Stop.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.IV_MP_B_Stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.IV_MP_B_Stop.Location = new System.Drawing.Point(106, 12);
+            this.IV_MP_B_Stop.Name = "IV_MP_B_Stop";
+            this.IV_MP_B_Stop.Size = new System.Drawing.Size(37, 24);
+            this.IV_MP_B_Stop.TabIndex = 5;
+            this.IV_MP_B_Stop.Text = "Stop";
+            this.IV_MP_B_Stop.UseVisualStyleBackColor = false;
+            this.IV_MP_B_Stop.Visible = false;
+            this.IV_MP_B_Stop.Click += new System.EventHandler(this.IV_MP_B_Stop_Click_Hook);
+            // 
+            // IV_MP_B_Restart_Media
+            // 
+            this.IV_MP_B_Restart_Media.BackColor = System.Drawing.Color.Yellow;
+            this.IV_MP_B_Restart_Media.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.IV_MP_B_Restart_Media.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.IV_MP_B_Restart_Media.Location = new System.Drawing.Point(12, 77);
+            this.IV_MP_B_Restart_Media.Name = "IV_MP_B_Restart_Media";
+            this.IV_MP_B_Restart_Media.Size = new System.Drawing.Size(53, 24);
+            this.IV_MP_B_Restart_Media.TabIndex = 6;
+            this.IV_MP_B_Restart_Media.Text = "Restart";
+            this.IV_MP_B_Restart_Media.UseVisualStyleBackColor = false;
+            this.IV_MP_B_Restart_Media.Visible = false;
+            this.IV_MP_B_Restart_Media.Click += new System.EventHandler(this.IV_MP_B_Restart_Click_Hook);
+            // 
+            // IV_MP_B_Play
+            // 
+            this.IV_MP_B_Play.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.IV_MP_B_Play.BackColor = System.Drawing.Color.Orange;
+            this.IV_MP_B_Play.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.IV_MP_B_Play.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.IV_MP_B_Play.Location = new System.Drawing.Point(106, 110);
+            this.IV_MP_B_Play.Name = "IV_MP_B_Play";
+            this.IV_MP_B_Play.Size = new System.Drawing.Size(63, 24);
+            this.IV_MP_B_Play.TabIndex = 7;
+            this.IV_MP_B_Play.Text = "Play/Pause";
+            this.IV_MP_B_Play.UseVisualStyleBackColor = false;
+            this.IV_MP_B_Play.Visible = false;
+            this.IV_MP_B_Play.Click += new System.EventHandler(this.IV_MP_B_PlayStop_Hook);
+            // 
+            // IV_CB_Toggle_Slider_Func
+            // 
+            this.IV_CB_Toggle_Slider_Func.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.IV_CB_Toggle_Slider_Func.Location = new System.Drawing.Point(78, 77);
+            this.IV_CB_Toggle_Slider_Func.Name = "IV_CB_Toggle_Slider_Func";
+            this.IV_CB_Toggle_Slider_Func.Size = new System.Drawing.Size(22, 24);
+            this.IV_CB_Toggle_Slider_Func.TabIndex = 8;
+            this.IV_CB_Toggle_Slider_Func.Text = "Toggle Slider";
+            this.IV_CB_Toggle_Slider_Func.UseVisualStyleBackColor = true;
+            this.IV_CB_Toggle_Slider_Func.CheckedChanged += new System.EventHandler(this.IV_CB_Register_Hook);
+            // 
             // IV_Media_Player
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(564, 146);
+            this.Controls.Add(this.IV_CB_Toggle_Slider_Func);
+            this.Controls.Add(this.IV_MP_B_Play);
+            this.Controls.Add(this.IV_MP_B_Restart_Media);
+            this.Controls.Add(this.IV_MP_B_Stop);
             this.Controls.Add(this.IV_MP_Volume_Bar);
-            this.Controls.Add(this.IV_MP_B_PlayStop);
             this.Controls.Add(this.IV_MP_Main);
             this.Controls.Add(this.IV_B_Chose_Media);
             this.Controls.Add(this.IV_M_Player_BG_Panel);
@@ -144,7 +191,10 @@ namespace IV_Gallery
         private System.Windows.Forms.Button IV_B_Chose_Media;
         private LibVLCSharp.WinForms.VideoView IV_MP_Main;
         private System.Windows.Forms.OpenFileDialog IV_MP_File_Dialog;
-        private System.Windows.Forms.Button IV_MP_B_PlayStop;
         private System.Windows.Forms.TrackBar IV_MP_Volume_Bar;
+        private System.Windows.Forms.Button IV_MP_B_Stop;
+        private System.Windows.Forms.Button IV_MP_B_Restart_Media;
+        private System.Windows.Forms.Button IV_MP_B_Play;
+        private System.Windows.Forms.CheckBox IV_CB_Toggle_Slider_Func;
     }
 }

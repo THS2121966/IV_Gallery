@@ -169,8 +169,9 @@ namespace IV_Gallery
 
         private void IV_MP_B_Stop_Click_Hook(object sender, EventArgs e)
         {
-            IV_MP_Release_Slider_Parm();
+            IV_CB_Toggle_Slider_Func.Checked = false;
             IV_CB_Toggle_Slider_Func.Visible = false;
+            IV_MP_Release_Slider_Parm();
             ivmp.Stop();
             IV_MP_B_Stop.Visible = false;
             IV_MP_B_Play.Visible = false;

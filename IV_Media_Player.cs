@@ -37,6 +37,9 @@ namespace IV_Gallery
         private static Color ivmp_panel_default_bg_color = Color.Black;
         private bool ivmp_stopped = true;
         private bool ivmp_slider_volume = true;
+        private static string[] ivmp_video_formats = new string[3] {".mp4",".avi",".mkv"};
+        private static string[] ivmp_audio_formats = new string[2] {".mp3",".wav"};
+        private string ivmp_last_used_path = String.Empty;
         
         //VLC stuff
         private LibVLC ivmp_lib;
@@ -109,16 +112,36 @@ namespace IV_Gallery
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_open.Play();
         }
 
+        private bool iv_media_check_format(string path_check, bool only_audio = false)
+        {
+            if(!only_audio)
+            {
+                if (path_check.Contains(ivmp_audio_formats[0]) || path_check.Contains(ivmp_audio_formats[1]) || path_check.Contains(ivmp_video_formats[0])
+                    || path_check.Contains(ivmp_video_formats[1]) || path_check.Contains(ivmp_video_formats[2]))
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                if (path_check.Contains(ivmp_audio_formats[0]) || path_check.Contains(ivmp_audio_formats[1]))
+                    return true;
+                else 
+                    return false;
+            }
+        }
+
         private void IV_MP_DLG_Result(object sender, CancelEventArgs e)
         {
             var iv_fl_path = String.Empty;
             iv_fl_path = IV_MP_File_Dialog.FileName;
-            if (iv_fl_path.Contains(".mp3") || iv_fl_path.Contains(".wav") || iv_fl_path.Contains(".avi") || iv_fl_path.Contains(".mp4")
-                || iv_fl_path.Contains(".mkv"))
+            if (iv_media_check_format(iv_fl_path))
             {
-                ivmp_media(iv_fl_path);
+                if(ivmp_media_temp == null)
+                    ivmp_media(iv_fl_path);
+                ivmp_last_used_path = iv_fl_path;
                 var media_file_question = "Play this Media?";
-                if(iv_fl_path.Contains(".mp3") || iv_fl_path.Contains(".wav"))
+                if(iv_media_check_format(iv_fl_path, true))
                 {
                     media_file_question = "Play this Sound?";
                     IV_MP_Main.BackColor = Color.DarkViolet;
@@ -126,6 +149,9 @@ namespace IV_Gallery
                 var dlg_question = MessageBox.Show(media_file_question, IV_Gallery_Main_Menu.thsdev_iv_logo + " Media Player Dialog", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dlg_question == DialogResult.Yes)
                 {
+                    if (ivmp_media_temp != null)
+                        ivmp_media(iv_fl_path);
+
                     ivmp_stopped = false;
                     IV_About_VLC_Player.Active = false;
                     IV_Release_V_UI();
@@ -134,12 +160,17 @@ namespace IV_Gallery
                     ivmp.Play(ivmp_media_temp);
                     IV_MP_T_Video_End_Check.Enabled = true;
                 }
-                else if (IV_MP_Main.BackColor != ivmp_panel_default_bg_color && (iv_fl_path.Contains(".mp3") || iv_fl_path.Contains(".wav")))
+                else if (IV_MP_Main.BackColor != ivmp_panel_default_bg_color && !iv_media_check_format(iv_fl_path, true) && !ivmp.IsPlaying)
                 {
                     IV_MP_Main.BackColor = ivmp_panel_default_bg_color;
-                    if (ivmp_media_temp != null)
+                }
+                else if(iv_media_check_format(iv_fl_path, true) && ivmp.IsPlaying)
+                {
+                    if (ivmp_media_temp != null && ivmp.IsPlaying)
+                    {
                         ivmp_video_ended = true;
-                    IV_MP_T_Video_End_Check.Enabled = true;
+                        IV_MP_T_Video_End_Check.Enabled = true;
+                    }
                 }
             }
             else
@@ -234,8 +265,11 @@ namespace IV_Gallery
             IV_CB_Toggle_Slider_Func.Visible = false;
             IV_MP_Release_Slider_Parm();
             ivmp.Stop();
-            if (IV_MP_Main.BackColor != ivmp_panel_default_bg_color)
+            var ivmp_media_check_type = ivmp_last_used_path;
+            if (!iv_media_check_format(ivmp_media_check_type, true))
                 IV_MP_Main.BackColor = ivmp_panel_default_bg_color;
+            else
+                IV_MP_Main.BackColor = Color.DarkViolet;
             IV_About_VLC_Player.Active = true;
             ivmp_stopped = true;
             IV_MP_B_Stop.Visible = false;

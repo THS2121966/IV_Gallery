@@ -157,11 +157,19 @@ namespace IV_Gallery
             DXWnd.ClientSize = new Size(Width, Height);
             DXWnd.AllowUserResizing = false;
             DXWnd.SuspendLayout();
-            DXWnd.FormClosing += new System.Windows.Forms.FormClosingEventHandler(IV_DX_WND_Closed_Hook);
+            DXWnd.Load += IVD3X_Load_Window;
+            DXWnd.FormClosing += IV_DX_WND_Closed_Hook;
             d3x_opened = true;
             DXWnd.ResumeLayout(false);
             DXWnd.PerformLayout();
 
+            /*IV3DXInitializeDeviceResources();
+            IV3DXInitializeShaders();
+            IV3DXInitializeTriangle();*/
+        }
+
+        private void IVD3X_Load_Window(object sender, EventArgs e)
+        {
             IV3DXInitializeDeviceResources();
             IV3DXInitializeShaders();
             IV3DXInitializeTriangle();
@@ -214,6 +222,7 @@ namespace IV_Gallery
                 {
                     d3x_opened = false;
                     IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
+                    this.Dispose();
                 }
             }
             else

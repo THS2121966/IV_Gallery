@@ -29,6 +29,7 @@ namespace IV_Gallery
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IV_Media_Player));
             this.IV_M_Player_BG_Panel = new System.Windows.Forms.PictureBox();
             this.IV_B_Chose_Media = new System.Windows.Forms.Button();
@@ -39,6 +40,12 @@ namespace IV_Gallery
             this.IV_MP_B_Restart_Media = new System.Windows.Forms.Button();
             this.IV_MP_B_Play = new System.Windows.Forms.Button();
             this.IV_CB_Toggle_Slider_Func = new System.Windows.Forms.CheckBox();
+            this.IV_About_VLC_Player = new System.Windows.Forms.ToolTip(this.components);
+            this.IV_About_Play = new System.Windows.Forms.ToolTip(this.components);
+            this.IV_About_Stop = new System.Windows.Forms.ToolTip(this.components);
+            this.IV_About_Restart = new System.Windows.Forms.ToolTip(this.components);
+            this.IV_About_Volume = new System.Windows.Forms.ToolTip(this.components);
+            this.IV_MP_T_Video_End_Check = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Main)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Volume_Bar)).BeginInit();
@@ -84,6 +91,7 @@ namespace IV_Gallery
             this.IV_MP_Main.Size = new System.Drawing.Size(446, 122);
             this.IV_MP_Main.TabIndex = 2;
             this.IV_MP_Main.Text = "IV Media Player";
+            this.IV_About_VLC_Player.SetToolTip(this.IV_MP_Main, "This Panel translate Selected Videos.");
             // 
             // IV_MP_File_Dialog
             // 
@@ -102,6 +110,7 @@ namespace IV_Gallery
             this.IV_MP_Volume_Bar.SmallChange = 10;
             this.IV_MP_Volume_Bar.TabIndex = 4;
             this.IV_MP_Volume_Bar.TickFrequency = 10;
+            this.IV_About_Volume.SetToolTip(this.IV_MP_Volume_Bar, "Video Volume controlling Slider.");
             this.IV_MP_Volume_Bar.Scroll += new System.EventHandler(this.IV_MP_Volume_Scroll_Hook);
             // 
             // IV_MP_B_Stop
@@ -114,6 +123,7 @@ namespace IV_Gallery
             this.IV_MP_B_Stop.Size = new System.Drawing.Size(37, 24);
             this.IV_MP_B_Stop.TabIndex = 5;
             this.IV_MP_B_Stop.Text = "Stop";
+            this.IV_About_Stop.SetToolTip(this.IV_MP_B_Stop, "Stop Video Button.");
             this.IV_MP_B_Stop.UseVisualStyleBackColor = false;
             this.IV_MP_B_Stop.Visible = false;
             this.IV_MP_B_Stop.Click += new System.EventHandler(this.IV_MP_B_Stop_Click_Hook);
@@ -128,6 +138,7 @@ namespace IV_Gallery
             this.IV_MP_B_Restart_Media.Size = new System.Drawing.Size(53, 24);
             this.IV_MP_B_Restart_Media.TabIndex = 6;
             this.IV_MP_B_Restart_Media.Text = "Restart";
+            this.IV_About_Restart.SetToolTip(this.IV_MP_B_Restart_Media, "Restart Video Button.");
             this.IV_MP_B_Restart_Media.UseVisualStyleBackColor = false;
             this.IV_MP_B_Restart_Media.Visible = false;
             this.IV_MP_B_Restart_Media.Click += new System.EventHandler(this.IV_MP_B_Restart_Click_Hook);
@@ -143,6 +154,7 @@ namespace IV_Gallery
             this.IV_MP_B_Play.Size = new System.Drawing.Size(63, 24);
             this.IV_MP_B_Play.TabIndex = 7;
             this.IV_MP_B_Play.Text = "Play/Pause";
+            this.IV_About_Play.SetToolTip(this.IV_MP_B_Play, "Play/Pause Video Button.");
             this.IV_MP_B_Play.UseVisualStyleBackColor = false;
             this.IV_MP_B_Play.Visible = false;
             this.IV_MP_B_Play.Click += new System.EventHandler(this.IV_MP_B_PlayStop_Hook);
@@ -157,6 +169,36 @@ namespace IV_Gallery
             this.IV_CB_Toggle_Slider_Func.Text = "Toggle Slider";
             this.IV_CB_Toggle_Slider_Func.UseVisualStyleBackColor = true;
             this.IV_CB_Toggle_Slider_Func.CheckedChanged += new System.EventHandler(this.IV_CB_Register_Hook);
+            // 
+            // IV_About_VLC_Player
+            // 
+            this.IV_About_VLC_Player.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.IV_About_VLC_Player.ToolTipTitle = "IV About";
+            // 
+            // IV_About_Play
+            // 
+            this.IV_About_Play.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.IV_About_Play.ToolTipTitle = "IV About";
+            // 
+            // IV_About_Stop
+            // 
+            this.IV_About_Stop.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.IV_About_Stop.ToolTipTitle = "IV About";
+            // 
+            // IV_About_Restart
+            // 
+            this.IV_About_Restart.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.IV_About_Restart.ToolTipTitle = "IV About";
+            // 
+            // IV_About_Volume
+            // 
+            this.IV_About_Volume.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.IV_About_Volume.ToolTipTitle = "IV About";
+            // 
+            // IV_MP_T_Video_End_Check
+            // 
+            this.IV_MP_T_Video_End_Check.Interval = 1000;
+            this.IV_MP_T_Video_End_Check.Tick += new System.EventHandler(this.IV_T_Video_End_Check_Think);
             // 
             // IV_Media_Player
             // 
@@ -196,5 +238,11 @@ namespace IV_Gallery
         private System.Windows.Forms.Button IV_MP_B_Restart_Media;
         private System.Windows.Forms.Button IV_MP_B_Play;
         private System.Windows.Forms.CheckBox IV_CB_Toggle_Slider_Func;
+        private System.Windows.Forms.ToolTip IV_About_VLC_Player;
+        private System.Windows.Forms.ToolTip IV_About_Play;
+        private System.Windows.Forms.ToolTip IV_About_Stop;
+        private System.Windows.Forms.ToolTip IV_About_Restart;
+        private System.Windows.Forms.ToolTip IV_About_Volume;
+        private System.Windows.Forms.Timer IV_MP_T_Video_End_Check;
     }
 }

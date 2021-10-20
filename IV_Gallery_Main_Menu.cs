@@ -267,6 +267,8 @@ namespace IV_Gallery
             if (iv_3dx_render.d3x_opened)
                 iv_3dx_render.ShutDown();
             iv_mp.Close();
+            iv_mp_2.Close();
+            iv_mp_3.Close();
             iv_g_m_m.Hide();
             IV_T_Exit.Enabled = true;
         }
@@ -294,9 +296,9 @@ namespace IV_Gallery
 
         private bool IV_G_Check_DEBUG_Core_State()
         {
-            if(iv_ch_core.debug_mode)
+            if(IV_Gallery_Checkers_Core.IVCheckerCore.debug_mode)
             {
-                return iv_ch_core.debug_mode;
+                return IV_Gallery_Checkers_Core.IVCheckerCore.debug_mode;
             }
             return false;
         }
@@ -330,6 +332,10 @@ namespace IV_Gallery
         }
 
         private IV_Media_Player iv_mp = new IV_Media_Player();
+        private IV_Media_Player iv_mp_2 = new IV_Media_Player();
+        private IV_Media_Player iv_mp_3 = new IV_Media_Player();
+
+        private bool ivmp_init_max_vlc_panels = false;
 
         private void IV_Think_AB_WND_Hook(object sender, EventArgs e)
         {
@@ -344,6 +350,8 @@ namespace IV_Gallery
                 IV_Button_App_Info.Visible = false;
                 IV_B_Debug_ChangeBGImage.Visible = false;
                 iv_mp.Close();
+                iv_mp_2.Close();
+                iv_mp_3.Close();
                 if (IV_Check_BG_Change_Status())
                     IV_Resset_Main_BG();
                 IV_G_Button_Exit.Visible = false;
@@ -356,12 +364,36 @@ namespace IV_Gallery
             }
             #endregion
             #region IV_MUSIC_PLAYER
-            if(IV_Gallery_Checkers_Core.IVCheckerCore.iv_music_player_show_hack && !iv_mp.Visible)
+            if (IV_Gallery_Checkers_Core.IVCheckerCore.ivmp_more_panels)
+                ivmp_init_max_vlc_panels = true;
+            else
+                ivmp_init_max_vlc_panels = false;
+
+            if (IV_Gallery_Checkers_Core.IVCheckerCore.iv_music_player_show_hack && !iv_mp.Visible)
             {
-                IV_Gallery_Checkers_Core.IVCheckerCore.iv_music_player_show_hack = false;
+                if(!ivmp_init_max_vlc_panels)
+                    IV_Gallery_Checkers_Core.IVCheckerCore.iv_music_player_show_hack = false;
                 if (iv_mp.iv_mp_closed)
                     iv_mp = new IV_Media_Player();
                 iv_mp.Visible = true;
+            }
+            if (IV_Gallery_Checkers_Core.IVCheckerCore.iv_music_player_show_hack && !iv_mp_2.Visible && ivmp_init_max_vlc_panels)
+            {
+                //IV_Gallery_Checkers_Core.IVCheckerCore.iv_music_player_show_hack = false;
+                if (iv_mp_2.iv_mp_closed)
+                    iv_mp_2 = new IV_Media_Player();
+                iv_mp_2.Visible = true;
+            }
+            if (IV_Gallery_Checkers_Core.IVCheckerCore.iv_music_player_show_hack && !iv_mp_3.Visible && ivmp_init_max_vlc_panels)
+            {
+                IV_Gallery_Checkers_Core.IVCheckerCore.iv_music_player_show_hack = false;
+                if (iv_mp_3.iv_mp_closed)
+                    iv_mp_3 = new IV_Media_Player();
+                iv_mp_3.Visible = true;
+            }
+            else if (iv_mp_3.iv_mp_closed && iv_mp_2.iv_mp_closed && iv_mp.iv_mp_closed && ivmp_init_max_vlc_panels)
+            {
+                IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.IV_MP_Realise_Music_Button(true);
             }
             else if (iv_mp.iv_mp_closed)
             {

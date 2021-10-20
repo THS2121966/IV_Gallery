@@ -38,6 +38,7 @@ namespace IV_Gallery_Checkers_Core
             this.IV_AB_Reload_Programm = new System.Windows.Forms.ToolTip(this.components);
             this.IV_T_CountDown_To_Restart = new System.Windows.Forms.Timer(this.components);
             this.IV_B_Music_Player = new System.Windows.Forms.Button();
+            this.IV_AB_CB_More_Panels = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // IV_C_C_About_Page
@@ -108,11 +109,28 @@ namespace IV_Gallery_Checkers_Core
             this.IV_B_Music_Player.UseVisualStyleBackColor = false;
             this.IV_B_Music_Player.Click += new System.EventHandler(this.IV_B_MP_Press_Hook);
             // 
+            // IV_AB_CB_More_Panels
+            // 
+            this.IV_AB_CB_More_Panels.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.IV_AB_CB_More_Panels.AutoSize = true;
+            this.IV_AB_CB_More_Panels.BackColor = System.Drawing.SystemColors.Menu;
+            this.IV_AB_CB_More_Panels.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.IV_AB_CB_More_Panels.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.IV_AB_CB_More_Panels.Location = new System.Drawing.Point(158, 434);
+            this.IV_AB_CB_More_Panels.Name = "IV_AB_CB_More_Panels";
+            this.IV_AB_CB_More_Panels.Size = new System.Drawing.Size(83, 17);
+            this.IV_AB_CB_More_Panels.TabIndex = 4;
+            this.IV_AB_CB_More_Panels.Text = "More Panels";
+            this.IV_AB_CB_More_Panels.UseVisualStyleBackColor = false;
+            this.IV_AB_CB_More_Panels.Visible = false;
+            this.IV_AB_CB_More_Panels.CheckedChanged += new System.EventHandler(this.IV_AB_CB_M_Panels_Changed);
+            // 
             // IV_Checker_Core_AppInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(334, 451);
+            this.Controls.Add(this.IV_AB_CB_More_Panels);
             this.Controls.Add(this.IV_B_Music_Player);
             this.Controls.Add(this.IV_B_Reload_Programm);
             this.Controls.Add(this.IV_B_Exit);
@@ -137,5 +155,6 @@ namespace IV_Gallery_Checkers_Core
         private System.Windows.Forms.ToolTip IV_AB_Reload_Programm;
         private System.Windows.Forms.Timer IV_T_CountDown_To_Restart;
         private System.Windows.Forms.Button IV_B_Music_Player;
+        public System.Windows.Forms.CheckBox IV_AB_CB_More_Panels;
     }
 }

@@ -43,7 +43,7 @@ namespace IV_Gallery_Checkers_Core
             0.48f, 0.42f, 0.5f, 0.45f, 0.52f, iv_checker_dll_code_ver, 0.53f };
 #endif
         //IV Note: Core side Debug Mode parm:
-        public bool debug_mode = false;
+        static public bool debug_mode = false;
 
         //IV Note: List of Supported programs:
         static public string[] iv_gallery_prog_name = new string[3] { "IV_Gallery", "UNUSED2","UNUSED3" };
@@ -66,6 +66,8 @@ namespace IV_Gallery_Checkers_Core
             + " 3) IVD3X DirectX11 Visualiser (based on Sharp.DirectX)";
         //IV Note: Text for about_page Programm information with DEBUG_MODE_ENABLED:
         static private string last_genetaded_inf_for_about_with_dbg = last_genetaded_inf_for_about + " DEBUG_MODE_ENABLED";
+
+        static public bool ivmp_more_panels = false;
 
 
         //IV Note: Intreger Create Scenario for Save Release Progress Bar variables.
@@ -226,6 +228,14 @@ namespace IV_Gallery_Checkers_Core
                     iv_app_inf_main.IV_C_C_About_Page.Text = last_genetaded_inf_for_about;
                 if (!silent_state)
                     MessageBox.Show("Debug State was - OFF", "IV " + iv_used_programm);
+            }
+            if(debug_mode && !iv_mp_showed)
+            {
+                iv_app_inf_main.IV_AB_CB_More_Panels.Visible = true;
+            }
+            else if(!debug_mode)
+            {
+                iv_app_inf_main.IV_AB_CB_More_Panels.Visible = false;
             }
         }
     }

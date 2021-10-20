@@ -17,6 +17,8 @@ namespace IV_Gallery_Checkers_Core
             InitializeComponent();
             if (IV_CHECK_MP_Button() || IVCheckerCore.iv_mp_showed)
                 IV_B_Music_Player.Visible = false;
+            if (IVCheckerCore.ivmp_more_panels)
+                IV_AB_CB_More_Panels.Checked = true;
         }
 
         public bool iv_ab_closed_hook = false;
@@ -64,6 +66,8 @@ namespace IV_Gallery_Checkers_Core
             if(!skip_hack)
                 IVCheckerCore.iv_music_player_show_hack = false;
             IV_B_Music_Player.Visible = true;
+            if(IVCheckerCore.debug_mode)
+                IV_AB_CB_More_Panels.Visible = true;
         }
 
         private void IV_B_MP_Press_Hook(object sender, EventArgs e)
@@ -72,6 +76,19 @@ namespace IV_Gallery_Checkers_Core
             {
                 IVCheckerCore.iv_music_player_show_hack = true;
                 IV_B_Music_Player.Visible = false;
+                IV_AB_CB_More_Panels.Visible = false;
+            }
+        }
+
+        private void IV_AB_CB_M_Panels_Changed(object sender, EventArgs e)
+        {
+            if(IV_AB_CB_More_Panels.Checked)
+            {
+                IVCheckerCore.ivmp_more_panels = true;
+            }
+            else
+            {
+                IVCheckerCore.ivmp_more_panels = false;
             }
         }
     }

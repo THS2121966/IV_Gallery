@@ -61,7 +61,14 @@ namespace IV_Gallery
                 if(!url_link)
                     ivmp_media_temp = new Media(ivmp_lib, media_path);
                 else
-                    ivmp_media_temp = new Media(ivmp_lib, new Uri(media_path));
+                {
+                    Uri temp_media_url = new Uri("https://vk.com/id504177837");
+                    Uri.TryCreate(temp_media_url, media_path, out Uri MediaTested);
+#if DEBUG
+                    //MessageBox.Show("IV URL Media Path is - "+ MediaTested, IV_Gallery_Main_Menu.thsdev_iv_warning_logo);
+#endif
+                    ivmp_media_temp = new Media(ivmp_lib, MediaTested);
+                }
                 return ivmp_media_temp;
             }
             else

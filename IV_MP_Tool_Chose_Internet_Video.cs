@@ -53,7 +53,7 @@ namespace IV_Gallery
 
             IV_Media_Player.iv_mp_url_link = iv_imf_media_link;
             IV_Media_Player.iv_mp_url_chosed = true;
-            this.Close();
+            IV_IMF_T_Test_Site.Enabled = true;
         }
 
         private void IV_IMF_Force_Closed(object sender, FormClosedEventArgs e)
@@ -66,6 +66,15 @@ namespace IV_Gallery
         {
             iv_imf_inited = true;
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_open.Play();
+        }
+
+        private void IV_IMF_T_Test_Site_load_State_Think(object sender, EventArgs e)
+        {
+            if (IV_IMF_WebBrowser_Test_URL.ReadyState == WebBrowserReadyState.Complete)
+            {
+                IV_IMF_T_Test_Site.Enabled = false;
+                this.Close();
+            }
         }
     }
 }

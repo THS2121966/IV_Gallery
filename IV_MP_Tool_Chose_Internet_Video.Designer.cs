@@ -29,11 +29,13 @@ namespace IV_Gallery
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IV_MP_Tool_Chose_Internet_Video));
             this.IV_IMF_Label_Main = new System.Windows.Forms.Label();
             this.IV_IMF_Link_Chose_Panel = new System.Windows.Forms.TextBox();
             this.IV_IMF_WebBrowser_Test_URL = new System.Windows.Forms.WebBrowser();
             this.IV_IMF_B_Search_URL = new System.Windows.Forms.Button();
+            this.IV_IMF_T_Test_Site = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // IV_IMF_Label_Main
@@ -91,6 +93,11 @@ namespace IV_Gallery
             this.IV_IMF_B_Search_URL.Visible = false;
             this.IV_IMF_B_Search_URL.Click += new System.EventHandler(this.IV_IMF_B_Search_Click);
             // 
+            // IV_IMF_T_Test_Site
+            // 
+            this.IV_IMF_T_Test_Site.Interval = 1000;
+            this.IV_IMF_T_Test_Site.Tick += new System.EventHandler(this.IV_IMF_T_Test_Site_load_State_Think);
+            // 
             // IV_MP_Tool_Chose_Internet_Video
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -119,5 +126,6 @@ namespace IV_Gallery
         private System.Windows.Forms.TextBox IV_IMF_Link_Chose_Panel;
         private System.Windows.Forms.WebBrowser IV_IMF_WebBrowser_Test_URL;
         private System.Windows.Forms.Button IV_IMF_B_Search_URL;
+        private System.Windows.Forms.Timer IV_IMF_T_Test_Site;
     }
 }

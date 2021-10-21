@@ -14,6 +14,9 @@ using System.Windows.Forms;
 using LibVLCSharp;
 using LibVLCSharp.Shared;
 
+using Vlc.DotNet.Forms;
+using Vlc.DotNet.Core;
+
 namespace IV_Gallery
 {
     public partial class IV_Media_Player : Form
@@ -54,6 +57,7 @@ namespace IV_Gallery
         private LibVLC ivmp_lib;
         private MediaPlayer ivmp;
         private Media ivmp_media_temp;
+
         private Media ivmp_media(string media_path = null, bool url_link = false)
         {
             if(media_path != String.Empty && media_path != null)
@@ -88,7 +92,8 @@ namespace IV_Gallery
             ivmp.EnableKeyInput = false;
             ivmp.EnableMouseInput = false;
             IV_MP_Main.MediaPlayer = ivmp;
-            IV_MP_Volume_Bar.Value = ivmp.Volume;
+            if(ivmp.Volume <= IV_MP_Volume_Bar.Maximum)
+                IV_MP_Volume_Bar.Value = ivmp.Volume;
         }
 
         private void IV_MP_Init_Video_Check_State()

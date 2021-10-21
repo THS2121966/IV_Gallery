@@ -20,6 +20,9 @@ copy .\System.Numerics.Vectors.dll .\IV_Gallery_GIT_Release\IV_Gallery
 copy .\System.Runtime.CompilerServices.Unsafe.dll .\IV_Gallery_GIT_Release\IV_Gallery
 copy .\LibVLCSharp.dll .\IV_Gallery_GIT_Release\IV_Gallery
 copy .\LibVLCSharp.WinForms.dll .\IV_Gallery_GIT_Release\IV_Gallery
+copy .\Vlc.DotNet.Core.dll .\IV_Gallery_GIT_Release\IV_Gallery
+copy .\Vlc.DotNet.Core.Interops.dll .\IV_Gallery_GIT_Release\IV_Gallery
+copy .\Vlc.DotNet.Forms.dll .\IV_Gallery_GIT_Release\IV_Gallery
 
 xcopy /s .\libvlc .\IV_Gallery_GIT_Release\IV_Gallery\libvlc
 

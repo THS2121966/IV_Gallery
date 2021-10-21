@@ -31,7 +31,6 @@ namespace IV_Gallery
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IV_Media_Player));
-            this.IV_M_Player_BG_Panel = new System.Windows.Forms.PictureBox();
             this.IV_B_Chose_Media = new System.Windows.Forms.Button();
             this.IV_MP_Main = new LibVLCSharp.WinForms.VideoView();
             this.IV_MP_File_Dialog = new System.Windows.Forms.OpenFileDialog();
@@ -46,25 +45,13 @@ namespace IV_Gallery
             this.IV_About_Restart = new System.Windows.Forms.ToolTip(this.components);
             this.IV_About_Volume = new System.Windows.Forms.ToolTip(this.components);
             this.IV_MP_T_Video_End_Check = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).BeginInit();
+            this.IV_MP_CB_Ulr_Method = new System.Windows.Forms.CheckBox();
+            this.IV_M_Player_BG_Panel = new System.Windows.Forms.PictureBox();
+            this.IV_MP_T_Check_URL_State = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Main)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Volume_Bar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).BeginInit();
             this.SuspendLayout();
-            // 
-            // IV_M_Player_BG_Panel
-            // 
-            this.IV_M_Player_BG_Panel.BackColor = System.Drawing.Color.Silver;
-            this.IV_M_Player_BG_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.IV_M_Player_BG_Panel.ErrorImage = global::IV_Gallery.Properties.Resources.ths_hammer_icon;
-            this.IV_M_Player_BG_Panel.Image = global::IV_Gallery.Properties.Resources.ths_z_nationF;
-            this.IV_M_Player_BG_Panel.InitialImage = global::IV_Gallery.Properties.Resources.ths_icon;
-            this.IV_M_Player_BG_Panel.Location = new System.Drawing.Point(0, 0);
-            this.IV_M_Player_BG_Panel.Name = "IV_M_Player_BG_Panel";
-            this.IV_M_Player_BG_Panel.Size = new System.Drawing.Size(564, 146);
-            this.IV_M_Player_BG_Panel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.IV_M_Player_BG_Panel.TabIndex = 0;
-            this.IV_M_Player_BG_Panel.TabStop = false;
-            this.IV_M_Player_BG_Panel.Click += new System.EventHandler(this.IV_MP_Main_Click_Hook);
             // 
             // IV_B_Chose_Media
             // 
@@ -200,12 +187,45 @@ namespace IV_Gallery
             this.IV_MP_T_Video_End_Check.Interval = 1000;
             this.IV_MP_T_Video_End_Check.Tick += new System.EventHandler(this.IV_T_Video_End_Check_Think);
             // 
+            // IV_MP_CB_Ulr_Method
+            // 
+            this.IV_MP_CB_Ulr_Method.AutoSize = true;
+            this.IV_MP_CB_Ulr_Method.BackColor = System.Drawing.Color.Silver;
+            this.IV_MP_CB_Ulr_Method.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IV_MP_CB_Ulr_Method.Location = new System.Drawing.Point(12, 107);
+            this.IV_MP_CB_Ulr_Method.Name = "IV_MP_CB_Ulr_Method";
+            this.IV_MP_CB_Ulr_Method.Size = new System.Drawing.Size(73, 17);
+            this.IV_MP_CB_Ulr_Method.TabIndex = 9;
+            this.IV_MP_CB_Ulr_Method.Text = "Url Search";
+            this.IV_MP_CB_Ulr_Method.UseVisualStyleBackColor = false;
+            this.IV_MP_CB_Ulr_Method.CheckedChanged += new System.EventHandler(this.IV_MP_CB_URL_Checked);
+            // 
+            // IV_M_Player_BG_Panel
+            // 
+            this.IV_M_Player_BG_Panel.BackColor = System.Drawing.Color.Silver;
+            this.IV_M_Player_BG_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.IV_M_Player_BG_Panel.ErrorImage = global::IV_Gallery.Properties.Resources.ths_hammer_icon;
+            this.IV_M_Player_BG_Panel.Image = global::IV_Gallery.Properties.Resources.ths_z_nationF;
+            this.IV_M_Player_BG_Panel.InitialImage = global::IV_Gallery.Properties.Resources.ths_icon;
+            this.IV_M_Player_BG_Panel.Location = new System.Drawing.Point(0, 0);
+            this.IV_M_Player_BG_Panel.Name = "IV_M_Player_BG_Panel";
+            this.IV_M_Player_BG_Panel.Size = new System.Drawing.Size(564, 146);
+            this.IV_M_Player_BG_Panel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.IV_M_Player_BG_Panel.TabIndex = 0;
+            this.IV_M_Player_BG_Panel.TabStop = false;
+            this.IV_M_Player_BG_Panel.Click += new System.EventHandler(this.IV_MP_Main_Click_Hook);
+            // 
+            // IV_MP_T_Check_URL_State
+            // 
+            this.IV_MP_T_Check_URL_State.Tick += new System.EventHandler(this.IV_MP_URL_State_Think);
+            // 
             // IV_Media_Player
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(564, 146);
+            this.Controls.Add(this.IV_MP_CB_Ulr_Method);
             this.Controls.Add(this.IV_CB_Toggle_Slider_Func);
             this.Controls.Add(this.IV_MP_B_Play);
             this.Controls.Add(this.IV_MP_B_Restart_Media);
@@ -219,9 +239,9 @@ namespace IV_Gallery
             this.Text = "IV Media Player";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.IV_Music_Player_Close_Hook);
             this.Load += new System.EventHandler(this.IV_MP_Load_Hook);
-            ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Main)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Volume_Bar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,5 +264,7 @@ namespace IV_Gallery
         private System.Windows.Forms.ToolTip IV_About_Restart;
         private System.Windows.Forms.ToolTip IV_About_Volume;
         private System.Windows.Forms.Timer IV_MP_T_Video_End_Check;
+        private System.Windows.Forms.CheckBox IV_MP_CB_Ulr_Method;
+        private System.Windows.Forms.Timer IV_MP_T_Check_URL_State;
     }
 }

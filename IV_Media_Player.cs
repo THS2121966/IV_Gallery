@@ -1,4 +1,6 @@
-﻿#define IV_FAST_PRE_LOAD_SLOW_POST_LOAD
+﻿#if !DEBUG
+#define IV_FAST_PRE_LOAD_SLOW_POST_LOAD
+#endif
 
 using System;
 using System.Collections.Generic;
@@ -23,8 +25,14 @@ namespace IV_Gallery
                 ivmp_ab_slider_volume_info = IV_About_Volume.GetToolTip(IV_MP_Volume_Bar);
             if (ivmp_panel_default_bg_color == Color.Black)
                 ivmp_panel_default_bg_color = IV_MP_Main.BackColor;
+            if (iv_mp_search_button_text_local == String.Empty)
+            {
+                iv_mp_search_button_text_local = IV_B_Chose_Media.Text;
+                iv_mp_search_button_text_url = iv_mp_search_button_text_local + " URL";
+            }
 #if !IV_FAST_PRE_LOAD_SLOW_POST_LOAD
             IV_MP_Release_Slider_Parm();
+            IV_MP_Release_Local_or_URL_Search_Method();
             IV_MP_INIT_VLC();
             IV_Release_V_UI();
             IV_MP_Init_Video_Check_State();
@@ -37,6 +45,7 @@ namespace IV_Gallery
         private static Color ivmp_panel_default_bg_color = Color.Black;
         private bool ivmp_stopped = true;
         private bool ivmp_slider_volume = true;
+        private IV_MP_Tool_Chose_Internet_Video iv_url_manager = new IV_MP_Tool_Chose_Internet_Video();
         private static string[] ivmp_video_formats = new string[3] {".mp4",".avi",".mkv"};
         private static string[] ivmp_audio_formats = new string[2] {".mp3",".wav"};
         private string ivmp_last_used_path = String.Empty;
@@ -45,11 +54,14 @@ namespace IV_Gallery
         private LibVLC ivmp_lib;
         private MediaPlayer ivmp;
         private Media ivmp_media_temp;
-        private Media ivmp_media(string media_path = null)
+        private Media ivmp_media(string media_path = null, bool url_link = false)
         {
             if(media_path != String.Empty && media_path != null)
             {
-                ivmp_media_temp = new Media(ivmp_lib, media_path);
+                if(!url_link)
+                    ivmp_media_temp = new Media(ivmp_lib, media_path);
+                else
+                    ivmp_media_temp = new Media(ivmp_lib, new Uri(media_path));
                 return ivmp_media_temp;
             }
             else
@@ -87,11 +99,21 @@ namespace IV_Gallery
 #endif
         private void IV_Button_SChange_Press_Hook(object sender, EventArgs e)
         {
-            IV_MP_File_Dialog.ShowDialog();
+            if (!iv_mp_search_url)
+                IV_MP_File_Dialog.ShowDialog();
+            else
+            {
+                if (!iv_url_manager.iv_imf_inited)
+                    iv_url_manager = new IV_MP_Tool_Chose_Internet_Video();
+                iv_url_manager.Visible = true;
+                IV_B_Chose_Media.Visible = false;
+                IV_MP_T_Check_URL_State.Enabled = true;
+            }
         }
 
         private void IV_Music_Player_Close_Hook(object sender, FormClosedEventArgs e)
         {
+            iv_url_manager.Close();
             iv_mp_closed = true;
             ivmp.Stop();
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_mp_showed = false;
@@ -152,13 +174,7 @@ namespace IV_Gallery
                     if (ivmp_media_temp != null)
                         ivmp_media(iv_fl_path);
 
-                    ivmp_stopped = false;
-                    IV_About_VLC_Player.Active = false;
-                    IV_Release_V_UI();
-                    ivmp_vui_toggle = true;
-                    ivmp_video_ended = false;
-                    ivmp.Play(ivmp_media_temp);
-                    IV_MP_T_Video_End_Check.Enabled = true;
+                    IV_MP_Play_Video();
                 }
                 else if (IV_MP_Main.BackColor != ivmp_panel_default_bg_color && !iv_media_check_format(iv_fl_path, true) && !ivmp.IsPlaying)
                 {
@@ -177,6 +193,32 @@ namespace IV_Gallery
             {
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_bug_s.Play();
                 MessageBox.Show("File no chosed or INVAID!!!", IV_Gallery_Main_Menu.thsdev_iv_logo + " Media Player Dialog");
+            }
+        }
+
+        private void IV_MP_Play_Video(bool url_method = false)
+        {
+            if(!url_method)
+            {
+                ivmp_stopped = false;
+                IV_About_VLC_Player.Active = false;
+                IV_Release_V_UI();
+                ivmp_vui_toggle = true;
+                ivmp_video_ended = false;
+                ivmp.Play(ivmp_media_temp);
+                IV_MP_T_Video_End_Check.Enabled = true;
+            }
+            else
+            {
+                ivmp_stopped = false;
+                IV_About_VLC_Player.Active = false;
+                IV_Release_V_UI();
+                ivmp_vui_toggle = true;
+                ivmp_video_ended = false;
+                ivmp_media(iv_mp_url_link, true);
+                var url_media = ivmp_media_temp;
+                ivmp.Play(url_media);
+                IV_MP_T_Video_End_Check.Enabled = true;
             }
         }
 
@@ -332,6 +374,7 @@ namespace IV_Gallery
                 ivmp_media_temp.Dispose();
             ivmp.Dispose();
             ivmp_lib.Dispose();
+            iv_url_manager.Dispose();
             this.Dispose();
         }
 
@@ -343,6 +386,52 @@ namespace IV_Gallery
             {
                 IV_MP_T_Video_End_Check.Enabled = false;
                 IV_MP_B_Stop_Video_Released();
+            }
+        }
+
+        private static string iv_mp_search_button_text_local = String.Empty;
+        private static string iv_mp_search_button_text_url = String.Empty;
+        private bool iv_mp_search_url = false;
+        public static bool iv_mp_url_chosed = false;
+        public static string iv_mp_url_link = String.Empty;
+
+        private void IV_MP_Release_Local_or_URL_Search_Method(bool url_enabled = false)
+        {
+            if(!url_enabled)
+            {
+                if(iv_url_manager.iv_imf_inited && iv_url_manager.Visible)
+                    iv_url_manager.Close();
+                IV_B_Chose_Media.Visible = true;
+                IV_B_Chose_Media.Text = iv_mp_search_button_text_local;
+                iv_mp_search_url = false;
+            }
+            else
+            {
+                IV_B_Chose_Media.Text = iv_mp_search_button_text_url;
+                iv_mp_search_url = true;
+            }
+        }
+
+        private void IV_MP_CB_URL_Checked(object sender, EventArgs e)
+        {
+            if(!IV_MP_CB_Ulr_Method.Checked)
+            {
+                IV_MP_Release_Local_or_URL_Search_Method();
+            }
+            else
+            {
+                IV_MP_Release_Local_or_URL_Search_Method(true);
+            }
+        }
+
+        private void IV_MP_URL_State_Think(object sender, EventArgs e)
+        {
+            if(iv_mp_url_chosed)
+            {
+                iv_mp_url_chosed = false;
+                IV_MP_T_Check_URL_State.Enabled = false;
+                IV_B_Chose_Media.Visible = true;
+                IV_MP_Play_Video(true);
             }
         }
     }

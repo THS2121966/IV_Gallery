@@ -20,24 +20,24 @@ namespace IV_Sound_Master
         static public float iv_s_master_ver = 1.5f;
 #endif
 
-        static private string iv_sm_logo = "IV Sound Master ver. "+iv_s_master_ver;
+        static private readonly string iv_sm_logo = "IV Sound Master ver. "+iv_s_master_ver;
 
         //IV Note: Assembly for reading inluded resources in that core:
-        static private System.Reflection.Assembly iv_core_assembly = System.Reflection.Assembly.GetExecutingAssembly();
+        static readonly private System.Reflection.Assembly iv_core_assembly = System.Reflection.Assembly.GetExecutingAssembly();
         //IV Note: menu_return sound file:
-        static private System.IO.Stream menu_ui_default_s_file_close = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.menu_back.wav");
+        static readonly private System.IO.Stream menu_ui_default_s_file_close = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.menu_back.wav");
         //IV Note: menu_open sound file:
-        static private System.IO.Stream menu_ui_default_s_file_open = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.menu_accept.wav");
+        static readonly private System.IO.Stream menu_ui_default_s_file_open = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.menu_accept.wav");
         //IV Note: gallery_main_menu_open sound file:
-        static private System.IO.Stream menu_ui_iv_gallery_open_m_menu = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.menu_horror01.wav");
+        static readonly private System.IO.Stream menu_ui_iv_gallery_open_m_menu = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.menu_horror01.wav");
         //IV Note: Boomer Secred Sound File Variation #1:
-        static private System.IO.Stream menu_ui_secred_sanya_boomer_sound_file_1 = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.boomerbacteria.wav");
+        static readonly private System.IO.Stream menu_ui_secred_sanya_boomer_sound_file_1 = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.boomerbacteria.wav");
         //IV Note: Boomer Secred Sound File Variation #2:
-        static private System.IO.Stream menu_ui_secred_sanya_boomer_sound_file_2 = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.boomerbacterias.wav");
+        static readonly private System.IO.Stream menu_ui_secred_sanya_boomer_sound_file_2 = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.boomerbacterias.wav");
         //IV Note: Picture Accept Sound File:
-        static private System.IO.Stream menu_ui_picture_accept = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.alert_clink.wav");
+        static readonly private System.IO.Stream menu_ui_picture_accept = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.alert_clink.wav");
         //IV Note: UI Problem Sound File:
-        static private System.IO.Stream menu_ui_problem = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.beep_error01.wav");
+        static readonly private System.IO.Stream menu_ui_problem = iv_core_assembly.GetManifestResourceStream(@"IV_Sound_Master.iv_sound_cache.beep_error01.wav");
         //IV Note: Close about_page UI Scenario sound:
         public SoundPlayer ui_s_wnd_def_close = new SoundPlayer(menu_ui_default_s_file_close);
         //IV Note: Open about_page UI Scenario sound:

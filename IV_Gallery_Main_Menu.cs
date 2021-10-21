@@ -91,18 +91,18 @@ namespace IV_Gallery
         private static float iv_gallery_prog_ver = 0.53f;
         private static float last_supported_iv_ch_c_ver = 0.45f;
 #elif IV_GALLERY_VER_054
-        private static float iv_gallery_prog_ver = 0.54f;
-        private static float last_supported_iv_ch_c_ver = 0.48f;
+        private readonly static float iv_gallery_prog_ver = 0.54f;
+        private readonly static float last_supported_iv_ch_c_ver = 0.48f;
 #endif
-        private static float[] list_of_supported_ch_core_vers = IV_Gallery_Checkers_Core.IVCheckerCore.supported_vers_p_and_iv_c_c;
-        private static string iv_gallery_prog_name = "IV_Gallery";
-        private static string[] iv_gallery_prog_name_checker_list = IV_Gallery_Checkers_Core.IVCheckerCore.iv_gallery_prog_name;
+        private readonly static float[] list_of_supported_ch_core_vers = IV_Gallery_Checkers_Core.IVCheckerCore.supported_vers_p_and_iv_c_c;
+        private readonly static string iv_gallery_prog_name = "IV_Gallery";
+        private readonly static string[] iv_gallery_prog_name_checker_list = IV_Gallery_Checkers_Core.IVCheckerCore.iv_gallery_prog_name;
         static public Image iv_bg_default_standart = Properties.Resources.THSSourcelogoF_source_loading;
         public Image iv_bg_default = iv_bg_default_standart;
         private bool iv_bg_changed = false;
         static public IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
-        private SoundPlayer[] iv_boomer_random = new SoundPlayer[2] { IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_01, IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_02 };
-        private DXCoreTest iv_3dx_render = new DXCoreTest();
+        private readonly SoundPlayer[] iv_boomer_random = new SoundPlayer[2] { IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_01, IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_02 };
+        private readonly DXCoreTest iv_3dx_render = new DXCoreTest();
 
         public static string IV_Release_Problem_Message(string message, bool is_error = false)
         {
@@ -134,7 +134,7 @@ namespace IV_Gallery
         {
             if(int_to_debug != 8)
             {
-                int_to_debug = int_to_debug + 1;
+                int_to_debug++;
             }
 #if DEBUG
             else if(int_to_debug == 8 && !debug_mode && IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Visible)
@@ -433,10 +433,9 @@ namespace IV_Gallery
 
         private void IV_DLG_BG_Set_Result(object sender, CancelEventArgs e)
         {
-            var iv_fl_path = String.Empty;
             Image iv_temp_bg_def_old;
             Image iv_new_photo;
-            iv_fl_path = IV_DLG_BG_IMG_Finder.FileName;
+            string iv_fl_path = IV_DLG_BG_IMG_Finder.FileName;
             if (iv_fl_path.Contains(".png") || iv_fl_path.Contains(".jpg") || iv_fl_path.Contains(".JPG") 
                 || iv_fl_path.Contains(".jpeg") || iv_fl_path.Contains(".bmp") || iv_fl_path.Contains(".PNG"))
                 iv_new_photo = IV_DLG_Detect_BG_Image(iv_fl_path);
@@ -483,7 +482,6 @@ namespace IV_Gallery
         private void IV_Resset_Main_BG()
         {
             iv_bg_changed = false;
-            Image iv_bg_last_temp = IV_Gallery_MM_BG_Picture.Image;
             iv_bg_default = iv_bg_default_standart;
             IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_accept_s.Play();

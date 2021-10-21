@@ -87,19 +87,19 @@ namespace IV_Gallery_Checkers_Core
             {
                 if(method == "+")
                 {
-                    value_for_recreate = value_for_recreate + value_count;
+                    value_for_recreate += value_count;
                 }
                 else if(method == "-")
                 {
-                    value_for_recreate = value_for_recreate - value_count;
+                    value_for_recreate -= value_count;
                 }
                 else if (method == "*")
                 {
-                    value_for_recreate = value_for_recreate * value_count;
+                    value_for_recreate *= value_count;
                 }
                 else if (method == "/")
                 {
-                    value_for_recreate = value_for_recreate / value_count;
+                    value_for_recreate /= value_count;
                 }
                 iv_progress_b_last_state_int = value_for_recreate;
                 return value_for_recreate;
@@ -182,8 +182,10 @@ namespace IV_Gallery_Checkers_Core
                     }*/ //IV Note: Old S File Get Method.
                     if (iv_app_inf_main.iv_ab_closed_hook == true)
                     {
-                        iv_app_inf_main = new IV_Checker_Core_AppInfo();
-                        iv_app_inf_main.iv_ab_closed_hook = false;
+                        iv_app_inf_main = new IV_Checker_Core_AppInfo
+                        {
+                            iv_ab_closed_hook = false
+                        };
                         if (!debug_mode)
                             iv_app_inf_main.IV_C_C_About_Page.Text = last_genetaded_inf_for_about;
                         else

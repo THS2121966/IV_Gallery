@@ -44,13 +44,13 @@ namespace IV_Gallery
 
         public bool iv_mp_closed = false;
         private static string ivmp_ab_slider_volume_info = String.Empty;
-        private static string ivmp_ab_slider_time_info = "Video time controlling Slider.";
+        private static readonly string ivmp_ab_slider_time_info = "Video time controlling Slider.";
         private static Color ivmp_panel_default_bg_color = Color.Black;
         private bool ivmp_stopped = true;
         private bool ivmp_slider_volume = true;
         private IV_MP_Tool_Chose_Internet_Video iv_url_manager = new IV_MP_Tool_Chose_Internet_Video();
-        private static string[] ivmp_video_formats = new string[3] {".mp4",".avi",".mkv"};
-        private static string[] ivmp_audio_formats = new string[2] {".mp3",".wav"};
+        private static readonly string[] ivmp_video_formats = new string[3] {".mp4",".avi",".mkv"};
+        private static readonly string[] ivmp_audio_formats = new string[2] {".mp3",".wav"};
         private string ivmp_last_used_path = String.Empty;
         
         //VLC stuff
@@ -58,7 +58,7 @@ namespace IV_Gallery
         private MediaPlayer ivmp;
         private Media ivmp_media_temp;
 
-        private Media ivmp_media(string media_path = null, bool url_link = false)
+        private Media Ivmp_media(string media_path = null, bool url_link = false)
         {
             if(media_path != String.Empty && media_path != null)
             {
@@ -69,7 +69,7 @@ namespace IV_Gallery
                     Uri temp_media_url = new Uri("https://vk.com/id504177837");
                     Uri.TryCreate(temp_media_url, media_path, out Uri MediaTested);
 #if DEBUG
-                    //MessageBox.Show("IV URL Media Path is - "+ MediaTested, IV_Gallery_Main_Menu.thsdev_iv_warning_logo);
+                    MessageBox.Show("IV URL Media Path is - "+ MediaTested, IV_Gallery_Main_Menu.thsdev_iv_warning_logo);
 #endif
                     ivmp_media_temp = new Media(ivmp_lib, MediaTested);
                 }
@@ -87,10 +87,12 @@ namespace IV_Gallery
         {
             Core.Initialize();
             ivmp_lib = new LibVLC();
-            ivmp = new MediaPlayer(ivmp_lib);
-            ivmp.Fullscreen = false;
-            ivmp.EnableKeyInput = false;
-            ivmp.EnableMouseInput = false;
+            ivmp = new MediaPlayer(ivmp_lib)
+            {
+                Fullscreen = false,
+                EnableKeyInput = false,
+                EnableMouseInput = false
+            };
             IV_MP_Main.MediaPlayer = ivmp;
             if(ivmp.Volume <= IV_MP_Volume_Bar.Maximum)
                 IV_MP_Volume_Bar.Value = ivmp.Volume;
@@ -146,7 +148,7 @@ namespace IV_Gallery
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_open.Play();
         }
 
-        private bool iv_media_check_format(string path_check, bool only_audio = false)
+        private bool Iv_media_check_format(string path_check, bool only_audio = false)
         {
             if(!only_audio)
             {
@@ -167,15 +169,14 @@ namespace IV_Gallery
 
         private void IV_MP_DLG_Result(object sender, CancelEventArgs e)
         {
-            var iv_fl_path = String.Empty;
-            iv_fl_path = IV_MP_File_Dialog.FileName;
-            if (iv_media_check_format(iv_fl_path))
+            string iv_fl_path = IV_MP_File_Dialog.FileName;
+            if (Iv_media_check_format(iv_fl_path))
             {
                 if(ivmp_media_temp == null)
-                    ivmp_media(iv_fl_path);
+                    Ivmp_media(iv_fl_path);
                 ivmp_last_used_path = iv_fl_path;
-                var media_file_question = "Play this Media?";
-                if(iv_media_check_format(iv_fl_path, true))
+                string media_file_question = "Play this Media?";
+                if(Iv_media_check_format(iv_fl_path, true))
                 {
                     media_file_question = "Play this Sound?";
                     IV_MP_Main.BackColor = Color.DarkViolet;
@@ -184,15 +185,15 @@ namespace IV_Gallery
                 if (dlg_question == DialogResult.Yes)
                 {
                     if (ivmp_media_temp != null)
-                        ivmp_media(iv_fl_path);
+                        Ivmp_media(iv_fl_path);
 
                     IV_MP_Play_Video();
                 }
-                else if (IV_MP_Main.BackColor != ivmp_panel_default_bg_color && !iv_media_check_format(iv_fl_path, true) && !ivmp.IsPlaying)
+                else if (IV_MP_Main.BackColor != ivmp_panel_default_bg_color && !Iv_media_check_format(iv_fl_path, true) && !ivmp.IsPlaying)
                 {
                     IV_MP_Main.BackColor = ivmp_panel_default_bg_color;
                 }
-                else if(iv_media_check_format(iv_fl_path, true) && ivmp.IsPlaying)
+                else if(Iv_media_check_format(iv_fl_path, true) && ivmp.IsPlaying)
                 {
                     if (ivmp_media_temp != null && ivmp.IsPlaying)
                     {
@@ -227,7 +228,7 @@ namespace IV_Gallery
                 IV_Release_V_UI();
                 ivmp_vui_toggle = true;
                 ivmp_video_ended = false;
-                ivmp_media(iv_mp_url_link, true);
+                Ivmp_media(iv_mp_url_link, true);
                 var url_media = ivmp_media_temp;
                 ivmp.Play(url_media);
                 IV_MP_T_Video_End_Check.Enabled = true;
@@ -320,7 +321,7 @@ namespace IV_Gallery
             IV_MP_Release_Slider_Parm();
             ivmp.Stop();
             var ivmp_media_check_type = ivmp_last_used_path;
-            if (!iv_media_check_format(ivmp_media_check_type, true))
+            if (!Iv_media_check_format(ivmp_media_check_type, true))
                 IV_MP_Main.BackColor = ivmp_panel_default_bg_color;
             else
                 IV_MP_Main.BackColor = Color.DarkViolet;
@@ -350,6 +351,7 @@ namespace IV_Gallery
                 IV_MP_Volume_Bar.SmallChange = 10;
                 IV_MP_Volume_Bar.LargeChange = 20;
                 IV_About_Volume.SetToolTip(IV_MP_Volume_Bar, ivmp_ab_slider_volume_info);
+                ivmp_slider_volume = true; //IV Note: Idiot... I forget that parm...
             }
             else
             {
@@ -362,6 +364,7 @@ namespace IV_Gallery
                 IV_MP_Volume_Bar.SmallChange = iv_vd_track_10;
                 IV_MP_Volume_Bar.LargeChange = iv_vd_track_20;
                 IV_About_Volume.SetToolTip(IV_MP_Volume_Bar, ivmp_ab_slider_time_info);
+                ivmp_slider_volume = false;
 #if DEBUG
                 MessageBox.Show("IV VLC Video Time is - "+ time+". Currient time is - "+ivmp.Time, IV_Gallery_Main_Menu.thsdev_iv_warning_logo);
 #endif

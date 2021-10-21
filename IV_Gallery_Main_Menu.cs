@@ -2,7 +2,8 @@
 //#define IV_GALLERY_VER_048 //Old Version
 //#define IV_GALLERY_VER_05 //Old Version
 //#define IV_GALLERY_VER_052 //Old Version
-#define IV_GALLERY_VER_053
+//#define IV_GALLERY_VER_053 // Old Version
+#define IV_GALLERY_VER_054
 
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,9 @@ namespace IV_Gallery
 #elif IV_GALLERY_VER_053
             if(iv_gallery_prog_name == iv_gallery_prog_name_checker_list[0] && iv_gallery_prog_ver == list_of_supported_ch_core_vers[13])
                 iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name_checker_list[0], list_of_supported_ch_core_vers[13]);
+#elif IV_GALLERY_VER_054
+            if(iv_gallery_prog_name == iv_gallery_prog_name_checker_list[0] && iv_gallery_prog_ver == list_of_supported_ch_core_vers[15])
+                iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name_checker_list[0], list_of_supported_ch_core_vers[15]);
 #endif
             else
                 iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver);
@@ -86,6 +90,9 @@ namespace IV_Gallery
 #elif IV_GALLERY_VER_053
         private static float iv_gallery_prog_ver = 0.53f;
         private static float last_supported_iv_ch_c_ver = 0.45f;
+#elif IV_GALLERY_VER_054
+        private static float iv_gallery_prog_ver = 0.54f;
+        private static float last_supported_iv_ch_c_ver = 0.48f;
 #endif
         private static float[] list_of_supported_ch_core_vers = IV_Gallery_Checkers_Core.IVCheckerCore.supported_vers_p_and_iv_c_c;
         private static string iv_gallery_prog_name = "IV_Gallery";

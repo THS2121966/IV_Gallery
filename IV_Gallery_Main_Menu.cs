@@ -402,7 +402,7 @@ namespace IV_Gallery
             {
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.IV_MP_Realise_Music_Button(true);
             }
-            else if (iv_mp.iv_mp_closed)
+            else if (iv_mp.iv_mp_closed && !ivmp_init_max_vlc_panels)
             {
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.IV_MP_Realise_Music_Button(true);
             }

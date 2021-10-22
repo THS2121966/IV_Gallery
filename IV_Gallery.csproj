@@ -180,6 +180,9 @@
     <None Include="Resources\ths_icon.png" />
     <None Include="Resources\SanyaLogoF.jpg" />
     <None Include="Resources\ths_hammer_icon.png" />
+    <None Include="iv_media_cache\media_wave.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="iv_shaders_cache\gallery_test_pixelShader.hlsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

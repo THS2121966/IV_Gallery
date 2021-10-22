@@ -3,6 +3,7 @@ echo IV_CREATING_FOLDERS...
 MD .\IV_Gallery_GIT_Release\IV_Gallery
 MD .\IV_Gallery_GIT_Release\IV_Gallery\iv_shaders_cache
 MD .\IV_Gallery_GIT_Release\IV_Gallery\libvlc
+MD .\IV_Gallery_GIT_Release\IV_Gallery\iv_media_cache
 echo IV_CREATE_FOLDERS_COMPLETE!!!
 echo IV_COPING_MAIN_PROGRAMM_AND_INCLUDES...
 copy .\IV_Gallery.exe .\IV_Gallery_GIT_Release\IV_Gallery
@@ -28,6 +29,8 @@ xcopy /s .\libvlc .\IV_Gallery_GIT_Release\IV_Gallery\libvlc
 
 copy .\iv_shaders_cache\gallery_test_pixelShader.hlsl .\IV_Gallery_GIT_Release\IV_Gallery\iv_shaders_cache
 copy .\iv_shaders_cache\gallery_test_vertexShader.hlsl .\IV_Gallery_GIT_Release\IV_Gallery\iv_shaders_cache
+
+copy .\iv_media_cache\media_wave.mp4 .\IV_Gallery_GIT_Release\IV_Gallery\iv_media_cache
 
 echo IV_COPIED_MAIN_PROGRAMM_AND_INCLUDES!!!
 echo IV_ARCHIVE_MAIN_FOLDER_FOR_RELEASING_THAT...

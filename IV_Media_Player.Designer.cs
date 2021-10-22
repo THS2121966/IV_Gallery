@@ -48,6 +48,8 @@ namespace IV_Gallery
             this.IV_MP_CB_Ulr_Method = new System.Windows.Forms.CheckBox();
             this.IV_M_Player_BG_Panel = new System.Windows.Forms.PictureBox();
             this.IV_MP_T_Check_URL_State = new System.Windows.Forms.Timer(this.components);
+            this.IV_MP_T_Change_Time_Interval = new System.Windows.Forms.Timer(this.components);
+            this.IV_MP_T_Video_Time_Show = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Main)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Volume_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).BeginInit();
@@ -219,6 +221,16 @@ namespace IV_Gallery
             // 
             this.IV_MP_T_Check_URL_State.Tick += new System.EventHandler(this.IV_MP_URL_State_Think);
             // 
+            // IV_MP_T_Change_Time_Interval
+            // 
+            this.IV_MP_T_Change_Time_Interval.Interval = 2000;
+            this.IV_MP_T_Change_Time_Interval.Tick += new System.EventHandler(this.IV_MP_T_Video_T_Change_Interval);
+            // 
+            // IV_MP_T_Video_Time_Show
+            // 
+            this.IV_MP_T_Video_Time_Show.Interval = 300;
+            this.IV_MP_T_Video_Time_Show.Tick += new System.EventHandler(this.IV_MP_Time_Control_Think);
+            // 
             // IV_Media_Player
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -266,5 +278,7 @@ namespace IV_Gallery
         private System.Windows.Forms.Timer IV_MP_T_Video_End_Check;
         private System.Windows.Forms.CheckBox IV_MP_CB_Ulr_Method;
         private System.Windows.Forms.Timer IV_MP_T_Check_URL_State;
+        private System.Windows.Forms.Timer IV_MP_T_Change_Time_Interval;
+        private System.Windows.Forms.Timer IV_MP_T_Video_Time_Show;
     }
 }

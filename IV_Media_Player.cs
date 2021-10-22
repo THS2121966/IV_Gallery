@@ -101,6 +101,8 @@ namespace IV_Gallery
         private void IV_MP_Init_Video_Check_State()
         {
             ivmp.EndReached += IV_Release_Video_on_END;
+            //IV_MP_T_Video_Time_Show.Enabled = true;
+            //ivmp.TimeChanged += IV_MP_Time_Control_Think; //IV Note: Not working with single thread.
 #if DEBUG
             //ivmp.TimeChanged += IV_MP_Time_Changed_Debug_Test;
 #endif
@@ -122,6 +124,20 @@ namespace IV_Gallery
                 iv_url_manager.Visible = true;
                 IV_B_Chose_Media.Visible = false;
                 IV_MP_T_Check_URL_State.Enabled = true;
+            }
+        }
+
+        bool ivmp_slider_timecontrol_changing = false;
+
+        private void IV_MP_Time_Control_Think(object sender, EventArgs e) //(object sender, MediaPlayerTimeChangedEventArgs e)
+        {
+            if(!ivmp_slider_volume && !ivmp_slider_timecontrol_changing)
+            {
+                IV_MP_Volume_Bar.Value = (int)ivmp.Time;
+            }
+            else if(ivmp_slider_timecontrol_changing)
+            {
+                IV_MP_T_Change_Time_Interval.Enabled = true;
             }
         }
 
@@ -211,7 +227,7 @@ namespace IV_Gallery
 
         private void IV_MP_Play_Video(bool url_method = false)
         {
-            if(!url_method)
+            if (!url_method)
             {
                 ivmp_stopped = false;
                 IV_About_VLC_Player.Active = false;
@@ -233,6 +249,8 @@ namespace IV_Gallery
                 ivmp.Play(url_media);
                 IV_MP_T_Video_End_Check.Enabled = true;
             }
+            if (IV_CB_Toggle_Slider_Func.Checked)
+                IV_CB_Toggle_Slider_Func.Checked = false;
         }
 
         private void IV_Release_V_UI(bool force_true = false, bool force_false = false)
@@ -281,7 +299,10 @@ namespace IV_Gallery
             if (ivmp_slider_volume)
                 ivmp.Volume = IV_MP_Volume_Bar.Value;
             else
+            {
                 ivmp.Time = IV_MP_Volume_Bar.Value;
+                ivmp_slider_timecontrol_changing = true;
+            }
         }
 
         private bool ivmp_vui_toggle = false;
@@ -345,8 +366,11 @@ namespace IV_Gallery
         {
             if(!state)
             {
+                IV_MP_T_Video_Time_Show.Enabled = false;
                 IV_MP_Volume_Bar.Minimum = 0;
                 IV_MP_Volume_Bar.Maximum = 100;
+                if(ivmp != null)
+                    IV_MP_Volume_Bar.Value = ivmp.Volume;
                 IV_MP_Volume_Bar.TickFrequency = 10;
                 IV_MP_Volume_Bar.SmallChange = 10;
                 IV_MP_Volume_Bar.LargeChange = 20;
@@ -358,6 +382,8 @@ namespace IV_Gallery
                 IV_MP_Volume_Bar.Minimum = 0;
                 long time = ivmp.Length;
                 IV_MP_Volume_Bar.Maximum = (int)time;
+                if (ivmp != null)
+                    IV_MP_Volume_Bar.Value = (int)ivmp.Time;
                 var iv_vd_track_10 = (int)time * 10 / 100;
                 var iv_vd_track_20 = (int)time * 20 / 100;
                 IV_MP_Volume_Bar.TickFrequency = iv_vd_track_10;
@@ -365,6 +391,7 @@ namespace IV_Gallery
                 IV_MP_Volume_Bar.LargeChange = iv_vd_track_20;
                 IV_About_Volume.SetToolTip(IV_MP_Volume_Bar, ivmp_ab_slider_time_info);
                 ivmp_slider_volume = false;
+                IV_MP_T_Video_Time_Show.Enabled = true;
 #if DEBUG
                 MessageBox.Show("IV VLC Video Time is - "+ time+". Currient time is - "+ivmp.Time, IV_Gallery_Main_Menu.thsdev_iv_warning_logo);
 #endif
@@ -448,6 +475,12 @@ namespace IV_Gallery
                 IV_B_Chose_Media.Visible = true;
                 IV_MP_Play_Video(true);
             }
+        }
+
+        private void IV_MP_T_Video_T_Change_Interval(object sender, EventArgs e)
+        {
+            IV_MP_T_Change_Time_Interval.Enabled = false;
+            ivmp_slider_timecontrol_changing = false;
         }
     }
 }

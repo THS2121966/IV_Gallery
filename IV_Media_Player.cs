@@ -293,6 +293,7 @@ namespace IV_Gallery
             else
             {
                 ivmp_stopped = false;
+                ivmp_media_sound = false;
                 ivmp_video_was_url = true;
                 IV_About_VLC_Player.Active = false;
                 IV_Release_V_UI();

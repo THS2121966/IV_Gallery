@@ -52,7 +52,8 @@ namespace IV_Gallery
         private IV_MP_Tool_Chose_Internet_Video iv_url_manager = new IV_MP_Tool_Chose_Internet_Video();
         private static readonly string[] ivmp_video_formats = new string[3] {".mp4",".avi",".mkv"};
         private static readonly string[] ivmp_audio_formats = new string[2] {".mp3",".wav"};
-        private string ivmp_last_used_path = String.Empty;
+        //private string ivmp_last_used_path = String.Empty; //IV note: Deprecated variable.
+        private bool ivmp_video_was_url = false;
         
         //VLC Main Panel parms:
         private LibVLC ivmp_lib;
@@ -218,7 +219,7 @@ namespace IV_Gallery
             {
                 if(ivmp_media_temp == null)
                     Ivmp_media(iv_fl_path);
-                ivmp_last_used_path = iv_fl_path;
+                //ivmp_last_used_path = iv_fl_path;
                 string media_file_question = "Play this Media?";
                 var iv_media_sound_temp = false;
                 if(Iv_media_check_format(iv_fl_path, true))
@@ -265,6 +266,7 @@ namespace IV_Gallery
             if (!url_method)
             {
                 ivmp_stopped = false;
+                ivmp_video_was_url = false;
                 IV_About_VLC_Player.Active = false;
                 IV_Release_V_UI();
                 if (!was_sound)
@@ -291,6 +293,7 @@ namespace IV_Gallery
             else
             {
                 ivmp_stopped = false;
+                ivmp_video_was_url = true;
                 IV_About_VLC_Player.Active = false;
                 IV_Release_V_UI();
                 ivmp_vui_toggle = true;
@@ -381,9 +384,14 @@ namespace IV_Gallery
 
         private void IV_MP_B_Restart_Click_Hook(object sender, EventArgs e)
         {
-            if (ivmp_media_temp != null)
+            if (ivmp_media_temp != null && !ivmp_video_was_url)
                 ivmp.Play(ivmp_media_temp);
-            if(ivmp_media_sound)
+            else if (ivmp_video_was_url && ivmp_media_temp != null)
+            {
+                MessageBox.Show("Currient Media URL is - "+ivmp_media_temp.Mrl,IV_Gallery_Main_Menu.thsdev_iv_warning_logo);
+                ivmp.Play(ivmp_media_temp);
+            }
+            if (ivmp_media_sound)
             {
                 IV_MP_Sound_Wave_Panel.Visible = true;
                 ivmp_wave.Play(ivmp_media_wave);
@@ -406,7 +414,7 @@ namespace IV_Gallery
             ivmp_wave_ended = false;
             IV_T_Video_Wave_Check_Stopped.Enabled = false;
             IV_MP_Sound_Wave_Panel.Visible = false;
-            var ivmp_media_check_type = ivmp_last_used_path;
+            var ivmp_media_check_type = ivmp_media_temp.Mrl;
             if (!Iv_media_check_format(ivmp_media_check_type, true))
                 IV_MP_Main.BackColor = ivmp_panel_default_bg_color;
             else
@@ -419,7 +427,8 @@ namespace IV_Gallery
 
         private void IV_Release_Video_on_END(object sender, EventArgs e)
         {
-            ivmp_video_ended = true;
+            if(!ivmp_video_was_url)
+                ivmp_video_ended = true;
         }
 
         private void IV_MP_B_Stop_Click_Hook(object sender, EventArgs e)
@@ -434,7 +443,7 @@ namespace IV_Gallery
                 IV_MP_T_Video_Time_Show.Enabled = false;
                 IV_MP_Volume_Bar.Minimum = 0;
                 IV_MP_Volume_Bar.Maximum = 100;
-                if(ivmp != null)
+                if(ivmp != null && ivmp.Volume > -1)
                     IV_MP_Volume_Bar.Value = ivmp.Volume;
                 IV_MP_Volume_Bar.TickFrequency = 10;
                 IV_MP_Volume_Bar.SmallChange = 10;
@@ -530,6 +539,11 @@ namespace IV_Gallery
             }
         }
 
+        public void IV_MP_URL_Button_Visible(bool visible)
+        {
+            IV_B_Chose_Media.Visible = visible;
+        }
+
         private void IV_MP_URL_State_Think(object sender, EventArgs e)
         {
             if(iv_mp_url_chosed)
@@ -537,7 +551,12 @@ namespace IV_Gallery
                 iv_mp_url_chosed = false;
                 IV_MP_T_Check_URL_State.Enabled = false;
                 IV_B_Chose_Media.Visible = true;
-                IV_MP_Play_Video(true);
+                IV_MP_Play_Video(false,true);
+            }
+            else if(!iv_url_manager.iv_imf_inited)
+            {
+                IV_MP_T_Check_URL_State.Enabled = false;
+                IV_B_Chose_Media.Visible = true;
             }
         }
 

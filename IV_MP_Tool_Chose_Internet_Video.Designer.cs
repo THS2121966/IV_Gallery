@@ -36,6 +36,8 @@ namespace IV_Gallery
             this.IV_IMF_WebBrowser_Test_URL = new System.Windows.Forms.WebBrowser();
             this.IV_IMF_B_Search_URL = new System.Windows.Forms.Button();
             this.IV_IMF_T_Test_Site = new System.Windows.Forms.Timer(this.components);
+            this.IV_IMF_BG_Color_Picker = new System.Windows.Forms.Button();
+            this.IV_IMF_Color_Manager = new System.Windows.Forms.ColorDialog();
             this.SuspendLayout();
             // 
             // IV_IMF_Label_Main
@@ -98,12 +100,29 @@ namespace IV_Gallery
             this.IV_IMF_T_Test_Site.Interval = 1000;
             this.IV_IMF_T_Test_Site.Tick += new System.EventHandler(this.IV_IMF_T_Test_Site_load_State_Think);
             // 
+            // IV_IMF_BG_Color_Picker
+            // 
+            this.IV_IMF_BG_Color_Picker.BackColor = System.Drawing.Color.MediumPurple;
+            this.IV_IMF_BG_Color_Picker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IV_IMF_BG_Color_Picker.Location = new System.Drawing.Point(12, 116);
+            this.IV_IMF_BG_Color_Picker.Name = "IV_IMF_BG_Color_Picker";
+            this.IV_IMF_BG_Color_Picker.Size = new System.Drawing.Size(65, 23);
+            this.IV_IMF_BG_Color_Picker.TabIndex = 4;
+            this.IV_IMF_BG_Color_Picker.Text = "BG Color";
+            this.IV_IMF_BG_Color_Picker.UseVisualStyleBackColor = false;
+            this.IV_IMF_BG_Color_Picker.Click += new System.EventHandler(this.IV_IMF_B_BG_Color_P_Hook);
+            // 
+            // IV_IMF_Color_Manager
+            // 
+            this.IV_IMF_Color_Manager.Color = System.Drawing.SystemColors.Info;
+            // 
             // IV_MP_Tool_Chose_Internet_Video
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.IV_IMF_BG_Color_Picker);
             this.Controls.Add(this.IV_IMF_B_Search_URL);
             this.Controls.Add(this.IV_IMF_WebBrowser_Test_URL);
             this.Controls.Add(this.IV_IMF_Link_Chose_Panel);
@@ -127,5 +146,7 @@ namespace IV_Gallery
         private System.Windows.Forms.WebBrowser IV_IMF_WebBrowser_Test_URL;
         private System.Windows.Forms.Button IV_IMF_B_Search_URL;
         private System.Windows.Forms.Timer IV_IMF_T_Test_Site;
+        private System.Windows.Forms.Button IV_IMF_BG_Color_Picker;
+        private System.Windows.Forms.ColorDialog IV_IMF_Color_Manager;
     }
 }

@@ -24,6 +24,7 @@ copy .\LibVLCSharp.WinForms.dll .\IV_Gallery_GIT_Release\IV_Gallery
 copy .\Vlc.DotNet.Core.dll .\IV_Gallery_GIT_Release\IV_Gallery
 copy .\Vlc.DotNet.Core.Interops.dll .\IV_Gallery_GIT_Release\IV_Gallery
 copy .\Vlc.DotNet.Forms.dll .\IV_Gallery_GIT_Release\IV_Gallery
+copy .\Siticone.Desktop.UI.dll .\IV_Gallery_GIT_Release\IV_Gallery
 
 xcopy /s .\libvlc .\IV_Gallery_GIT_Release\IV_Gallery\libvlc
 

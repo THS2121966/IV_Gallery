@@ -16,6 +16,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Siticone.Desktop;
+
 
 namespace IV_Gallery
 {
@@ -214,6 +216,7 @@ namespace IV_Gallery
             if (clicked == true)
             {
                 IV_Gallery_MM_BG_Picture.Image = Properties.Resources.SanyaLogoF;
+                IV_G_Button_Exit.UseTransparentBackground = true;
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_open.Play();
                 iv_boomer_random[iv_rnd_for_boomer.Next(0, 2)].Play();
                 IV_G_Button_Exit.Visible = false;
@@ -223,6 +226,7 @@ namespace IV_Gallery
             else
             {
                 IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
+                IV_G_Button_Exit.UseTransparentBackground = true;
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
                 IV_G_Button_Exit.Visible = true;
                 if(debug_mode)
@@ -335,6 +339,7 @@ namespace IV_Gallery
         private void IV_MM_Load_Hook(object sender, EventArgs e)
         {
             iv_g_m_m = this;
+            IV_T_Load_Check.Enabled = true;
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_g_m_m_open.Play();
         }
 
@@ -449,6 +454,7 @@ namespace IV_Gallery
                 if (IV_Gallery_MM_BG_Picture.Image == iv_temp_bg_def_old)
                 {
                     IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
+                    IV_G_Button_Exit.UseTransparentBackground = true;
                     IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = true;
                     IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_accept_s.Play();
                 }
@@ -484,6 +490,7 @@ namespace IV_Gallery
             iv_bg_changed = false;
             iv_bg_default = iv_bg_default_standart;
             IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
+            IV_G_Button_Exit.UseTransparentBackground = true;
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_accept_s.Play();
             if (iv_bg_default == iv_bg_default_standart)
                 IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = false;
@@ -495,6 +502,12 @@ namespace IV_Gallery
                 IV_Resset_Main_BG();
             else
                 IV_Release_Problem_Message("iv_bg_changed - Checked and = " + IV_Check_BG_Change_Status().ToString() + ". Why? Tell a programmer!!!");
+        }
+
+        private void IV_T_Loaded_Show_Form_B_Hook(object sender, EventArgs e)
+        {
+            IV_T_Load_Check.Enabled = false;
+            iv_g_m_m.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
         }
     }
 }

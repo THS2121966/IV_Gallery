@@ -508,6 +508,7 @@ namespace IV_Gallery
         {
             IV_T_Load_Check.Enabled = false;
             iv_g_m_m.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            iv_g_m_m.Icon = this.Icon;
         }
     }
 }

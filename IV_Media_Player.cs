@@ -401,6 +401,10 @@ namespace IV_Gallery
             IV_MP_T_Video_End_Check.Enabled = true;
             ivmp_video_ended = false;
             ivmp_stopped = false;
+#if DEBUG
+            IV_Check_Process_Window iv_p_state = new IV_Check_Process_Window();
+            iv_p_state.IV_DBG_Release_State("IV_MP_B_Restart_Click_Hook",8);
+#endif
             IV_About_VLC_Player.Active = false;
             IV_Release_V_UI();
         }

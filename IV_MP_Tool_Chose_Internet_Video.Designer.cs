@@ -33,11 +33,11 @@ namespace IV_Gallery
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IV_MP_Tool_Chose_Internet_Video));
             this.IV_IMF_Label_Main = new System.Windows.Forms.Label();
             this.IV_IMF_Link_Chose_Panel = new System.Windows.Forms.TextBox();
-            this.IV_IMF_WebBrowser_Test_URL = new System.Windows.Forms.WebBrowser();
             this.IV_IMF_B_Search_URL = new System.Windows.Forms.Button();
-            this.IV_IMF_T_Test_Site = new System.Windows.Forms.Timer(this.components);
             this.IV_IMF_BG_Color_Picker = new System.Windows.Forms.Button();
             this.IV_IMF_Color_Manager = new System.Windows.Forms.ColorDialog();
+            this.IV_IMF_Count_to_Close_Label = new System.Windows.Forms.Label();
+            this.IV_IMF_T_to_Close = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // IV_IMF_Label_Main
@@ -68,17 +68,6 @@ namespace IV_Gallery
             this.IV_IMF_Link_Chose_Panel.Text = "Enter your inernet media link here...";
             this.IV_IMF_Link_Chose_Panel.TextChanged += new System.EventHandler(this.IV_IMF_Link_Panel_Text_Changed);
             // 
-            // IV_IMF_WebBrowser_Test_URL
-            // 
-            this.IV_IMF_WebBrowser_Test_URL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.IV_IMF_WebBrowser_Test_URL.Location = new System.Drawing.Point(0, 145);
-            this.IV_IMF_WebBrowser_Test_URL.MinimumSize = new System.Drawing.Size(20, 20);
-            this.IV_IMF_WebBrowser_Test_URL.Name = "IV_IMF_WebBrowser_Test_URL";
-            this.IV_IMF_WebBrowser_Test_URL.Size = new System.Drawing.Size(802, 306);
-            this.IV_IMF_WebBrowser_Test_URL.TabIndex = 2;
-            this.IV_IMF_WebBrowser_Test_URL.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.IV_IMF_Web_Loaded);
-            // 
             // IV_IMF_B_Search_URL
             // 
             this.IV_IMF_B_Search_URL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -94,11 +83,6 @@ namespace IV_Gallery
             this.IV_IMF_B_Search_URL.UseVisualStyleBackColor = false;
             this.IV_IMF_B_Search_URL.Visible = false;
             this.IV_IMF_B_Search_URL.Click += new System.EventHandler(this.IV_IMF_B_Search_Click);
-            // 
-            // IV_IMF_T_Test_Site
-            // 
-            this.IV_IMF_T_Test_Site.Interval = 1000;
-            this.IV_IMF_T_Test_Site.Tick += new System.EventHandler(this.IV_IMF_T_Test_Site_load_State_Think);
             // 
             // IV_IMF_BG_Color_Picker
             // 
@@ -116,15 +100,36 @@ namespace IV_Gallery
             // 
             this.IV_IMF_Color_Manager.Color = System.Drawing.SystemColors.Info;
             // 
+            // IV_IMF_Count_to_Close_Label
+            // 
+            this.IV_IMF_Count_to_Close_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.IV_IMF_Count_to_Close_Label.BackColor = System.Drawing.SystemColors.Window;
+            this.IV_IMF_Count_to_Close_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.IV_IMF_Count_to_Close_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 42F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.IV_IMF_Count_to_Close_Label.Location = new System.Drawing.Point(321, 318);
+            this.IV_IMF_Count_to_Close_Label.Name = "IV_IMF_Count_to_Close_Label";
+            this.IV_IMF_Count_to_Close_Label.Size = new System.Drawing.Size(100, 100);
+            this.IV_IMF_Count_to_Close_Label.TabIndex = 5;
+            this.IV_IMF_Count_to_Close_Label.Text = "3";
+            this.IV_IMF_Count_to_Close_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.IV_IMF_Count_to_Close_Label.Visible = false;
+            // 
+            // IV_IMF_T_to_Close
+            // 
+            this.IV_IMF_T_to_Close.Interval = 1000;
+            this.IV_IMF_T_to_Close.Tick += new System.EventHandler(this.IV_IMF_T_Close_Hook);
+            // 
             // IV_MP_Tool_Chose_Internet_Video
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.IV_IMF_Count_to_Close_Label);
             this.Controls.Add(this.IV_IMF_BG_Color_Picker);
             this.Controls.Add(this.IV_IMF_B_Search_URL);
-            this.Controls.Add(this.IV_IMF_WebBrowser_Test_URL);
             this.Controls.Add(this.IV_IMF_Link_Chose_Panel);
             this.Controls.Add(this.IV_IMF_Label_Main);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -143,10 +148,10 @@ namespace IV_Gallery
 
         private System.Windows.Forms.Label IV_IMF_Label_Main;
         private System.Windows.Forms.TextBox IV_IMF_Link_Chose_Panel;
-        private System.Windows.Forms.WebBrowser IV_IMF_WebBrowser_Test_URL;
         private System.Windows.Forms.Button IV_IMF_B_Search_URL;
-        private System.Windows.Forms.Timer IV_IMF_T_Test_Site;
         private System.Windows.Forms.Button IV_IMF_BG_Color_Picker;
         private System.Windows.Forms.ColorDialog IV_IMF_Color_Manager;
+        private System.Windows.Forms.Label IV_IMF_Count_to_Close_Label;
+        private System.Windows.Forms.Timer IV_IMF_T_to_Close;
     }
 }

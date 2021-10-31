@@ -150,7 +150,10 @@ namespace IV_Gallery
                 if (!iv_url_manager.iv_imf_inited)
                     iv_url_manager = new IV_MP_Tool_Chose_Internet_Video();
                 iv_url_manager.Visible = true;
-                IV_B_Chose_Media.Visible = false;
+                if(!iv_mp_new_ui)
+                    IV_B_Chose_Media.Visible = false;
+                else
+                    IV_MP_Realise_Buttons_Anim(IV_B_Chose_Media, true);
                 IV_MP_T_Check_URL_State.Enabled = true;
             }
         }
@@ -167,6 +170,18 @@ namespace IV_Gallery
             {
                 IV_MP_T_Change_Time_Interval.Enabled = true;
             }
+            var currient_time_texted = String.Empty;
+            int time_seconds = (int)ivmp.Time / 1000;
+            int time_minutes = time_seconds / 60;
+            int time_hours = time_minutes / 60;
+            if (ivmp.Time > 1000)
+                if (ivmp.Time < 60000)
+                    currient_time_texted = "00:00:"+ time_seconds;
+                else if(ivmp.Time < 3600000)
+                    currient_time_texted = "00:" + time_minutes + ":"+ (time_seconds - 60 * time_minutes);
+                else if (ivmp.Time < 86400000)
+                    currient_time_texted = time_hours + ":" + (time_minutes - 60 * time_hours) + ":" + (time_seconds - 60 * time_minutes);
+            IV_MP_Time_Display_Texted.Text = currient_time_texted;
         }
 
         private void IV_Music_Player_Close_Hook(object sender, FormClosedEventArgs e)
@@ -269,6 +284,7 @@ namespace IV_Gallery
                 ivmp_stopped = false;
                 ivmp_video_was_url = false;
                 IV_About_VLC_Player.Active = false;
+                IV_MP_Time_Display_Texted.Text = "00:00:00";
                 IV_Release_V_UI();
                 if (!was_sound)
                 {
@@ -278,6 +294,12 @@ namespace IV_Gallery
                     ivmp_wave_ended = false;
                     IV_T_Video_Wave_Check_Stopped.Enabled = false;
                     IV_MP_Main.BackColor = ivmp_panel_default_bg_color;
+                    if(iv_mp_new_ui)
+                    {
+                        IV_MP_Realise_Buttons_Anim(IV_MP_Volume_Bar, true, true, Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles, 450);
+                        IV_MP_Realise_Buttons_Anim(IV_MP_Volume_Bar, false, true, Siticone.Desktop.UI.AnimatorNS.AnimationType.Scale, 350);
+                        IV_Release_V_UI(true);
+                    }
                 }
                 else
                 {
@@ -289,6 +311,7 @@ namespace IV_Gallery
                 ivmp_vui_toggle = true;
                 ivmp_video_ended = false;
                 ivmp.Play(ivmp_media_temp);
+                IV_MP_T_Video_Time_Show.Enabled = true;
                 IV_MP_T_Video_End_Check.Enabled = true;
             }
             else
@@ -303,10 +326,36 @@ namespace IV_Gallery
                 Ivmp_media(iv_mp_url_link, true);
                 var url_media = ivmp_media_temp;
                 ivmp.Play(url_media);
+                IV_MP_T_Video_Time_Show.Enabled = true;
                 IV_MP_T_Video_End_Check.Enabled = true;
             }
             if (IV_CB_Toggle_Slider_Func.Checked)
                 IV_CB_Toggle_Slider_Func.Checked = false;
+        }
+
+        private void IV_MP_Realise_Buttons_Anim(Control controlled_object, bool hide = false, bool video_panel = false, Siticone.Desktop.UI.AnimatorNS.AnimationType 
+            anim = Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles, int interval = 1000)
+        {
+            var iv_b_anim = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+            {
+                MaxAnimationTime = interval,
+                AnimationType = anim
+            };
+
+            if(!hide)
+            {
+                if(!video_panel)
+                    iv_b_anim.Show(controlled_object);
+                else
+                    iv_b_anim.ShowSync(controlled_object);
+            }
+            else
+            {
+                if (!video_panel)
+                    iv_b_anim.Hide(controlled_object);
+                else
+                    iv_b_anim.HideSync(controlled_object);
+            }
         }
 
         private void IV_Release_V_UI(bool force_true = false, bool force_false = false)
@@ -320,19 +369,45 @@ namespace IV_Gallery
                 hook_true = force_true;
             if (hook_true)
             {
-                IV_MP_B_Play.Visible = true;
-                IV_CB_Toggle_Slider_Func.Visible = true;
-                IV_MP_B_Restart_Media.Visible = true;
-                IV_MP_B_Stop.Visible = true;
+                if (!iv_mp_new_ui)
+                {
+                    IV_MP_Time_Display_Texted.Visible = true;
+                    IV_MP_B_Play.Visible = true;
+                    IV_CB_Toggle_Slider_Func.Visible = true;
+                    IV_MP_B_Restart_Media.Visible = true;
+                    IV_MP_B_Stop.Visible = true;
+                }
+                else
+                {
+                    IV_MP_Realise_Buttons_Anim(IV_MP_Time_Display_Texted, false, false, Siticone.Desktop.UI.AnimatorNS.AnimationType.Transparent);
+                    IV_MP_Realise_Buttons_Anim(IV_MP_B_Play, false, false ,Siticone.Desktop.UI.AnimatorNS.AnimationType.Scale);
+                    IV_MP_Realise_Buttons_Anim(IV_CB_Toggle_Slider_Func);
+                    IV_MP_Realise_Buttons_Anim(IV_MP_B_Restart_Media);
+                    IV_MP_Realise_Buttons_Anim(IV_MP_B_Stop, false, false ,Siticone.Desktop.UI.AnimatorNS.AnimationType.Scale);
+                }
             }
             else
             {
-                IV_MP_B_Play.Visible = false;
-                IV_CB_Toggle_Slider_Func.Checked = false;
-                IV_CB_Toggle_Slider_Func.Visible = false;
-                if (ivmp_media_temp == null || force_false)
-                    IV_MP_B_Restart_Media.Visible = false;
-                IV_MP_B_Stop.Visible = false;
+                if(!iv_mp_new_ui)
+                {
+                    IV_MP_Time_Display_Texted.Visible = false;
+                    IV_MP_B_Play.Visible = false;
+                    IV_CB_Toggle_Slider_Func.Checked = false;
+                    IV_CB_Toggle_Slider_Func.Visible = false;
+                    if (ivmp_media_temp == null || force_false)
+                        IV_MP_B_Restart_Media.Visible = false;
+                    IV_MP_B_Stop.Visible = false;
+                }
+                else
+                {
+                    IV_MP_Realise_Buttons_Anim(IV_MP_Time_Display_Texted, true, false, Siticone.Desktop.UI.AnimatorNS.AnimationType.Transparent);
+                    IV_MP_Realise_Buttons_Anim(IV_MP_B_Play, true, false ,Siticone.Desktop.UI.AnimatorNS.AnimationType.Scale);
+                    IV_CB_Toggle_Slider_Func.Checked = false;
+                    IV_MP_Realise_Buttons_Anim(IV_CB_Toggle_Slider_Func, true);
+                    if (ivmp_media_temp == null || force_false)
+                        IV_MP_Realise_Buttons_Anim(IV_MP_B_Restart_Media, true);
+                    IV_MP_Realise_Buttons_Anim(IV_MP_B_Stop, true, false ,Siticone.Desktop.UI.AnimatorNS.AnimationType.Scale);
+                }
             }
         }
 
@@ -402,6 +477,7 @@ namespace IV_Gallery
             IV_MP_T_Video_End_Check.Enabled = true;
             ivmp_video_ended = false;
             ivmp_stopped = false;
+            IV_MP_T_Video_Time_Show.Enabled = true;
 #if DEBUG
             IV_Check_Process_Window iv_p_state = new IV_Check_Process_Window();
             iv_p_state.IV_DBG_Release_State("IV_MP_B_Restart_Click_Hook",8);
@@ -413,9 +489,13 @@ namespace IV_Gallery
         private void IV_MP_B_Stop_Video_Released()
         {
             IV_CB_Toggle_Slider_Func.Checked = false;
-            IV_CB_Toggle_Slider_Func.Visible = false;
+            if (!iv_mp_new_ui)
+                IV_CB_Toggle_Slider_Func.Visible = false;
+            else
+                IV_MP_Realise_Buttons_Anim(IV_CB_Toggle_Slider_Func, true);
             IV_MP_Release_Slider_Parm();
             ivmp.Stop();
+            IV_MP_T_Video_Time_Show.Enabled = false;
             ivmp_wave.Stop();
             ivmp_wave_ended = false;
             IV_T_Video_Wave_Check_Stopped.Enabled = false;
@@ -427,8 +507,18 @@ namespace IV_Gallery
                 IV_MP_Main.BackColor = Color.Black;
             IV_About_VLC_Player.Active = true;
             ivmp_stopped = true;
-            IV_MP_B_Stop.Visible = false;
-            IV_MP_B_Play.Visible = false;
+            if(!iv_mp_new_ui)
+            {
+                IV_MP_Time_Display_Texted.Visible = false;
+                IV_MP_B_Stop.Visible = false;
+                IV_MP_B_Play.Visible = false;
+            }
+            else
+            {
+                IV_MP_Realise_Buttons_Anim(IV_MP_Time_Display_Texted, true);
+                IV_MP_Realise_Buttons_Anim(IV_MP_B_Stop, true);
+                IV_MP_Realise_Buttons_Anim(IV_MP_B_Play, true);
+            }
         }
 
         private void IV_Release_Video_on_END(object sender, EventArgs e)
@@ -446,7 +536,7 @@ namespace IV_Gallery
         {
             if(!state)
             {
-                IV_MP_T_Video_Time_Show.Enabled = false;
+                IV_CB_Toggle_Slider_Func.Checked = false;
                 IV_MP_Volume_Bar.Minimum = 0;
                 IV_MP_Volume_Bar.Maximum = 100;
                 if(ivmp != null && ivmp.Volume > -1)
@@ -459,6 +549,7 @@ namespace IV_Gallery
             }
             else
             {
+                IV_CB_Toggle_Slider_Func.Checked = true;
                 IV_MP_Volume_Bar.Minimum = 0;
                 long time = ivmp.Length;
                 IV_MP_Volume_Bar.Maximum = (int)time;
@@ -471,9 +562,8 @@ namespace IV_Gallery
                 IV_MP_Volume_Bar.LargeChange = iv_vd_track_20;
                 IV_About_Volume.SetToolTip(IV_MP_Volume_Bar, ivmp_ab_slider_time_info);
                 ivmp_slider_volume = false;
-                IV_MP_T_Video_Time_Show.Enabled = true;
 #if DEBUG
-                MessageBox.Show("IV VLC Video Time is - "+ time+". Currient time is - "+ivmp.Time, IV_Gallery_Main_Menu.thsdev_iv_warning_logo);
+                MessageBox.Show("IV VLC Video Time is - "+ time / 60000+" minutes. Currient time is - "+ivmp.Time / 60000, IV_Gallery_Main_Menu.thsdev_iv_warning_logo);
 #endif
             }
         }
@@ -522,7 +612,10 @@ namespace IV_Gallery
             {
                 if(iv_url_manager.iv_imf_inited && iv_url_manager.Visible)
                     iv_url_manager.Close();
-                IV_B_Chose_Media.Visible = true;
+                if (!iv_mp_new_ui)
+                    IV_B_Chose_Media.Visible = true;
+                else
+                    IV_MP_Realise_Buttons_Anim(IV_B_Chose_Media);
                 IV_B_Chose_Media.Text = iv_mp_search_button_text_local;
                 iv_mp_search_url = false;
             }
@@ -547,7 +640,15 @@ namespace IV_Gallery
 
         public void IV_MP_URL_Button_Visible(bool visible)
         {
-            IV_B_Chose_Media.Visible = visible;
+            bool hide = false;
+            if (visible)
+                hide = false;
+            else
+                hide = true;
+            if (!iv_mp_new_ui)
+                IV_B_Chose_Media.Visible = visible;
+            else
+                IV_MP_Realise_Buttons_Anim(IV_B_Chose_Media, hide);
         }
 
         private void IV_MP_URL_State_Think(object sender, EventArgs e)
@@ -556,13 +657,19 @@ namespace IV_Gallery
             {
                 iv_mp_url_chosed = false;
                 IV_MP_T_Check_URL_State.Enabled = false;
-                IV_B_Chose_Media.Visible = true;
+                if (!iv_mp_new_ui)
+                    IV_B_Chose_Media.Visible = true;
+                else
+                    IV_MP_Realise_Buttons_Anim(IV_B_Chose_Media);
                 IV_MP_Play_Video(false,true);
             }
             else if(!iv_url_manager.iv_imf_inited)
             {
                 IV_MP_T_Check_URL_State.Enabled = false;
-                IV_B_Chose_Media.Visible = true;
+                if (!iv_mp_new_ui)
+                    IV_B_Chose_Media.Visible = true;
+                else
+                    IV_MP_Realise_Buttons_Anim(IV_B_Chose_Media);
             }
         }
 
@@ -587,6 +694,18 @@ namespace IV_Gallery
                 ivmp_wave_ended = false;
                 ivmp_wave.Play(ivmp_media_wave);
             }
+        }
+
+        private bool iv_mp_new_ui = false;
+
+        private void IV_MP_Double_Menu_Settings(object sender, EventArgs e)
+        {
+            var iv_dialog_msg = MessageBox.Show("Activate new UI for that tool?; Currient state is - " 
+                + iv_mp_new_ui.ToString()+".", IV_Gallery_Main_Menu.thsdev_iv_warning_logo, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (iv_dialog_msg == DialogResult.Yes)
+                iv_mp_new_ui = true;
+            else
+                iv_mp_new_ui = false;
         }
     }
 }

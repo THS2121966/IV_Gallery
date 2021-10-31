@@ -155,7 +155,16 @@ namespace IV_Gallery
                 iv_g_m_m.MaximizeBox = true;
                 iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
                 if(!iv_3dx_render.d3x_opened || iv_3dx_render.DXWnd.Visible == false)
+                {
+                    var iv_d3x_anim_load = new Siticone.Desktop.UI.WinForms.SiticoneAnimateWindow(iv_3dx_render.DXWnd)
+                    {
+                        Interval = 450,
+                        AnimationType = Siticone.Desktop.UI.WinForms.SiticoneAnimateWindow.AnimateWindowType.AW_CENTER,
+                        TargetForm = iv_3dx_render.DXWnd
+                    };
+
                     iv_3dx_render.Run();
+                }
             }
             else if(int_to_debug == 8 && debug_mode && IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Visible)
             {
@@ -200,7 +209,16 @@ namespace IV_Gallery
                     iv_g_m_m.MaximizeBox = true;
                     iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
                     if (!iv_3dx_render.d3x_opened || iv_3dx_render.DXWnd.Visible == false)
+                    {
+                        var iv_d3x_anim_load = new Siticone.Desktop.UI.WinForms.SiticoneAnimateWindow(iv_3dx_render.DXWnd)
+                        {
+                            Interval = 450,
+                            AnimationType = Siticone.Desktop.UI.WinForms.SiticoneAnimateWindow.AnimateWindowType.AW_CENTER,
+                            TargetForm = iv_3dx_render.DXWnd
+                        };
+
                         iv_3dx_render.Run();
+                    }
                 }
                 else
                 {

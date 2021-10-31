@@ -159,6 +159,7 @@ namespace IV_Gallery
                 AllowUserResizing = false
             };
             DXWnd.SuspendLayout();
+            DXWnd.FormBorderStyle = FormBorderStyle.None;
             DXWnd.Load += IVD3X_Load_Window;
             DXWnd.FormClosing += IV_DX_WND_Closed_Hook;
             d3x_opened = true;
@@ -175,6 +176,7 @@ namespace IV_Gallery
             IV3DXInitializeDeviceResources();
             IV3DXInitializeShaders();
             IV3DXInitializeTriangle();
+            DXWnd.FormBorderStyle = FormBorderStyle.Fixed3D;
         }
 
         private void IV_RUN_D3X_Window_Simple()

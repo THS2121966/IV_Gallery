@@ -143,7 +143,15 @@ namespace IV_Gallery
             {
                 int_to_debug = 0;
                 debug_mode = true;
-                IV_B_Debug_ChangeBGImage.Visible = true;
+                //IV_B_Debug_ChangeBGImage.Visible = true; IV Note: Old Method.
+
+                var iv_anim_b_bg_change_init = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+                {
+                    MaxAnimationTime = 1000,
+                    AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles
+                };
+
+                iv_anim_b_bg_change_init.Show(IV_B_Debug_ChangeBGImage);
                 iv_g_m_m.MaximizeBox = true;
                 iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
                 if(!iv_3dx_render.d3x_opened || iv_3dx_render.DXWnd.Visible == false)
@@ -153,7 +161,15 @@ namespace IV_Gallery
             {
                 int_to_debug = 0;
                 debug_mode = false;
-                IV_B_Debug_ChangeBGImage.Visible = false;
+                //IV_B_Debug_ChangeBGImage.Visible = false; //IV note: Old Method.
+
+                var iv_anim_b_bg_change_init = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+                {
+                    MaxAnimationTime = 1000,
+                    AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles
+                };
+
+                iv_anim_b_bg_change_init.Hide(IV_B_Debug_ChangeBGImage);
                 iv_g_m_m.MaximizeBox = false;
                 iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
                 if(iv_3dx_render.d3x_opened)
@@ -172,7 +188,15 @@ namespace IV_Gallery
                 if(dlg_result == DialogResult.Yes)
                 {
                     debug_mode = true;
-                    IV_B_Debug_ChangeBGImage.Visible = true;
+                    //IV_B_Debug_ChangeBGImage.Visible = true; IV Note: Old Method.
+
+                    var iv_anim_b_bg_change_init = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+                    {
+                        MaxAnimationTime = 1000,
+                        AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles
+                    };
+
+                    iv_anim_b_bg_change_init.Show(IV_B_Debug_ChangeBGImage);
                     iv_g_m_m.MaximizeBox = true;
                     iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
                     if (!iv_3dx_render.d3x_opened || iv_3dx_render.DXWnd.Visible == false)
@@ -181,7 +205,15 @@ namespace IV_Gallery
                 else
                 {
                     debug_mode = false;
-                    IV_B_Debug_ChangeBGImage.Visible = false;
+                    //IV_B_Debug_ChangeBGImage.Visible = false; //IV note: Old Method.
+                    
+                    var iv_anim_b_bg_change_init = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+                    {
+                        MaxAnimationTime = 1000,
+                        AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles
+                    };
+                    
+                    iv_anim_b_bg_change_init.Hide(IV_B_Debug_ChangeBGImage);
                     iv_g_m_m.MaximizeBox = false;
                     iv_ch_core.IV_Release_DEBUG_MODE(debug_mode);
                     if (iv_3dx_render.d3x_opened)
@@ -215,25 +247,62 @@ namespace IV_Gallery
 
             if (clicked == true)
             {
+                var iv_bg_change_anim = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+                {
+                    AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Transparent,
+                    MaxAnimationTime = 350
+                };
+
+                var iv_buttons_hide_anim = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+                {
+                    AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles,
+                    MaxAnimationTime = 1000
+                };
+
+                this.BackColor = Color.Black;
+
+                /*IV_G_Button_Exit.Visible = false;
+                IV_B_Debug_ChangeBGImage.Visible = false;
+                IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = false;*/ //IV Note: Old hide Method.
+                iv_buttons_hide_anim.Hide(IV_G_Button_Exit);
+                iv_buttons_hide_anim.Hide(IV_B_Debug_ChangeBGImage);
+                iv_buttons_hide_anim.Hide(IV_B_Debug_Resset_BG_IMG_TO_Def);
+                iv_bg_change_anim.HideSync(IV_Gallery_MM_BG_Picture);
                 IV_Gallery_MM_BG_Picture.Image = Properties.Resources.SanyaLogoF;
+                iv_bg_change_anim.ShowSync(IV_Gallery_MM_BG_Picture);
                 IV_G_Button_Exit.UseTransparentBackground = true;
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_open.Play();
                 iv_boomer_random[iv_rnd_for_boomer.Next(0, 2)].Play();
-                IV_G_Button_Exit.Visible = false;
-                IV_B_Debug_ChangeBGImage.Visible = false;
-                IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = false;
             }
             else
             {
-                IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
-                IV_G_Button_Exit.UseTransparentBackground = true;
-                IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
-                IV_G_Button_Exit.Visible = true;
-                if(debug_mode)
-                    IV_B_Debug_ChangeBGImage.Visible = true;
-                if(iv_bg_changed)
+                var iv_bg_change_anim = new Siticone.Desktop.UI.WinForms.SiticoneTransition
                 {
-                    IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = true;
+                    AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Transparent,
+                    MaxAnimationTime = 350
+                };
+
+                var iv_buttons_show_anim = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+                {
+                    AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles,
+                    MaxAnimationTime = 1000
+                };
+
+                iv_bg_change_anim.HideSync(IV_Gallery_MM_BG_Picture);
+                IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
+                iv_bg_change_anim.ShowSync(IV_Gallery_MM_BG_Picture);
+                IV_G_Button_Exit.UseTransparentBackground = true;
+                this.BackColor = Color.White;
+                IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
+                //IV_G_Button_Exit.Visible = true;
+                iv_buttons_show_anim.Show(IV_G_Button_Exit);
+                if(debug_mode)
+                    //IV_B_Debug_ChangeBGImage.Visible = true;
+                    iv_buttons_show_anim.Show(IV_B_Debug_ChangeBGImage);
+                if (iv_bg_changed)
+                {
+                    //IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = true;
+                    iv_buttons_show_anim.Show(IV_B_Debug_Resset_BG_IMG_TO_Def);
                 }
             }
             IV_Release_Load_INFO(70);
@@ -280,7 +349,18 @@ namespace IV_Gallery
             iv_mp.Close();
             iv_mp_2.Close();
             iv_mp_3.Close();
+
+            iv_g_m_m.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+
+            var iv_hide_window = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+            {
+                AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.ScaleAndHorizSlide,
+                MaxAnimationTime = 1000
+            };
+
+            iv_hide_window.Hide(iv_g_m_m);
             iv_g_m_m.Hide();
+
             IV_T_Exit.Enabled = true;
         }
 
@@ -453,9 +533,26 @@ namespace IV_Gallery
                 iv_bg_changed = true;
                 if (IV_Gallery_MM_BG_Picture.Image == iv_temp_bg_def_old)
                 {
+                    var iv_bg_change_anim = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+                    {
+                        AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Transparent,
+                        MaxAnimationTime = 350
+                    };
+                    var iv_button_resset_show_anim = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+                    {
+                        AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles,
+                        MaxAnimationTime = 1000
+                    };
+
+                    this.BackColor = Color.Black;
+
+                    iv_bg_change_anim.HideSync(IV_Gallery_MM_BG_Picture);
                     IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
+                    iv_bg_change_anim.ShowSync(IV_Gallery_MM_BG_Picture);
+                    this.BackColor = Color.White;
                     IV_G_Button_Exit.UseTransparentBackground = true;
-                    IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = true;
+                    //IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = true; //IV Note: Old show Method.
+                    iv_button_resset_show_anim.Show(IV_B_Debug_Resset_BG_IMG_TO_Def);
                     IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_accept_s.Play();
                 }
             }
@@ -488,12 +585,30 @@ namespace IV_Gallery
         private void IV_Resset_Main_BG()
         {
             iv_bg_changed = false;
+
+            var iv_bg_to_def_anim = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+            {
+                MaxAnimationTime = 350,
+                AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.HorizSlide
+            };
+
+            var iv_button_resset_hide_anim = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+            {
+                AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles,
+                MaxAnimationTime = 1000
+            };
+
+            this.BackColor = Color.Black;
+            iv_bg_to_def_anim.HideSync(IV_Gallery_MM_BG_Picture);
             iv_bg_default = iv_bg_default_standart;
             IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
+            iv_bg_to_def_anim.ShowSync(IV_Gallery_MM_BG_Picture);
+            this.BackColor = Color.White;
             IV_G_Button_Exit.UseTransparentBackground = true;
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_accept_s.Play();
             if (iv_bg_default == iv_bg_default_standart)
-                IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = false;
+                //IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = false; //IV Note: Old hide Method.
+                iv_button_resset_hide_anim.Hide(IV_B_Debug_Resset_BG_IMG_TO_Def);
         }
 
         private void IV_B_BG_Reset_Hook(object sender, EventArgs e)
@@ -509,6 +624,19 @@ namespace IV_Gallery
             IV_T_Load_Check.Enabled = false;
             iv_g_m_m.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             iv_g_m_m.Icon = this.Icon;
+
+            var iv_b_app_inf_anim_loaded = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+            {
+                MaxAnimationTime = 1000,
+                AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.ScaleAndRotate
+            };
+
+            if (IV_Button_App_Info.Visible)
+            {
+                iv_b_app_inf_anim_loaded.HideSync(IV_Button_App_Info);
+                iv_b_app_inf_anim_loaded.AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles;
+                iv_b_app_inf_anim_loaded.Show(IV_Button_App_Info);
+            }
         }
     }
 }

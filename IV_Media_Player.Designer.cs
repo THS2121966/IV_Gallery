@@ -52,6 +52,7 @@ namespace IV_Gallery
             this.IV_MP_T_Video_Time_Show = new System.Windows.Forms.Timer(this.components);
             this.IV_MP_Sound_Wave_Panel = new LibVLCSharp.WinForms.VideoView();
             this.IV_T_Video_Wave_Check_Stopped = new System.Windows.Forms.Timer(this.components);
+            this.IV_MP_Anim_State = new Siticone.Desktop.UI.WinForms.SiticoneAnimateWindow(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Main)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Volume_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).BeginInit();
@@ -253,6 +254,12 @@ namespace IV_Gallery
             this.IV_T_Video_Wave_Check_Stopped.Interval = 500;
             this.IV_T_Video_Wave_Check_Stopped.Tick += new System.EventHandler(this.IV_MP_Wave_Stopped_Think);
             // 
+            // IV_MP_Anim_State
+            // 
+            this.IV_MP_Anim_State.AnimationType = Siticone.Desktop.UI.WinForms.SiticoneAnimateWindow.AnimateWindowType.AW_HOR_POSITIVE;
+            this.IV_MP_Anim_State.Interval = 450;
+            this.IV_MP_Anim_State.TargetForm = this;
+            // 
             // IV_Media_Player
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,6 +276,7 @@ namespace IV_Gallery
             this.Controls.Add(this.IV_MP_Main);
             this.Controls.Add(this.IV_B_Chose_Media);
             this.Controls.Add(this.IV_M_Player_BG_Panel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IV_Media_Player";
             this.Text = "IV Media Player";
@@ -306,5 +314,6 @@ namespace IV_Gallery
         private System.Windows.Forms.Timer IV_MP_T_Video_Time_Show;
         private LibVLCSharp.WinForms.VideoView IV_MP_Sound_Wave_Panel;
         private System.Windows.Forms.Timer IV_T_Video_Wave_Check_Stopped;
+        private Siticone.Desktop.UI.WinForms.SiticoneAnimateWindow IV_MP_Anim_State;
     }
 }

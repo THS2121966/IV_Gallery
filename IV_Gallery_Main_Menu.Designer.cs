@@ -132,7 +132,7 @@ namespace IV_Gallery
             // 
             // IV_T_Exit
             // 
-            this.IV_T_Exit.Interval = 1000;
+            this.IV_T_Exit.Interval = 3000;
             this.IV_T_Exit.Tick += new System.EventHandler(this.IV_T_Exit_Scenario);
             // 
             // IV_AB_Exit_Info

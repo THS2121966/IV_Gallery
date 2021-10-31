@@ -189,6 +189,7 @@ namespace IV_Gallery
             IV_Release_V_UI();
             IV_MP_Init_Video_Check_State();
 #endif
+            this.FormBorderStyle = FormBorderStyle.Sizable;
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_mp_showed = true;
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_open.Play();
         }

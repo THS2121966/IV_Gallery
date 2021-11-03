@@ -31,7 +31,6 @@ namespace IV_Gallery
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IV_Media_Player));
-            this.IV_M_Player_BG_Panel = new System.Windows.Forms.PictureBox();
             this.IV_B_Chose_Media = new System.Windows.Forms.Button();
             this.IV_MP_Main = new LibVLCSharp.WinForms.VideoView();
             this.IV_MP_File_Dialog = new System.Windows.Forms.OpenFileDialog();
@@ -46,25 +45,20 @@ namespace IV_Gallery
             this.IV_About_Restart = new System.Windows.Forms.ToolTip(this.components);
             this.IV_About_Volume = new System.Windows.Forms.ToolTip(this.components);
             this.IV_MP_T_Video_End_Check = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).BeginInit();
+            this.IV_MP_CB_Ulr_Method = new System.Windows.Forms.CheckBox();
+            this.IV_M_Player_BG_Panel = new System.Windows.Forms.PictureBox();
+            this.IV_MP_T_Check_URL_State = new System.Windows.Forms.Timer(this.components);
+            this.IV_MP_T_Change_Time_Interval = new System.Windows.Forms.Timer(this.components);
+            this.IV_MP_T_Video_Time_Show = new System.Windows.Forms.Timer(this.components);
+            this.IV_MP_Sound_Wave_Panel = new LibVLCSharp.WinForms.VideoView();
+            this.IV_T_Video_Wave_Check_Stopped = new System.Windows.Forms.Timer(this.components);
+            this.IV_MP_Anim_State = new Siticone.Desktop.UI.WinForms.SiticoneAnimateWindow(this.components);
+            this.IV_MP_Time_Display_Texted = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Main)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Volume_Bar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Sound_Wave_Panel)).BeginInit();
             this.SuspendLayout();
-            // 
-            // IV_M_Player_BG_Panel
-            // 
-            this.IV_M_Player_BG_Panel.BackColor = System.Drawing.Color.Silver;
-            this.IV_M_Player_BG_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.IV_M_Player_BG_Panel.ErrorImage = global::IV_Gallery.Properties.Resources.ths_hammer_icon;
-            this.IV_M_Player_BG_Panel.Image = global::IV_Gallery.Properties.Resources.ths_z_nationF;
-            this.IV_M_Player_BG_Panel.InitialImage = global::IV_Gallery.Properties.Resources.ths_icon;
-            this.IV_M_Player_BG_Panel.Location = new System.Drawing.Point(0, 0);
-            this.IV_M_Player_BG_Panel.Name = "IV_M_Player_BG_Panel";
-            this.IV_M_Player_BG_Panel.Size = new System.Drawing.Size(564, 146);
-            this.IV_M_Player_BG_Panel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.IV_M_Player_BG_Panel.TabIndex = 0;
-            this.IV_M_Player_BG_Panel.TabStop = false;
-            this.IV_M_Player_BG_Panel.Click += new System.EventHandler(this.IV_MP_Main_Click_Hook);
             // 
             // IV_B_Chose_Media
             // 
@@ -200,12 +194,95 @@ namespace IV_Gallery
             this.IV_MP_T_Video_End_Check.Interval = 1000;
             this.IV_MP_T_Video_End_Check.Tick += new System.EventHandler(this.IV_T_Video_End_Check_Think);
             // 
+            // IV_MP_CB_Ulr_Method
+            // 
+            this.IV_MP_CB_Ulr_Method.AutoSize = true;
+            this.IV_MP_CB_Ulr_Method.BackColor = System.Drawing.Color.Silver;
+            this.IV_MP_CB_Ulr_Method.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IV_MP_CB_Ulr_Method.Location = new System.Drawing.Point(12, 107);
+            this.IV_MP_CB_Ulr_Method.Name = "IV_MP_CB_Ulr_Method";
+            this.IV_MP_CB_Ulr_Method.Size = new System.Drawing.Size(73, 17);
+            this.IV_MP_CB_Ulr_Method.TabIndex = 9;
+            this.IV_MP_CB_Ulr_Method.Text = "Url Search";
+            this.IV_MP_CB_Ulr_Method.UseVisualStyleBackColor = false;
+            this.IV_MP_CB_Ulr_Method.CheckedChanged += new System.EventHandler(this.IV_MP_CB_URL_Checked);
+            // 
+            // IV_M_Player_BG_Panel
+            // 
+            this.IV_M_Player_BG_Panel.BackColor = System.Drawing.Color.Silver;
+            this.IV_M_Player_BG_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.IV_M_Player_BG_Panel.ErrorImage = global::IV_Gallery.Properties.Resources.ths_hammer_icon;
+            this.IV_M_Player_BG_Panel.Image = global::IV_Gallery.Properties.Resources.ths_z_nationF;
+            this.IV_M_Player_BG_Panel.InitialImage = global::IV_Gallery.Properties.Resources.ths_icon;
+            this.IV_M_Player_BG_Panel.Location = new System.Drawing.Point(0, 0);
+            this.IV_M_Player_BG_Panel.Name = "IV_M_Player_BG_Panel";
+            this.IV_M_Player_BG_Panel.Size = new System.Drawing.Size(564, 146);
+            this.IV_M_Player_BG_Panel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.IV_M_Player_BG_Panel.TabIndex = 0;
+            this.IV_M_Player_BG_Panel.TabStop = false;
+            this.IV_M_Player_BG_Panel.Click += new System.EventHandler(this.IV_MP_Main_Click_Hook);
+            this.IV_M_Player_BG_Panel.DoubleClick += new System.EventHandler(this.IV_MP_Double_Menu_Settings);
+            // 
+            // IV_MP_T_Check_URL_State
+            // 
+            this.IV_MP_T_Check_URL_State.Tick += new System.EventHandler(this.IV_MP_URL_State_Think);
+            // 
+            // IV_MP_T_Change_Time_Interval
+            // 
+            this.IV_MP_T_Change_Time_Interval.Interval = 2000;
+            this.IV_MP_T_Change_Time_Interval.Tick += new System.EventHandler(this.IV_MP_T_Video_T_Change_Interval);
+            // 
+            // IV_MP_T_Video_Time_Show
+            // 
+            this.IV_MP_T_Video_Time_Show.Interval = 300;
+            this.IV_MP_T_Video_Time_Show.Tick += new System.EventHandler(this.IV_MP_Time_Control_Think);
+            // 
+            // IV_MP_Sound_Wave_Panel
+            // 
+            this.IV_MP_Sound_Wave_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.IV_MP_Sound_Wave_Panel.BackColor = System.Drawing.Color.Black;
+            this.IV_MP_Sound_Wave_Panel.Location = new System.Drawing.Point(106, 42);
+            this.IV_MP_Sound_Wave_Panel.MediaPlayer = null;
+            this.IV_MP_Sound_Wave_Panel.Name = "IV_MP_Sound_Wave_Panel";
+            this.IV_MP_Sound_Wave_Panel.Size = new System.Drawing.Size(446, 62);
+            this.IV_MP_Sound_Wave_Panel.TabIndex = 10;
+            this.IV_MP_Sound_Wave_Panel.Text = "IV Sound Wave Panel";
+            this.IV_MP_Sound_Wave_Panel.Visible = false;
+            // 
+            // IV_T_Video_Wave_Check_Stopped
+            // 
+            this.IV_T_Video_Wave_Check_Stopped.Interval = 500;
+            this.IV_T_Video_Wave_Check_Stopped.Tick += new System.EventHandler(this.IV_MP_Wave_Stopped_Think);
+            // 
+            // IV_MP_Anim_State
+            // 
+            this.IV_MP_Anim_State.AnimationType = Siticone.Desktop.UI.WinForms.SiticoneAnimateWindow.AnimateWindowType.AW_HOR_POSITIVE;
+            this.IV_MP_Anim_State.Interval = 450;
+            this.IV_MP_Anim_State.TargetForm = this;
+            // 
+            // IV_MP_Time_Display_Texted
+            // 
+            this.IV_MP_Time_Display_Texted.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.IV_MP_Time_Display_Texted.AutoSize = true;
+            this.IV_MP_Time_Display_Texted.BackColor = System.Drawing.Color.DarkGray;
+            this.IV_MP_Time_Display_Texted.Location = new System.Drawing.Point(503, 12);
+            this.IV_MP_Time_Display_Texted.Name = "IV_MP_Time_Display_Texted";
+            this.IV_MP_Time_Display_Texted.Size = new System.Drawing.Size(49, 13);
+            this.IV_MP_Time_Display_Texted.TabIndex = 11;
+            this.IV_MP_Time_Display_Texted.Text = "00:00:00";
+            this.IV_MP_Time_Display_Texted.Visible = false;
+            // 
             // IV_Media_Player
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(564, 146);
+            this.Controls.Add(this.IV_MP_Time_Display_Texted);
+            this.Controls.Add(this.IV_MP_Sound_Wave_Panel);
+            this.Controls.Add(this.IV_MP_CB_Ulr_Method);
             this.Controls.Add(this.IV_CB_Toggle_Slider_Func);
             this.Controls.Add(this.IV_MP_B_Play);
             this.Controls.Add(this.IV_MP_B_Restart_Media);
@@ -214,14 +291,16 @@ namespace IV_Gallery
             this.Controls.Add(this.IV_MP_Main);
             this.Controls.Add(this.IV_B_Chose_Media);
             this.Controls.Add(this.IV_M_Player_BG_Panel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IV_Media_Player";
             this.Text = "IV Media Player";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.IV_Music_Player_Close_Hook);
             this.Load += new System.EventHandler(this.IV_MP_Load_Hook);
-            ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Main)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Volume_Bar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IV_M_Player_BG_Panel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IV_MP_Sound_Wave_Panel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,5 +323,13 @@ namespace IV_Gallery
         private System.Windows.Forms.ToolTip IV_About_Restart;
         private System.Windows.Forms.ToolTip IV_About_Volume;
         private System.Windows.Forms.Timer IV_MP_T_Video_End_Check;
+        private System.Windows.Forms.CheckBox IV_MP_CB_Ulr_Method;
+        private System.Windows.Forms.Timer IV_MP_T_Check_URL_State;
+        private System.Windows.Forms.Timer IV_MP_T_Change_Time_Interval;
+        private System.Windows.Forms.Timer IV_MP_T_Video_Time_Show;
+        private LibVLCSharp.WinForms.VideoView IV_MP_Sound_Wave_Panel;
+        private System.Windows.Forms.Timer IV_T_Video_Wave_Check_Stopped;
+        private Siticone.Desktop.UI.WinForms.SiticoneAnimateWindow IV_MP_Anim_State;
+        private System.Windows.Forms.Label IV_MP_Time_Display_Texted;
     }
 }

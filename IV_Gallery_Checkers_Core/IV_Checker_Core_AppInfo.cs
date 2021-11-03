@@ -19,6 +19,10 @@ namespace IV_Gallery_Checkers_Core
                 IV_B_Music_Player.Visible = false;
             if (IVCheckerCore.ivmp_more_panels)
                 IV_AB_CB_More_Panels.Checked = true;
+            if (!IVCheckerCore.iv_mp_showed && IVCheckerCore.debug_mode)
+                IV_AB_CB_More_Panels.Visible = true;
+            else
+                IV_AB_CB_More_Panels.Visible = false;
         }
 
         public bool iv_ab_closed_hook = false;

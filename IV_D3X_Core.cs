@@ -20,12 +20,12 @@ namespace IV_Gallery
     class DXCoreTest : IDisposable
     {
         public RenderForm DXWnd;
-        private static string thsdev_iv_d3x_logo = IV_Gallery_Main_Menu.thsdev_iv_logo + " DirectX (D3X) Visualiser";
+        private readonly static string thsdev_iv_d3x_logo = IV_Gallery_Main_Menu.thsdev_iv_logo + " DirectX (D3X) Visualiser";
         public bool d3x_opened = false;
         public bool ivdx_shutdown_silent = false;
         private bool first_d3x_inited = true;
-        static private int Width = 1280;
-        static private int Height = 720;
+        static readonly private int Width = 1280;
+        static private readonly int Height = 720;
         private D3D11.Device IVDXDevice;
         private D3D11.DeviceContext IVDXDeviceContext;
         private SwapChain IVswapChain;
@@ -38,14 +38,14 @@ namespace IV_Gallery
         private ShaderSignature IVEngine_inputSignature;
         private D3D11.InputLayout IVEngine_inputLayout;
 
-        private D3D11.InputElement[] IVEngine_inputElements = new D3D11.InputElement[]
+        private readonly D3D11.InputElement[] IVEngine_inputElements = new D3D11.InputElement[]
         {
             new D3D11.InputElement("POSITION", 0, Format.R32G32B32_Float, 0, 0, D3D11.InputClassification.PerVertexData, 0),
             new D3D11.InputElement("COLOR", 0, Format.R32G32B32A32_Float, 12, 0, D3D11.InputClassification.PerVertexData, 0)
         };
 
         // Triangle vertices
-        private IV_VertexPosColor[] IVvertices = new IV_VertexPosColor[] { new IV_VertexPosColor(new Vector3(-0.5f, 0.5f, 0.0f), SharpDX.Color.Red), new IV_VertexPosColor(new Vector3(0.5f, 0.5f, 0.0f), SharpDX.Color.Green), new IV_VertexPosColor(new Vector3(0.0f, -0.5f, 0.0f), SharpDX.Color.Blue) };
+        private readonly IV_VertexPosColor[] IVvertices = new IV_VertexPosColor[] { new IV_VertexPosColor(new Vector3(-0.5f, 0.5f, 0.0f), SharpDX.Color.Red), new IV_VertexPosColor(new Vector3(0.5f, 0.5f, 0.0f), SharpDX.Color.Green), new IV_VertexPosColor(new Vector3(0.0f, -0.5f, 0.0f), SharpDX.Color.Blue) };
         private D3D11.Buffer IVtriangleVertexBuffer;
 
         public DXCoreTest()
@@ -153,10 +153,13 @@ namespace IV_Gallery
 
         private void IV_INIT_D3X_Window()
         {
-            DXWnd = new RenderForm(thsdev_iv_d3x_logo);
-            DXWnd.ClientSize = new Size(Width, Height);
-            DXWnd.AllowUserResizing = false;
+            DXWnd = new RenderForm(thsdev_iv_d3x_logo)
+            {
+                ClientSize = new Size(Width, Height),
+                AllowUserResizing = false
+            };
             DXWnd.SuspendLayout();
+            DXWnd.FormBorderStyle = FormBorderStyle.None;
             DXWnd.Load += IVD3X_Load_Window;
             DXWnd.FormClosing += IV_DX_WND_Closed_Hook;
             d3x_opened = true;
@@ -173,6 +176,7 @@ namespace IV_Gallery
             IV3DXInitializeDeviceResources();
             IV3DXInitializeShaders();
             IV3DXInitializeTriangle();
+            DXWnd.FormBorderStyle = FormBorderStyle.Fixed3D;
         }
 
         private void IV_RUN_D3X_Window_Simple()

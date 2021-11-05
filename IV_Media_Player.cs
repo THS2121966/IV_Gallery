@@ -179,7 +179,7 @@ namespace IV_Gallery
                     currient_time_texted = "00:00:"+ time_seconds;
                 else if(ivmp.Time < 3600000)
                     currient_time_texted = "00:" + time_minutes + ":"+ (time_seconds - 60 * time_minutes);
-                else if (ivmp.Time < 86400000)
+                else if (ivmp.Time >= 3600000)
                     currient_time_texted = time_hours + ":" + (time_minutes - 60 * time_hours) + ":" + (time_seconds - 60 * time_minutes);
             IV_MP_Time_Display_Texted.Text = currient_time_texted;
         }
@@ -480,7 +480,7 @@ namespace IV_Gallery
             IV_MP_T_Video_Time_Show.Enabled = true;
 #if DEBUG
             IV_Check_Process_Window iv_p_state = new IV_Check_Process_Window();
-            iv_p_state.IV_DBG_Release_State("IV_MP_B_Restart_Click_Hook",8);
+            iv_p_state.IV_DBG_Release_State("IV_MP_B_Restart_Click_Hook(object sender, EventArgs e)", 8);
 #endif
             IV_About_VLC_Player.Active = false;
             IV_Release_V_UI();
@@ -519,6 +519,10 @@ namespace IV_Gallery
                 IV_MP_Realise_Buttons_Anim(IV_MP_B_Stop, true);
                 IV_MP_Realise_Buttons_Anim(IV_MP_B_Play, true);
             }
+#if DEBUG
+            IV_Check_Process_Window iv_p_state = new IV_Check_Process_Window();
+            iv_p_state.IV_DBG_Release_State("IV_MP_B_Stop_Video_Released()", 5);
+#endif
         }
 
         private void IV_Release_Video_on_END(object sender, EventArgs e)
@@ -563,7 +567,30 @@ namespace IV_Gallery
                 IV_About_Volume.SetToolTip(IV_MP_Volume_Bar, ivmp_ab_slider_time_info);
                 ivmp_slider_volume = false;
 #if DEBUG
-                MessageBox.Show("IV VLC Video Time is - "+ time / 60000+" minutes. Currient time is - "+ivmp.Time / 60000, IV_Gallery_Main_Menu.thsdev_iv_warning_logo);
+                var all_time = time;
+                string[] time_structure = new string[3] {"seconds","minutes","hours" };
+                string currient_t_structure = String.Empty;
+                if (all_time < 60000)
+                {
+                    all_time /= 1000;
+                    currient_t_structure = time_structure[0];
+                }
+                else if (all_time < 3600000)
+                {
+                    all_time /= 60000;
+                    currient_t_structure = time_structure[1];
+                }
+                else if (all_time >= 3600000)
+                {
+                    all_time /= 3600000;
+                    currient_t_structure = time_structure[2];
+                }
+                if (all_time >= 60000 && all_time < 3600000)
+                    currient_t_structure = currient_t_structure + " "+ (time / 1000 - 60 * all_time)+" "+ time_structure[0];
+                else if (all_time >= 3600000)
+                    currient_t_structure = currient_t_structure + " " + (time / 60000 - 60 * all_time) 
+                        + " " + time_structure[1] + " " + (time / 1000 - 60 * all_time) + " " + time_structure[0];
+                MessageBox.Show("IV VLC Video Time is - "+ all_time + " "+ currient_t_structure+".", IV_Gallery_Main_Menu.thsdev_iv_warning_logo);
 #endif
             }
         }
@@ -623,6 +650,10 @@ namespace IV_Gallery
             {
                 IV_B_Chose_Media.Text = iv_mp_search_button_text_url;
                 iv_mp_search_url = true;
+#if DEBUG
+                IV_Check_Process_Window iv_p_state = new IV_Check_Process_Window();
+                iv_p_state.IV_DBG_Release_State("IV_MP_Release_Local_or_URL_Search_Method(bool url_enabled = false)", 8, true);
+#endif
             }
         }
 

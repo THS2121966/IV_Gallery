@@ -66,8 +66,13 @@ namespace IV_Gallery
 
         private bool iv_dbg_first_t_check = true;
 
-        public void IV_DBG_Release_State(string process_name = "NULL", int state = -1)
+        public void IV_DBG_Release_State(string process_name = "NULL", int state = -1, bool force_more_size = false)
         {
+            if(force_more_size)
+            {
+                this.Width = Width + 30;
+                this.Height = Height + 30;
+            }
             if(state >= 0 && state <= 10)
             {
                 IV_DBG_P_Next_State(state, process_name);

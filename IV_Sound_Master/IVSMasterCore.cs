@@ -80,6 +80,7 @@ namespace IV_Sound_Master
         {
             var songs_list = "List of Active Songs: ";
             var iv_temp_sm_list = IV_SM_Check_Active_Songs_Names();
+            var iv_dlg_show_songs_result = DialogResult.No;
             foreach (string song in iv_temp_sm_list)
             {
                 var int_pos = Array.IndexOf(iv_temp_sm_list, song, 0) + 1;
@@ -95,6 +96,7 @@ namespace IV_Sound_Master
                 var dlg_result = MessageBox.Show("Show Available sound List?", iv_sm_logo, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (dlg_result == DialogResult.Yes)
                 {
+                    iv_dlg_show_songs_result = dlg_result;
                     ui_picture_accept_s.Play();
                     MessageBox.Show(songs_list, iv_sm_logo, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -104,7 +106,7 @@ namespace IV_Sound_Master
                 ui_picture_accept_s.Play();
                 MessageBox.Show(songs_list, iv_sm_logo, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            if(play_songs_from_array)
+            if(play_songs_from_array && iv_dlg_show_songs_result == DialogResult.Yes)
             {
                 ui_picture_accept_s.Play();
                 var dlg_result = MessageBox.Show("Play songs from array for Testing That?", iv_sm_logo, MessageBoxButtons.YesNo, MessageBoxIcon.Information);

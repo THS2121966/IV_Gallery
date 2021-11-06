@@ -102,6 +102,7 @@ namespace IV_Gallery
         static public Image iv_bg_default_standart = Properties.Resources.THSSourcelogoF_source_loading;
         public Image iv_bg_default = iv_bg_default_standart;
         private bool iv_bg_changed = false;
+        private static string[] iv_app_warnings_list = new string[1] {String.Empty };
         static public IV_Gallery_Checkers_Core.IVCheckerCore iv_ch_core = new IV_Gallery_Checkers_Core.IVCheckerCore();
         private readonly SoundPlayer[] iv_boomer_random = new SoundPlayer[2] { IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_01, IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_picture_boomer_s_02 };
         private readonly DXCoreTest iv_3dx_render = new DXCoreTest();
@@ -117,7 +118,35 @@ namespace IV_Gallery
             if(!is_error)
             {
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_bug_s.Play();
+
+                int counted_w_last_array_length = iv_app_warnings_list.Length;
+                int counted_w_last_string = counted_w_last_array_length - 1;
+
+                if(iv_app_warnings_list[counted_w_last_string] == String.Empty)
+                    iv_app_warnings_list[counted_w_last_string] = (counted_w_last_string + 1) + ")" + " " + message;
+                else
+                {
+                    Array.Resize(ref iv_app_warnings_list, counted_w_last_array_length + 1);
+                    counted_w_last_array_length = iv_app_warnings_list.Length;
+                    counted_w_last_string = counted_w_last_array_length - 1;
+                    iv_app_warnings_list[counted_w_last_string] = (counted_w_last_string + 1) + ")" + " " + message;
+                }
+
                 MessageBox.Show("Something was wrong... - " + message, thsdev_iv_warning_logo, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                var iv_dlg_show_last_warnings = MessageBox.Show("Show last application warnings?", thsdev_iv_logo, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(iv_dlg_show_last_warnings == DialogResult.Yes)
+                {
+                    var iv_msg_last_varnings = String.Empty;
+                    foreach(string msg_w in iv_app_warnings_list)
+                    {
+                        string[] end_string = new string[2] { ";","." };
+                        if(msg_w != iv_app_warnings_list.Last())
+                            iv_msg_last_varnings = iv_msg_last_varnings + " " + msg_w + end_string[0];
+                        else
+                            iv_msg_last_varnings = iv_msg_last_varnings + " " + msg_w + end_string[1];
+                    }
+                    MessageBox.Show("Last application warnings: " + iv_msg_last_varnings, thsdev_iv_logo);
+                }
                 return message;
             }
             else
@@ -358,8 +387,17 @@ namespace IV_Gallery
         {
             int_to_debug = 0;
             iv_3dx_render.ivdx_shutdown_silent = true;
+#if !DEBUG
             if (debug_mode)
                 MessageBox.Show("Thank you for testing that programm. Goodbye!!!", thsdev_iv_logo);
+#else
+            if (debug_mode)
+            {
+                int test_counts = 1;
+                for(int i = 1; i <= test_counts; i++)
+                    IV_Release_Problem_Message("Thank you for testing that programm. Goodbye!!!");
+            }
+#endif
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Close();
             if (iv_3dx_render.d3x_opened)
@@ -449,7 +487,7 @@ namespace IV_Gallery
 
         private void IV_Think_AB_WND_Hook(object sender, EventArgs e)
         {
-            #region IV_RESTART_PROGRAMM_HOOK
+#region IV_RESTART_PROGRAMM_HOOK
             if (IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.Visible == false && !IV_Gallery_Checkers_Core.IVCheckerCore.iv_ab_hide_hack)
             {
                 IV_THINK_AB_WINDOW_HOOK.Enabled = false;
@@ -472,8 +510,8 @@ namespace IV_Gallery
                 iv_ch_core.IV_Release_DEBUG_MODE(false, true);
                 IV_Gallery_MM_BG_Picture.Image = iv_bg_default;
             }
-            #endregion
-            #region IV_MUSIC_PLAYER
+#endregion
+#region IV_MUSIC_PLAYER
             if (IV_Gallery_Checkers_Core.IVCheckerCore.ivmp_more_panels)
                 ivmp_init_max_vlc_panels = true;
             else
@@ -509,7 +547,7 @@ namespace IV_Gallery
             {
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_app_inf_main.IV_MP_Realise_Music_Button(true);
             }
-            #endregion
+#endregion
         }
 
         private void IV_B_BGCH_Click(object sender, EventArgs e)
@@ -577,7 +615,8 @@ namespace IV_Gallery
             else
             {
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_bug_s.Play();
-                MessageBox.Show("File no chosed or INVAID!!!", IV_DLG_BG_IMG_Finder.Title);
+                IV_Release_Problem_Message("File no chosed or INVAID!!!");
+                //MessageBox.Show("File no chosed or INVAID!!!", IV_DLG_BG_IMG_Finder.Title);
             }
         }
 

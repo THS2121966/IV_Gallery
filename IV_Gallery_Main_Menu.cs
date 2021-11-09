@@ -312,6 +312,7 @@ namespace IV_Gallery
                 IV_B_Debug_ChangeBGImage.Visible = false;
                 IV_B_Debug_Resset_BG_IMG_TO_Def.Visible = false;*/ //IV Note: Old hide Method.
                 iv_buttons_hide_anim.Hide(IV_G_Button_Exit);
+                iv_buttons_hide_anim.Hide(IV_B_Gallery_Settings);
                 iv_buttons_hide_anim.Hide(IV_B_Debug_ChangeBGImage);
                 iv_buttons_hide_anim.Hide(IV_B_Debug_Resset_BG_IMG_TO_Def);
                 iv_bg_change_anim.HideSync(IV_Gallery_MM_BG_Picture);
@@ -343,7 +344,8 @@ namespace IV_Gallery
                 IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_close.Play();
                 //IV_G_Button_Exit.Visible = true;
                 iv_buttons_show_anim.Show(IV_G_Button_Exit);
-                if(debug_mode)
+                iv_buttons_show_anim.Show(IV_B_Gallery_Settings);
+                if (debug_mode)
                     //IV_B_Debug_ChangeBGImage.Visible = true;
                     iv_buttons_show_anim.Show(IV_B_Debug_ChangeBGImage);
                 if (iv_bg_changed)
@@ -357,11 +359,15 @@ namespace IV_Gallery
 
         public void IV_Release_Load_INFO(int starting_value = 0)
         {
-            if(iv_released_l_info == true)
+            if(iv_default_settings_b_pos == new Point(30, 30))
+                iv_default_settings_b_pos = IV_B_Gallery_Settings.Location;
+
+            if (iv_released_l_info == true)
             {
                 iv_released_l_info = false;
                 IV_MM_Load_Status_Bar.Value = 0;
                 iv_sb_released_state = starting_value;
+                IV_Change_Settings_Button_Origin(false);
                 IV_MM_Load_Status_Bar.Visible = true;
                 IV_Time_WAIT_UN_Load.Enabled = true;
             }
@@ -370,6 +376,7 @@ namespace IV_Gallery
                 iv_released_l_info = true;
                 IV_MM_Load_Status_Bar.Value = 100;
                 IV_MM_Load_Status_Bar.Visible = false;
+                IV_Change_Settings_Button_Origin(true);
                 if (IV_Time_WAIT_UN_Load.Enabled == true || IV_Time_Pre_Finish_Load.Enabled == true)
                 {
                     IV_Release_Load_INFO(starting_value);
@@ -496,6 +503,7 @@ namespace IV_Gallery
             {
                 IV_THINK_AB_WINDOW_HOOK.Enabled = false;
                 IV_Button_App_Info.Visible = false;
+                IV_B_Gallery_Settings.Visible = false;
                 IV_B_Debug_ChangeBGImage.Visible = false;
                 iv_mp.Close();
                 iv_mp_2.Close();
@@ -693,6 +701,121 @@ namespace IV_Gallery
                 iv_b_app_inf_anim_loaded.HideSync(IV_Button_App_Info);
                 iv_b_app_inf_anim_loaded.AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles;
                 iv_b_app_inf_anim_loaded.Show(IV_Button_App_Info);
+                iv_b_app_inf_anim_loaded.Show(IV_B_Gallery_Settings);
+            }
+        }
+
+        private static Point iv_default_settings_b_pos = new Point(30, 30);
+
+        private bool IV_Change_Settings_Button_Origin(bool change_to_slider_pos, bool only_check_status = false)
+        {
+            if(!change_to_slider_pos && !only_check_status)
+            {
+                IV_B_Gallery_Settings.Location = iv_default_settings_b_pos;
+            }
+            else if(!only_check_status)
+            {
+                IV_B_Gallery_Settings.Location = IV_MM_Load_Status_Bar.Location;
+            }
+            if(!only_check_status)
+                return change_to_slider_pos;
+            else
+            {
+                var iv_check_last_pos = IV_B_Gallery_Settings.Location;
+
+                if (iv_check_last_pos != iv_default_settings_b_pos)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        private bool iv_b_tested_moved = false;
+        private readonly int iv_test_mode_fps = 350; 
+        private bool iv_think_1_first_init = true;
+        private Timer iv_test_cursored_move_think;
+        private Control iv_test_selected_control;
+        private Point iv_test_last_object_pos = new Point(0, 0);
+
+        private void IV_B_Gallery_S_Menu_Hook(object sender, EventArgs e)
+        {
+
+        }
+
+        private void IV_Debug_D_Click_Element_Move(object sender, EventArgs e)
+        {
+            if(iv_think_1_first_init)
+            {
+                iv_think_1_first_init = false;
+                iv_test_cursored_move_think = new Timer(components)
+                {
+                    Enabled = false,
+                    Interval = iv_test_mode_fps
+                };
+
+                iv_test_cursored_move_think.Tick += IV_Test_Cursored_B_Pos_Think;
+            }
+
+            iv_test_selected_control = sender as Control;
+            if (!iv_b_tested_moved)
+                iv_test_last_object_pos = iv_test_selected_control.Location;
+            if (iv_test_def_control_last_b_text == String.Empty)
+                iv_test_def_control_last_b_text = iv_test_selected_control.Text;
+
+            if (!iv_b_tested_moved)
+            {
+                var iv_anim_to_def = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+                {
+                    MaxAnimationTime = 1000,
+                    AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Mosaic
+                };
+
+                iv_anim_to_def.HideSync(iv_test_selected_control);
+                iv_b_tested_moved = true;
+                iv_test_cursored_move_think.Enabled = true;
+                iv_anim_to_def.Show(iv_test_selected_control);
+            }
+            else
+            {
+                var iv_anim_to_def = new Siticone.Desktop.UI.WinForms.SiticoneTransition
+                {
+                    MaxAnimationTime = 1000,
+                    AnimationType = Siticone.Desktop.UI.AnimatorNS.AnimationType.Particles
+                };
+
+                iv_b_tested_moved = false;
+                iv_test_cursored_move_think.Enabled = false;
+                iv_anim_to_def.HideSync(iv_test_selected_control);
+                iv_test_selected_control.Text = iv_test_def_control_last_b_text;
+                iv_test_selected_control.Location = iv_test_last_object_pos;
+                iv_anim_to_def.Show(iv_test_selected_control);
+            }
+        }
+
+        private string iv_test_def_control_last_b_text = String.Empty;
+        private readonly static string[] iv_test_ha_msg = new string[3] {"Lox", "Pidor", "Govnoed" };
+
+        private void IV_Test_Cursored_B_Pos_Think(object sender, EventArgs e)
+        {
+            if(iv_b_tested_moved)
+            {
+                /*var pos_x = Cursor.Position.X - 170;
+                var pos_y = Cursor.Position.Y - 170;
+                Point result_pos = new Point(pos_x, pos_y);*/
+
+                Random randomiser = new Random();
+                int rand_x = randomiser.Next(0, 100);
+                int rand_y = randomiser.Next(0, 100);
+
+                int ha_result = randomiser.Next(0, 2);
+                if (ha_result == 1)
+                    iv_test_selected_control.Text = iv_test_ha_msg[randomiser.Next(0,2)];
+                else
+                    iv_test_selected_control.Text = iv_test_def_control_last_b_text;
+
+                Point result_pos = new Point(rand_x, rand_y);
+
+                iv_test_selected_control.Location = result_pos;
             }
         }
     }

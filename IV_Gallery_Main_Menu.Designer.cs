@@ -47,6 +47,7 @@ namespace IV_Gallery
             this.IV_B_Debug_Resset_BG_IMG_TO_Def = new Siticone.Desktop.UI.WinForms.SiticoneButton();
             this.IV_M_M_Animated_Load = new Siticone.Desktop.UI.WinForms.SiticoneAnimateWindow(this.components);
             this.IV_T_Load_Check = new System.Windows.Forms.Timer(this.components);
+            this.IV_B_Gallery_Settings = new Siticone.Desktop.UI.WinForms.SiticoneButton();
             ((System.ComponentModel.ISupportInitialize)(this.IV_Gallery_MM_BG_Picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -215,11 +216,32 @@ namespace IV_Gallery
             this.IV_T_Load_Check.Interval = 1000;
             this.IV_T_Load_Check.Tick += new System.EventHandler(this.IV_T_Loaded_Show_Form_B_Hook);
             // 
+            // IV_B_Gallery_Settings
+            // 
+            this.IV_B_Gallery_Settings.Animated = true;
+            this.IV_B_Gallery_Settings.CheckedState.Parent = this.IV_B_Gallery_Settings;
+            this.IV_B_Gallery_Settings.CustomImages.Parent = this.IV_B_Gallery_Settings;
+            this.IV_B_Gallery_Settings.DisabledState.Parent = this.IV_B_Gallery_Settings;
+            this.IV_B_Gallery_Settings.FillColor = System.Drawing.Color.LightSteelBlue;
+            this.IV_B_Gallery_Settings.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.IV_B_Gallery_Settings.ForeColor = System.Drawing.Color.Black;
+            this.IV_B_Gallery_Settings.HoverState.Parent = this.IV_B_Gallery_Settings;
+            this.IV_B_Gallery_Settings.Location = new System.Drawing.Point(106, 0);
+            this.IV_B_Gallery_Settings.Name = "IV_B_Gallery_Settings";
+            this.IV_B_Gallery_Settings.ShadowDecoration.Parent = this.IV_B_Gallery_Settings;
+            this.IV_B_Gallery_Settings.Size = new System.Drawing.Size(108, 20);
+            this.IV_B_Gallery_Settings.TabIndex = 6;
+            this.IV_B_Gallery_Settings.Text = "Gallery Settings";
+            this.IV_B_Gallery_Settings.Visible = false;
+            this.IV_B_Gallery_Settings.Click += new System.EventHandler(this.IV_B_Gallery_S_Menu_Hook);
+            this.IV_B_Gallery_Settings.DoubleClick += new System.EventHandler(this.IV_Debug_D_Click_Element_Move);
+            // 
             // IV_Gallery_Main_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 577);
+            this.Controls.Add(this.IV_B_Gallery_Settings);
             this.Controls.Add(this.IV_B_Debug_Resset_BG_IMG_TO_Def);
             this.Controls.Add(this.IV_B_Debug_ChangeBGImage);
             this.Controls.Add(this.IV_Button_App_Info);
@@ -254,6 +276,7 @@ namespace IV_Gallery
         private Siticone.Desktop.UI.WinForms.SiticoneButton IV_G_Button_Exit;
         private Siticone.Desktop.UI.WinForms.SiticonePictureBox IV_Gallery_MM_BG_Picture;
         private System.Windows.Forms.Timer IV_T_Load_Check;
+        private Siticone.Desktop.UI.WinForms.SiticoneButton IV_B_Gallery_Settings;
     }
 }
 

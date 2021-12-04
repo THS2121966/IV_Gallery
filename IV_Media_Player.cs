@@ -128,6 +128,7 @@ namespace IV_Gallery
         private void IV_MP_Init_Video_Check_State()
         {
             ivmp.EndReached += IV_Release_Video_on_END;
+            ivmp.EncounteredError += IV_MP_Realised_ERROR_State;
             ivmp_wave.EndReached += IV_MP_Wave_Check_End;
             //IV_MP_T_Video_Time_Show.Enabled = true;
             //ivmp.TimeChanged += IV_MP_Time_Control_Think; //IV Note: Not working with single thread.
@@ -156,6 +157,48 @@ namespace IV_Gallery
                     IV_MP_Realise_Buttons_Anim(IV_B_Chose_Media, true);
                 IV_MP_T_Check_URL_State.Enabled = true;
             }
+        }
+
+        private enum IV_MP_States_Problems_State
+        {
+            state_1 = 0,
+            state_2 = 1,
+            state_3 = 2
+        }
+
+        private struct IV_MP_States
+        {
+            public int state_1_number;
+            public string state_2_problem_msg;
+        }
+
+        private void IV_MP_Realised_ERROR_State(object sender, EventArgs e)
+        {
+            IV_MP_States state_reason;
+
+            string iv_media_state = ivmp.Media.State.ToString();
+            if(ivmp.Media.Mrl != String.Empty || ivmp.Media.Mrl != null)
+                state_reason.state_1_number = (int)IV_MP_States_Problems_State.state_2;
+            else
+                state_reason.state_1_number = (int)IV_MP_States_Problems_State.state_1;
+            state_reason.state_2_problem_msg = "Invaid Link!!!";
+            string iv_media_state_url = ivmp.Media.Mrl;
+
+            string iv_video_problem_msg;
+
+            if (state_reason.state_1_number != 0)
+            {
+                iv_video_problem_msg = "Currient Video state is - " + iv_media_state + ". Reason - " + state_reason.state_2_problem_msg
+    + " Video URL - " + iv_media_state_url;
+            }
+            else
+            {
+                iv_video_problem_msg = "Currient Video state is - " + iv_media_state + ". Reason - " + state_reason.state_2_problem_msg;
+            }
+
+            IV_Gallery_Main_Menu.IV_Release_Problem_Message(iv_video_problem_msg);
+
+            ivmp_video_ended = true;
         }
 
         bool ivmp_slider_timecontrol_changing = false;
@@ -200,6 +243,7 @@ namespace IV_Gallery
             iv_mp_closed = false;
 #if IV_FAST_PRE_LOAD_SLOW_POST_LOAD
             IV_MP_Release_Slider_Parm();
+            IV_MP_Release_Local_or_URL_Search_Method();
             IV_MP_INIT_VLC();
             IV_Release_V_UI();
             IV_MP_Init_Video_Check_State();
@@ -209,7 +253,7 @@ namespace IV_Gallery
             IV_Gallery_Checkers_Core.IVCheckerCore.iv_s_manager.ui_s_wnd_def_open.Play();
         }
 
-        private bool Iv_media_check_format(string path_check, bool only_audio = false)
+        private bool IV_media_check_format(string path_check, bool only_audio = false)
         {
             if(!only_audio)
             {
@@ -231,14 +275,14 @@ namespace IV_Gallery
         private void IV_MP_DLG_Result(object sender, CancelEventArgs e)
         {
             string iv_fl_path = IV_MP_File_Dialog.FileName;
-            if (Iv_media_check_format(iv_fl_path))
+            if (IV_media_check_format(iv_fl_path))
             {
                 if(ivmp_media_temp == null)
                     Ivmp_media(iv_fl_path);
                 //ivmp_last_used_path = iv_fl_path;
                 string media_file_question = "Play this Media?";
                 var iv_media_sound_temp = false;
-                if(Iv_media_check_format(iv_fl_path, true))
+                if(IV_media_check_format(iv_fl_path, true))
                 {
                     iv_media_sound_temp = true;
                     media_file_question = "Play this Sound?";
@@ -501,7 +545,7 @@ namespace IV_Gallery
             IV_T_Video_Wave_Check_Stopped.Enabled = false;
             IV_MP_Sound_Wave_Panel.Visible = false;
             var ivmp_media_check_type = ivmp_media_temp.Mrl;
-            if (!Iv_media_check_format(ivmp_media_check_type, true))
+            if (!IV_media_check_format(ivmp_media_check_type, true))
                 IV_MP_Main.BackColor = ivmp_panel_default_bg_color;
             else
                 IV_MP_Main.BackColor = Color.Black;
@@ -671,7 +715,7 @@ namespace IV_Gallery
 
         public void IV_MP_URL_Button_Visible(bool visible)
         {
-            bool hide = false;
+            bool hide;
             if (visible)
                 hide = false;
             else

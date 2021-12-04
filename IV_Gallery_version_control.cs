@@ -24,14 +24,19 @@ namespace IV_Gallery
 #if IV_GALLERY_VER_054
         private readonly static float iv_gallery_main_version = 0.54f;
 #endif
+        private static bool ver_ch_first_inited = true;
 
         public IV_Gallery_Version_Manager()
         {
+            if (ver_ch_first_inited)
+                ver_ch_first_inited = false;
+            else
             IV_VM_Validate_Versions();
         }
 
         ~IV_Gallery_Version_Manager()
         {
+            IV_VM_Release();
         }
 
         public void IV_VM_Validate_Versions()
@@ -55,6 +60,11 @@ namespace IV_Gallery
                 WND_FORMS.MessageBox.Show("Version Manager Validate file versions sucessfull!!! Version - "
                     + iv_gallery_main_menu.IV_Gallery_Get_Version(), "IV Version Manager", WND_FORMS.MessageBoxButtons.OK, WND_FORMS.MessageBoxIcon.Information);
             }
+        }
+
+        private void IV_VM_Release()
+        {
+            ver_ch_first_inited = true;
         }
     }
 }

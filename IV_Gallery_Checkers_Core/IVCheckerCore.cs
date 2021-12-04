@@ -3,7 +3,8 @@
 //#define IV_G_CHECKERS_CORE_VER_042_with_05 //Old Version.
 //#define IV_G_CHECKERS_CORE_VER_045 //Old Version.
 //#define IV_G_CHECKERS_CORE_VER_045_with_GALLERY_NEW_IVD3X_CORE //Old Version.
-#define IV_G_CHECKERS_CORE_VER_048
+//#define IV_G_CHECKERS_CORE_VER_048 //Old Version.
+#define IV_G_CHECKERS_CORE_VER_048_with_055
 
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,8 @@ namespace IV_Gallery_Checkers_Core
         static public float iv_checker_dll_code_ver = 0.45f;
 #elif IV_G_CHECKERS_CORE_VER_048
         static public float iv_checker_dll_code_ver = 0.48f;
+#elif IV_G_CHECKERS_CORE_VER_048_with_055
+        static public float iv_checker_dll_code_ver = 0.48f;
 #endif
         //IV Note: CheckersCore versions Indefier with main programm list:
 #if IV_G_CHECKERS_CORE_VER_04
@@ -47,6 +50,9 @@ namespace IV_Gallery_Checkers_Core
 #elif IV_G_CHECKERS_CORE_VER_048
         static public float[] supported_vers_p_and_iv_c_c = new float[16] { 0.35f, 0.35f, 0.4f, 0.38f, 0.4f, 0.45f, 0.42f, 
             0.48f, 0.42f, 0.5f, 0.45f, 0.52f, 0.45f, 0.53f, iv_checker_dll_code_ver, 0.54f };
+#elif IV_G_CHECKERS_CORE_VER_048_with_055
+        static public float[] supported_vers_p_and_iv_c_c = new float[18] { 0.35f, 0.35f, 0.4f, 0.38f, 0.4f, 0.45f, 0.42f, 
+            0.48f, 0.42f, 0.5f, 0.45f, 0.52f, 0.45f, 0.53f, 0.48f, 0.54f, iv_checker_dll_code_ver, 0.55f };
 #endif
         //IV Note: Core side Debug Mode parm:
         static public bool debug_mode = false;
@@ -154,6 +160,8 @@ namespace IV_Gallery_Checkers_Core
             if (main_prog_ver == supported_vers_p_and_iv_c_c[13] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[12])
 #elif IV_G_CHECKERS_CORE_VER_048
             if (main_prog_ver == supported_vers_p_and_iv_c_c[15] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[14])
+#elif IV_G_CHECKERS_CORE_VER_048_with_055
+            if (main_prog_ver == supported_vers_p_and_iv_c_c[17] && iv_checker_dll_code_ver == supported_vers_p_and_iv_c_c[16])
 #endif
             {
                 checked_programm_ver = true;

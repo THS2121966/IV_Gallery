@@ -36,7 +36,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;IV_GALLERY_VER_054</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;IV_GALLERY_VER_055</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -45,7 +45,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>.\</OutputPath>
-    <DefineConstants>TRACE;IV_GALLERY_VER_054</DefineConstants>
+    <DefineConstants>TRACE;IV_GALLERY_VER_055</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>

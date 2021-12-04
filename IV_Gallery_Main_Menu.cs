@@ -38,6 +38,9 @@ namespace IV_Gallery
 #elif IV_GALLERY_VER_054
             if(iv_gallery_prog_name == iv_gallery_prog_name_checker_list[0] && iv_gallery_prog_ver == list_of_supported_ch_core_vers[15])
                 iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name_checker_list[0], list_of_supported_ch_core_vers[15]);
+#elif IV_GALLERY_VER_055
+            if(iv_gallery_prog_name == iv_gallery_prog_name_checker_list[0] && iv_gallery_prog_ver == list_of_supported_ch_core_vers[17])
+                iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name_checker_list[0], list_of_supported_ch_core_vers[17]);
 #endif
             else
                 iv_ch_core.IV_Checker_Core_Release_Ver_Info(iv_gallery_prog_name, iv_gallery_prog_ver);
@@ -88,6 +91,9 @@ namespace IV_Gallery
         private static float last_supported_iv_ch_c_ver = 0.45f;
 #elif IV_GALLERY_VER_054
         private static float iv_gallery_prog_ver = 0.54f;
+        private readonly static float last_supported_iv_ch_c_ver = 0.48f;
+#elif IV_GALLERY_VER_055
+        private static float iv_gallery_prog_ver = 0.55f;
         private readonly static float last_supported_iv_ch_c_ver = 0.48f;
 #endif
         private readonly static float[] list_of_supported_ch_core_vers = IV_Gallery_Checkers_Core.IVCheckerCore.supported_vers_p_and_iv_c_c;

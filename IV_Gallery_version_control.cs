@@ -2,8 +2,9 @@
 //#define IV_GALLERY_VER_048 //Old Version
 //#define IV_GALLERY_VER_05 //Old Version
 //#define IV_GALLERY_VER_052 //Old Version
-//#define IV_GALLERY_VER_053 // Old Version
-//#define IV_GALLERY_VER_054 //Defined in build symbols
+//#define IV_GALLERY_VER_053 //Old Version
+//#define IV_GALLERY_VER_054 //Old Version
+//#define IV_GALLERY_VER_055 //Defined in build symbols
 
 using System;
 using System.Collections.Generic;
@@ -23,13 +24,18 @@ namespace IV_Gallery
         //IV Note: Main class parms:
 #if IV_GALLERY_VER_054
         private readonly static float iv_gallery_main_version = 0.54f;
+#elif IV_GALLERY_VER_055
+        private readonly static float iv_gallery_main_version = 0.55f;
 #endif
         private static bool ver_ch_first_inited = true;
 
         public IV_Gallery_Version_Manager()
         {
             if (ver_ch_first_inited)
+            {
                 ver_ch_first_inited = false;
+                IV_VM_Validate_Versions(true);
+            }
             else
             IV_VM_Validate_Versions();
         }
@@ -39,7 +45,7 @@ namespace IV_Gallery
             IV_VM_Release();
         }
 
-        public void IV_VM_Validate_Versions()
+        public void IV_VM_Validate_Versions(bool validated_first = false)
         {
             if (iv_gallery_main_menu.IV_Gallery_Get_Version() != iv_gallery_main_version)
             {
@@ -54,7 +60,7 @@ namespace IV_Gallery
                 iv_gallery_main_menu.IV_Gallery_Set_Version(iv_gallery_main_version);
                 iv_gallery_main_menu.IV_Release_Problem_Message(problem_message, is_error);
             }
-            else
+            else if(!validated_first)
             {
                 checkers_core.iv_s_manager.ui_picture_accept_s.Play();
                 WND_FORMS.MessageBox.Show("Version Manager Validate file versions sucessfull!!! Version - "

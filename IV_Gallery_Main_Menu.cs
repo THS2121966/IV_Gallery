@@ -1,10 +1,4 @@
-﻿//#define IV_GALLERY_VER_045 //Old Version
-//#define IV_GALLERY_VER_048 //Old Version
-//#define IV_GALLERY_VER_05 //Old Version
-//#define IV_GALLERY_VER_052 //Old Version
-//#define IV_GALLERY_VER_053 // Old Version
-#define IV_GALLERY_VER_054
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -93,7 +87,7 @@ namespace IV_Gallery
         private static float iv_gallery_prog_ver = 0.53f;
         private static float last_supported_iv_ch_c_ver = 0.45f;
 #elif IV_GALLERY_VER_054
-        private readonly static float iv_gallery_prog_ver = 0.54f;
+        private static float iv_gallery_prog_ver = 0.54f;
         private readonly static float last_supported_iv_ch_c_ver = 0.48f;
 #endif
         private readonly static float[] list_of_supported_ch_core_vers = IV_Gallery_Checkers_Core.IVCheckerCore.supported_vers_p_and_iv_c_c;
@@ -159,6 +153,16 @@ namespace IV_Gallery
                     Application.Exit();
                 return message;
             }
+        }
+
+        public static float IV_Gallery_Get_Version()
+        {
+            return iv_gallery_prog_ver;
+        }
+
+        public static void IV_Gallery_Set_Version(float sended_version)
+        {
+            iv_gallery_prog_ver = sended_version;
         }
 
         private void IV_MM_BG_D_Click(object sender, EventArgs e)
@@ -737,9 +741,18 @@ namespace IV_Gallery
         private Control iv_test_selected_control;
         private Point iv_test_last_object_pos = new Point(0, 0);
 
+#if DEBUG
+        IV_Gallery_Version_Manager iv_version_verify = new IV_Gallery_Version_Manager();
+#else
+        IV_Gallery_Version_Manager iv_version_verify;
+#endif
+
         private void IV_B_Gallery_S_Menu_Hook(object sender, EventArgs e)
         {
+            if(iv_version_verify == null)
+                iv_version_verify = new IV_Gallery_Version_Manager();
 
+            iv_version_verify.IV_VM_Validate_Versions();
         }
 
         private void IV_Debug_D_Click_Element_Move(object sender, EventArgs e)

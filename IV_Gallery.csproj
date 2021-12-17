@@ -142,6 +142,7 @@
     <Compile Include="IV_Media_Player.Designer.cs">
       <DependentUpon>IV_Media_Player.cs</DependentUpon>
     </Compile>
+    <Compile Include="IV_Vector.cs" />
     <Compile Include="IV_VertexPosColor.cs" />
     <Compile Include="IV_D3X_Core.cs" />
     <Compile Include="IV_Gallery_Main_Menu.cs">

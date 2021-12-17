@@ -759,6 +759,17 @@ namespace IV_Gallery
                 iv_version_verify = new IV_Gallery_Version_Manager();
 
             iv_version_verify.IV_VM_Validate_Versions();
+
+            var iv_dlg_show_vec2d = MessageBox.Show("Test Vector2D Class?", thsdev_iv_logo, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if(iv_dlg_show_vec2d == DialogResult.Yes)
+            {
+                IV_Vector_Base_2D vec2d = new IV_Vector_Base_2D(5, 2);
+                vec2d.PrintVector();
+                vec2d.SetVector(0, 5);
+                vec2d.PrintVector();
+                var iv_vec_nect = vec2d.ConvertVectorToString();
+                IV_Release_Problem_Message(iv_vec_nect[0]+"; "+ iv_vec_nect[1]+".");
+            }
         }
 
         private void IV_Debug_D_Click_Element_Move(object sender, EventArgs e)

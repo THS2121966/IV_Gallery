@@ -43,6 +43,7 @@ namespace IV_Gallery
             this.IV_S_UI_Structure_09 = new Siticone.Desktop.UI.WinForms.SiticoneButton();
             this.IV_S_UI_Structure_12 = new Siticone.Desktop.UI.WinForms.SiticoneButton();
             this.IV_S_UI_Structure_11 = new Siticone.Desktop.UI.WinForms.SiticoneButton();
+            this.IV_Settings_Label_Info = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // IV_Settings_B_Exit_01
@@ -388,12 +389,27 @@ namespace IV_Gallery
             this.IV_S_UI_Structure_11.UseTransparentBackground = true;
             this.IV_S_UI_Structure_11.Visible = false;
             // 
+            // IV_Settings_Label_Info
+            // 
+            this.IV_Settings_Label_Info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.IV_Settings_Label_Info.BackColor = System.Drawing.SystemColors.Menu;
+            this.IV_Settings_Label_Info.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.IV_Settings_Label_Info.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.IV_Settings_Label_Info.Location = new System.Drawing.Point(12, 380);
+            this.IV_Settings_Label_Info.Name = "IV_Settings_Label_Info";
+            this.IV_Settings_Label_Info.Size = new System.Drawing.Size(370, 23);
+            this.IV_Settings_Label_Info.TabIndex = 13;
+            this.IV_Settings_Label_Info.Text = "No Object Selected.";
+            this.IV_Settings_Label_Info.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // IV_Gallery_Settings_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
             this.ClientSize = new System.Drawing.Size(394, 451);
+            this.Controls.Add(this.IV_Settings_Label_Info);
             this.Controls.Add(this.IV_S_UI_Structure_12);
             this.Controls.Add(this.IV_S_UI_Structure_11);
             this.Controls.Add(this.IV_S_UI_Structure_10);
@@ -412,7 +428,10 @@ namespace IV_Gallery
             this.MaximizeBox = false;
             this.Name = "IV_Gallery_Settings_Menu";
             this.Text = "IV Settings Menu";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.IV_Settings_Force_Close);
             this.Load += new System.EventHandler(this.IV_Settings_Menu_Loaded);
+            this.Enter += new System.EventHandler(this.IV_Settings_Active_Panel);
+            this.Leave += new System.EventHandler(this.IV_Settings_INActive_Panel);
             this.ResumeLayout(false);
 
         }
@@ -432,5 +451,6 @@ namespace IV_Gallery
         private Siticone.Desktop.UI.WinForms.SiticoneButton IV_S_UI_Structure_09;
         private Siticone.Desktop.UI.WinForms.SiticoneButton IV_S_UI_Structure_12;
         private Siticone.Desktop.UI.WinForms.SiticoneButton IV_S_UI_Structure_11;
+        private System.Windows.Forms.Label IV_Settings_Label_Info;
     }
 }

@@ -748,9 +748,16 @@ namespace IV_Gallery
         private Control iv_test_selected_control;
         private Point iv_test_last_object_pos = new Point(0, 0);
 
+        private IV_Gallery_Settings_Menu iv_gallery_settings = new IV_Gallery_Settings_Menu();
+
         private void IV_B_Gallery_S_Menu_Hook(object sender, EventArgs e)
         {
-
+            if (iv_gallery_settings.iv_settings_closed)
+                iv_gallery_settings = new IV_Gallery_Settings_Menu();
+            if (!iv_gallery_settings.Visible && !iv_gallery_settings.iv_g_setting_are_changed)
+                iv_gallery_settings.Visible = true;
+            else if(!iv_gallery_settings.iv_g_setting_are_changed)
+                iv_gallery_settings.Visible = false;
         }
 
         private void IV_Debug_D_Click_Element_Move(object sender, EventArgs e)

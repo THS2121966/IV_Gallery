@@ -715,7 +715,8 @@ namespace IV_Gallery
             }
         }
 
-        private static Point iv_default_settings_b_pos = new Point(30, 30);
+        private static readonly IV_Vector_Base_2D iv_ui_button_point_2d_01 = new IV_Vector_Base_2D(30, 30);
+        private static Point iv_default_settings_b_pos = new Point(iv_ui_button_point_2d_01.GetVectorX(), iv_ui_button_point_2d_01.GetVectorY());
 
         private bool IV_Change_Settings_Button_Origin(bool change_to_slider_pos, bool only_check_status = false)
         {
@@ -747,29 +748,9 @@ namespace IV_Gallery
         private Control iv_test_selected_control;
         private Point iv_test_last_object_pos = new Point(0, 0);
 
-#if DEBUG
-        IV_Gallery_Version_Manager iv_version_verify = new IV_Gallery_Version_Manager();
-#else
-        IV_Gallery_Version_Manager iv_version_verify;
-#endif
-
         private void IV_B_Gallery_S_Menu_Hook(object sender, EventArgs e)
         {
-            if(iv_version_verify == null)
-                iv_version_verify = new IV_Gallery_Version_Manager();
 
-            iv_version_verify.IV_VM_Validate_Versions();
-
-            var iv_dlg_show_vec2d = MessageBox.Show("Test Vector2D Class?", thsdev_iv_logo, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if(iv_dlg_show_vec2d == DialogResult.Yes)
-            {
-                IV_Vector_Base_2D vec2d = new IV_Vector_Base_2D(5, 2);
-                vec2d.PrintVector();
-                vec2d.SetVector(0, 5);
-                vec2d.PrintVector();
-                var iv_vec_nect = vec2d.ConvertVectorToString();
-                IV_Release_Problem_Message(iv_vec_nect[0]+"; "+ iv_vec_nect[1]+".");
-            }
         }
 
         private void IV_Debug_D_Click_Element_Move(object sender, EventArgs e)

@@ -129,6 +129,12 @@
     <Compile Include="IV_Check_Process_Window.Designer.cs">
       <DependentUpon>IV_Check_Process_Window.cs</DependentUpon>
     </Compile>
+    <Compile Include="IV_Gallery_Settings_Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IV_Gallery_Settings_Menu.Designer.cs">
+      <DependentUpon>IV_Gallery_Settings_Menu.cs</DependentUpon>
+    </Compile>
     <Compile Include="IV_Gallery_version_control.cs" />
     <Compile Include="IV_MP_Tool_Chose_Internet_Video.cs">
       <SubType>Form</SubType>
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IV_Gallery_Main_Menu.resx">
       <DependentUpon>IV_Gallery_Main_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IV_Gallery_Settings_Menu.resx">
+      <DependentUpon>IV_Gallery_Settings_Menu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IV_Media_Player.resx">
       <DependentUpon>IV_Media_Player.cs</DependentUpon>
